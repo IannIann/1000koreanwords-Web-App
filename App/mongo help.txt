@@ -1,0 +1,92 @@
+use <db> // creer et rejoin
+db affiche la db
+db.createUser()
+db.createCollection('matable')
+db.matable.insert() > insert
+db.matable.find() > affiche donner
+().pretty() > belle pres
+
+
+//update value
+db.matable.update({id: "123"}, {$set:{key:"value"}});
+
+//remove value 
+db.matable.update({id: "123"}, {$unset:{key:1}});
+
+//update key (attention guillement)
+db.matable.update({id: "123"}, {$rename:{"key":"newKey"}});
+
+// remove item
+db.matable.remove({id: "123"});
+
+//find or & and
+db.matable.find({$or:[{key : value}, {key : value}]})
+
+// lt & gt
+db.matable.find({key:{$gt:value}})
+
+
+import big file
+
+mongoimport --jsonArray --db 1000koreanwords --collection words --file words.json
+
+
+remove a field
+db.example.update({}, {$unset: {words:1}}, false, true);
+
+db.decks.aggregate([
+    { $match: { _id:ObjectId("6217c6ef6a644bfa9c76f76b") } },
+    { $lookup: 
+        { from: 'cards', 
+        localField: 'cards', 
+        foreignField: '_id', 
+        as: 'cards' } 
+    }])
+
+
+//List beginner, eng, emotion feeling
+db.cards.find({grade: "Beginner", "themeTranslated.eng":"Expressing emotion/feelings"})
+
+// each theme for eng beginner
+db.cards.distinct("themeTranslated.eng", {grade:"Beginner"}).length
+
+db.cards.find({grade: "Beginner", "themeTranslated.eng":"Expressing emotion/feelings"})
+.forEach( function(myDoc) {print("word : " + myDoc.word)})
+
+db.decks.remove({})
+
+//Algo creation table decks
+gradearray.forEach(_grade =>
+
+    langarray.forEach(_lang => {
+        var tempTheme = "themeTranslated." + _lang;
+        var tempWord = "wordTranslated." + _lang
+
+        db.cards.distinct(tempTheme, { grade: _grade })
+            .forEach(name => {
+                var _cards = db.cards.distinct("_id", { grade: _grade, [tempTheme]: name, [tempWord]:{$ne:''} });
+                db.decks.insertOne(
+                {
+                    name: name,
+                    lang: _lang,
+                    grade: _grade,
+                    cards: _cards,
+                    theme: db.cards.distinct("theme", { grade: _grade, [tempTheme]: name })[0]
+                })
+            }
+            )
+    }))
+
+langarray
+
+
+db.decks.aggregate([
+            {
+                $lookup:
+                {
+                    from: 'cards',
+                    localField: 'cardList',
+                    foreignField: 'id',
+                    as: 'cardList'
+                }
+            }])

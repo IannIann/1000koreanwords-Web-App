@@ -1,0 +1,53 @@
+
+html 
+{
+    background-color: darkslategray;
+    color:white;
+}
+
+.component-quizz-app
+{
+    padding-top: 10%;
+    width: 30%;
+    margin:auto;
+    text-align: center;
+
+    display: flex;
+    flex-flow: column;
+    
+}
+.component-display-word
+{
+    font-size: 3em;
+}
+.component-display-index
+{
+    font-size: 2em;
+}
+
+.component-display-score
+{
+    font-size: 2.5em;
+}
+
+.component-button-panel
+{
+    display: flex;
+    flex-flow: row;
+    justify-content : space-around;
+}
+
+.component-button > button
+{
+    font-size: 3em;
+}
+
+.component-tts 
+{
+    display: none;
+}
+
+.component-button-grade
+{
+    text-align: center;
+}
