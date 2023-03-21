@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
     }
 
     navigateToMainPage = () => {
-        this.props.router.navigate("/");
+        window.location.reload();
     }
 
     renderElement() {

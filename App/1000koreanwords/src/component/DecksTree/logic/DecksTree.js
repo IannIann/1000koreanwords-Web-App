@@ -1,19 +1,32 @@
 import decksData from '@app/data/decks.data';
+import userdeckstatesData from '@app/data/userdeckstates.data';
+import AuthService from '@app/service/auth.service'
 
 var deckList;
+var deckState;
 
 export default {
-    instantiateDecksTree(grade="Beginner"){
+    instantiateDecks(grade="Beginner"){
         return decksData.getDecksByLangAndGrade("eng", grade)
         .then((res) => {
             if(res.length)
-            deckList = res;
+                deckList = res;
+                
+            return deckList;
+        })
+        .catch((err) => { console.log(err) });
+    },
 
-            let treeState = {
-                decks: deckList
-            }
+    instantiateUserDeckStates(){
 
-            return treeState;
+        let userId = AuthService.getCurrentUser().id;
+
+        return userdeckstatesData.getUserDeckStatesById(userId)
+        .then((res) => {
+            if(res._id)
+                deckState = res;
+                
+            return deckState;
         })
         .catch((err) => { console.log(err) });
     }

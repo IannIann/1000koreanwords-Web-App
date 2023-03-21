@@ -3,7 +3,7 @@ import React from "react";
 export default class TextToSpeech extends React.Component {
     playTTS = () => {
         const audioEl = document.querySelector('.component-tts > audio');
-        //audioEl.play();
+        audioEl.play();
     }
 
     render() {

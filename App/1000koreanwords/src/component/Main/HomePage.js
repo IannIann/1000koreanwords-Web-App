@@ -14,7 +14,7 @@ export default class HomePage extends React.Component {
             return (
                 <div>
                     <Link to={"/learn/"}> <button>{"Start"}</button> </Link>
-                    <Logout />
+                    <Link to={"/logout/"}> <button>{"Logout"}</button> </Link>
                 </div>)
         } else {
             return (

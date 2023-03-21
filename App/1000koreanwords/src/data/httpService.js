@@ -13,6 +13,13 @@ function getAcessToken() {
   }
 }
 
+function getUserId() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+    return user.id
+  }
+}
+
 export default
   {
     PostJson(url, data) {
@@ -35,9 +42,22 @@ export default
     },
 
     GetJson(url) {
-      return fetch(urlLocation + url, { method: 'GET' })
-        .then(CheckError)
-        .then((res) => res.json());
+      return fetch(urlLocation + url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'x-access-token': getAcessToken(),
+          'x-user-id': getUserId()
+        }
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return res.text().then((err) => { throw Error(err) });
+          }
+        });
     },
 
     DeleteJson(url) {

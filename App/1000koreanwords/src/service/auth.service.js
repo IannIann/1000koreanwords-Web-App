@@ -18,5 +18,9 @@ export default {
     },
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));;
+    },
+    checkPremium()
+    {
+        return apiAccess.GetJson(`user/premium`);
     }
 }

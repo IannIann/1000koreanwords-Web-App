@@ -1,0 +1,31 @@
+nav {
+    width: 100%;
+    background-color: rgb(140, 151, 166);
+    padding-left: 30%;
+    padding-right: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#component-navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar-logo {
+    display: inline-block;
+    width: 50px;
+    vertical-align: middle;
+}
+
+.navbar-item {
+    display: inline-block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-item:hover {
+    background-color:  rgb(59, 59, 59)
+}

@@ -7,5 +7,9 @@ export default {
     getDeckById(id)
     {
         return apiAccess.GetJson(`decks/${id}`)
+    },
+    getCustomDecks()
+    {
+        return apiAccess.GetJson(`decks/custom/${userId}`)
     }
 }

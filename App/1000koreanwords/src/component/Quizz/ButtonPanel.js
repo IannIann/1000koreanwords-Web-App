@@ -14,6 +14,7 @@ export default class ButtonPanel extends React.Component {
                 <div className="component-button-panel">
                         <Button name="Correct" clickHandler={this.handleClick} />
                         <Button name="Wrong" clickHandler={this.handleClick} />
+                        <Button name="Ban" clickHandler={this.handleClick} />
                 </div>
             );
         } else {

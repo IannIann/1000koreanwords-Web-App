@@ -6,6 +6,7 @@ import DisplayScore from "./DisplayScore";
 import ButtonPanel from "./ButtonPanel";
 import TextToSpeech from "./TextToSpeech";
 import {withRouter} from '@app/tool/withRouter'
+import Button from "./Button.js";
 
 class QuizzApp extends React.Component {
     componentDidMount() {
@@ -28,18 +29,25 @@ class QuizzApp extends React.Component {
         this.setState(Quizz.updateQuizz(this.state.cardId, this.state.score, buttonName));
     };
 
+    navigateToLearnPage = () => {
+        this.props.router.navigate("/learn");
+    }
+
     renderElement() {
         if (this.state.isFinished) {
             return (
+                <>
                 <DisplayScore score={this.state.score} maxScore={this.state.maxIndex} />
-            );
+                <Button name="Done" clickHandler={this.navigateToLearnPage}/>
+                </>
+            )
         } else {
             return (
                 <>
                     <DisplayIndex currentIndex={this.state.cardId + 1} maxIndex={this.state.maxIndex} />
                     <DisplayWord isAnswered={this.state.isAnswered} word={this.state.currentWord} />
                     <ButtonPanel isAnswered={this.state.isAnswered} clickHandler={this.handleClick} />
-                    <TextToSpeech lang={"ko"} word={this.state.currentWord.question} />
+                    {/* <TextToSpeech lang={"ko"} word={this.state.currentWord.question} /> */}
                 </>
             );
         }

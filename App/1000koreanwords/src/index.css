@@ -1,8 +1,13 @@
 
 html 
 {
-    background-color: darkslategray;
+    background-color: rgb(59, 59, 59);
     color:white;
+}
+
+body 
+{
+    margin: 0px;
 }
 
 .component-quizz-app

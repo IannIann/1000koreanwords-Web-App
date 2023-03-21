@@ -1,0 +1,25 @@
+/* .component-option-menu
+{
+    position:fixed;
+    z-index: 10;
+    width: 15%;
+    background: #888888;
+}
+
+.component-option-menu .item
+{
+    padding: 8px 10px;
+    font-size: 0.7em;
+}
+
+.component-option-menu .item:hover
+{
+    background:#363636;
+    cursor: pointer;
+}
+
+.component-option-menu .item i
+{
+    display: inline-block;
+    margin-right: 5px;
+} */
