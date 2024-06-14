@@ -1,6 +1,7 @@
 import React from 'react';
 import QuizzApp from "./Quizz/QuizzApp";
 import DecksTreeApp from './DecksTree/DecksTreeApp';
+import CustomDecksTreeApp from './CustomDecksTree/CustomDecksTreeApp';
 import HomePage from './Main/HomePage';
 import RegisterForm from './Main/Register/RegisterForm';
 import LoginForm from './Main/Login/LoginForm';
@@ -26,6 +27,7 @@ export default class App extends React.Component {
                 <Routes>
                     <Route path="/*" element={<HomePage/>}/>
                     <Route path="/learn" element={<CustomRoute.Private component={DecksTreeApp}/>}/>
+                    <Route path="/mydecks" element={<CustomRoute.Private component={CustomDecksTreeApp}/>}/>
                     <Route path="/profile" element={<CustomRoute.Private component={Profile}/>}/>
                     <Route path="/learn/quizz/:deckId" element={<CustomRoute.Private component={QuizzApp}/>}/>
                     <Route path="/register" element={<CustomRoute.AlreadyLogged component={RegisterForm}/>}/>

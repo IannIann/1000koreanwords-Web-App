@@ -21,7 +21,7 @@ export default class Navbar extends React.Component {
       return (
         <div id="navbar-links">
             <Link className="navbar-item" to={"/learn/"}> Learn </Link>
-            <Link className="navbar-item" to={"/home/"}> My decks </Link>
+            <Link className="navbar-item" to={"/mydecks/"}> My decks </Link>
         </div>
       )
     }

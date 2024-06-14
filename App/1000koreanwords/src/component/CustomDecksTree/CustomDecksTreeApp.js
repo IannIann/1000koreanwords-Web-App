@@ -1,5 +1,5 @@
 import React from 'react';
-import Tree from './Tree'
+import Tree from '@app/component/DecksTree/Tree'
 import DecksTree from './logic/CustomDecksTree';
 import {ResetDialog} from '@app/component/QuizzOptionMenu/ResetDialog'
 

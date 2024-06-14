@@ -1,8 +1,8 @@
 import apiAccess from "./httpService";
 
 export default {
-    createUserDeckStates(id) {
-        return apiAccess.PostJson('userdeckstates/create', { id })
+    createUserDeckStates(userId) {
+        return apiAccess.PostJson('userdeckstates/create', { userId })
             .then((res) => {
                 return res;
             })
