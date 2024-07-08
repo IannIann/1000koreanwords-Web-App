@@ -1,11 +1,8 @@
 import apiAccess from "./httpService";
 
 export default {
-    createUserDeckStates(userId) {
-        return apiAccess.PostJson('userdeckstates/create', { userId })
-            .then((res) => {
-                return res;
-            })
+    createUserDeckState(userId) {
+        return apiAccess.postJson('/userdeckstates/create', { userId });
     },
     getUserDeckStatesById(id) {
         return apiAccess.GetJson(`userdeckstates/${id}`)
@@ -14,26 +11,19 @@ export default {
         return apiAccess.GetJson(`userdeckstates/${userId}/${deckId}`)
     },
     updateDeckState(userId, deckState) {
+        const userDeckState = {
+            userId,
+            deckState
+        };
 
-        let userDeckState = {
-            userId: userId,
-            deckState: deckState
-        }
-
-        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState })
-            .then((res) => {
-                return res;
-            })
+        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState });
     },
     resetDeckProgression(userId, deckState) {
-        let userDeckState = {
-            userId: userId,
-            deckState: deckState
+        const userDeckState = {
+            userId,
+            deckState
         }
 
-        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState })
-            .then((res) => {
-                return res;
-            })
+        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState });
     }
 }

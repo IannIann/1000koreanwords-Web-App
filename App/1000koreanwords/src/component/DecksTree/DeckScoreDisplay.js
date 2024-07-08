@@ -1,18 +1,22 @@
 import React from "react";
 
 export default class DeckScoreDisplay extends React.Component {
+  
+  state = {
+    deckSize: 0,
+    deckScore: 0
+  }
 
-  updateDeckScore() {
-    if (this.props.deckState) {
+  updateDeckScore = () => {
+    const { deckState, deckSize } = this.props;
+    let correctCardsCount = deckState ? deckState.correctCards.length : 0;
+    let bannedCardsCount = deckState ? deckState.bannedCards.length : 0;
+    const deckSizeWithoutBannedCards = deckSize - bannedCardsCount;
 
-      let correctCardsNb = this.props.deckState.correctCards.length;
-      let bannedCardsNb = this.props.deckState.bannedCards.length
-      let size = this.props.deckSize - bannedCardsNb
-
-      this.setState({ deckSize: size, deckScore: correctCardsNb })
-    } else {
-      this.setState({ deckSize: this.props.deckSize, deckScore: 0 })
-    }
+    this.setState({
+      deckSize: deckSizeWithoutBannedCards,
+      deckScore: correctCardsCount,
+    });
   }
 
   componentDidMount() {
@@ -20,23 +24,17 @@ export default class DeckScoreDisplay extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.deckId !== prevProps.deckId) {
+    const { deckId, deckState } = this.props;
+
+    // Check if either the deckId or deckState has changed
+    if (deckId !== prevProps.deckId || deckState !== prevProps.deckState) {
       this.updateDeckScore();
     }
-
-    if (this.props.deckState !== prevProps.deckState) {
-      this.updateDeckScore();
-    }
-  }
-
-  state = {
-    deckSize: 0,
-    deckScore: 0
   }
 
   render() {
     return (
-      <div key={this.state.deckScore} className="component-score-label">
+      <div className="component-score-label">
         {this.state.deckScore} / {this.state.deckSize}
       </div>
     );

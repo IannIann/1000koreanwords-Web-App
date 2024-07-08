@@ -60,9 +60,23 @@ export default
         });
     },
 
-    DeleteJson(url) {
-      return fetch(urlLocation + url, { method: 'DELETE' })
-        .then((res) => res.json());
+    DeleteJson(url, data) {
+      return fetch(urlLocation + url, {
+          method: 'DELETE',
+          body: JSON.stringify(data),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': getAcessToken(),
+            'x-user-id': getUserId()
+          }
+        }).then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return res.text().then((err) => { throw Error(err) });
+          }
+        });
     },
 
     PutJson(url) {

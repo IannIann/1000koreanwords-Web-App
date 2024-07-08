@@ -9,7 +9,7 @@ export default class HomePage extends React.Component {
         currentUser: AuthService.getCurrentUser()
     };
 
-    displayLinks() {
+    displayLinks = () => {
         if (this.state.currentUser) {
             return (
                 <div>

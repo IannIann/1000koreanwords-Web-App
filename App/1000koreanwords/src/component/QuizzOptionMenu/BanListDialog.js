@@ -2,8 +2,10 @@ import React from "react";
 import AuthService from '@app/service/auth.service'
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import decksData from '@app/data/decks.data';
+import customdecks from '@app/data/customdecks.data';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import Card from '@app/component/Card/Card';
 
 class BanListDialog extends React.Component {
 
@@ -13,41 +15,51 @@ class BanListDialog extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.isVisible != this.props.isVisible) {
-            this.setState({ isVisible: this.props.isVisible })
+        const { isVisible, deckState, deck } = this.props;
+        const { isVisible: wasVisible } = prevProps;
+        const userId = AuthService.getCurrentUser().id
 
-            //If dialog is displayed load cards data and compute banned cards
-            if (this.props.isVisible && this.props.deck.deckState) 
-            {
-                decksData.getDeckById(this.props.deck.id)
-                    .then((res) => {
-                        let cardList = res.result[0].cards;
-                        let bannedCardsId = this.props.deck.deckState.bannedCards
-                        let bannedCards = cardList.filter(card => bannedCardsId.includes(card._id))
+        if (isVisible !== wasVisible) {
+            this.setState({ isVisible });
 
-                        this.setState({ bannedCards: bannedCards })
-                    })
+            const fetchDeck = deck.isCustom 
+            ? customdecks.getCustomDeck
+            : decksData.getDeckById
 
+            if (isVisible && deckState) {
+                fetchDeck(deck.id, userId).then((res) => {
+                        console.log(res);
+                        const cards = res.deck[0].cards;
+                        const bannedCards = deckState.bannedCards;
+                        const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
+
+                        this.setState({ bannedCards: bannedCardsList });
+                    });
             }
         }
     }
-
-    removeCardFromBanList = CardIdToRestore => {
-        let updatedList = this.state.bannedCards.filter(card => card._id != CardIdToRestore)
-        this.setState({ bannedCards: updatedList })
-    }
+    
+    removeCardFromBanList = cardIdToRestore => {
+        this.setState(state => ({
+            bannedCards: state.bannedCards.filter(card => card._id !== cardIdToRestore),
+        }));
+    };
 
     onClickRestore = id => {
         this.removeCardFromBanList(id);
     }
 
     onConfirm = () => {
-        let userId = AuthService.getCurrentUser().id
-        let updatedDeckState = {...this.props.deck.deckState};
-        updatedDeckState.bannedCards = this.state.bannedCards;
+        const userId = AuthService.getCurrentUser().id
+        const { deckState, refreshDecks } = this.props
+        const updatedDeckState = {
+            ...deckState,
+            bannedCards: this.state.bannedCards
+        }
+
         userdeckstatesData.updateDeckState(userId, updatedDeckState)
-        this.props.updateDeckStateDisplay(updatedDeckState);
-        this.closeDialog();
+            .then(refreshDecks)
+            .finally(this.closeDialog)
     }
 
     onCancel = () => {
@@ -68,27 +80,30 @@ class BanListDialog extends React.Component {
         );
     }
 
-    renderEmptyList()
-    {
+    renderEmptyList() {
         return <p> List of removed cards is empty. </p>
     }
 
     renderBanList() {
-        if (!this.props.deck.deckState)
-            return this.renderEmptyList()
+        const { deck } = this.props;
+        const { bannedCards } = this.state;
 
-         if(this.state.bannedCards.length == 0)
-            return this.renderEmptyList()
+        if (!deck.deckState) {
+            return this.renderEmptyList();
+        }
+
+        if (bannedCards.length === 0) {
+            return this.renderEmptyList();
+        }
 
         return (
-            this.state.bannedCards.map((card, key) => {
-                return (
-                    <div key={key}>{card.word} {card.wordTranslated.eng}
-                        <button onClick={() => this.onClickRestore(card._id)}> Restore </button>
-                    </div>
-                )
-            })
-        )
+            bannedCards.map((card, index) => (
+                <div key={index}>
+                    <Card question={card.word} answer={card.wordTranslated.eng}/>
+                    <button onClick={() => this.onClickRestore(card._id)}>Restore</button>
+                </div>
+            ))
+        );
     }
 
     render() {

@@ -1,0 +1,21 @@
+/* Card.css */
+
+.card {
+    text-align: center;
+    width: 120px;
+    height: 150px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.question {
+    font-weight: bold;
+    color: #333;
+}
+
+.answer {
+    color: #666;
+}

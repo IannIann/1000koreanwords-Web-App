@@ -31,6 +31,12 @@ import big file
 mongoimport --jsonArray --db 1000koreanwords --collection words --file words.json
 
 
+And to "restore/import" it (from directory_backup/dump/):
+
+mongodump -d <database_name> -o <directory_backup>
+
+mongorestore -d <database_name> <directory_backup>
+
 remove a field
 db.example.update({}, {$unset: {words:1}}, false, true);
 

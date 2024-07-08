@@ -2,35 +2,35 @@ import React from "react";
 import Deck from "./Deck";
 
 export default class Tree extends React.Component {
-
-    componentDidUpdate(prevProps) {
-       
-        if (this.props.decks !== prevProps.decks) {
-            const decksStates = this.props.userDeckStates.decks;
-
-            const decks = this.props.decks.map(deck => ({
-                id: deck._id,
-                name: deck.name,
-                size: deck.cards.length,
-                deckState: decksStates.find(deckState => deckState.deckId == deck._id)
-            }));
-
-            this.setState({ decks: decks });
-        }
-
-    }
-
+    
     state = {
         decks: []
     };
 
+    // Update decks state when props change, and create new decks state array
+    // with updated data from props decks and userDeckStates
+    componentDidUpdate(prevProps) {
+        const { decks, userDeckStates } = this.props;
+        if (decks !== prevProps.decks && decks) {
+            const deckStates = userDeckStates.decks;
+
+            const updatedDecks = decks.map(deck => ({
+                id: deck._id,
+                name: deck.name,
+                size: deck.cards.length,
+                isCustom: deck.isCustom || false,
+                deckState: deckStates.find(ds => ds.deckId === deck._id)
+            }));
+
+            this.setState({ decks: updatedDecks });
+        }
+    }
+
     renderElement() {
         return (
-            this.state.decks.map((deck, key) => {
-                return (
-                    <Deck key={key} deck={deck} />
-                )
-            })
+            this.state.decks.map((deck, index) => (
+                <Deck key={index} deck={deck} refreshDecks={this.props.refreshDecks} />
+            ))
         )
     }
 

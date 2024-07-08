@@ -2,18 +2,20 @@ import React from "react";
 
 export default class Input extends React.Component {
 
-    handleChange = (e) => {
+    handleChange = e => {
         this.props.handler(e)
     }
 
     render() {
+
+        const { name, value, type } = this.props;
         return (
             <div>
                 <input
-                    type={this.props.type}
+                    type={type}
                     className="form-control"
-                    name={this.props.name}
-                    value={this.props.value}
+                    name={name}
+                    value={value}
                     onChange={this.handleChange}
                     required
                 />

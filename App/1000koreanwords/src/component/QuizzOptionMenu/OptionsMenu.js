@@ -1,7 +1,9 @@
 import React from "react";
 import '@app/style/optionsMenu.css';
+import OptionsButton from "./OptionsButton";
 import { Menu } from 'primereact/menu';
 import { showResetConfirmDialog } from './ResetDialog'
+import { showDeleteDeckConfirmDialog } from "./DeleteDeckDialog";
 import { BanListDialog } from './BanListDialog'
 
 export default class OptionsMenu extends React.Component {
@@ -11,12 +13,14 @@ export default class OptionsMenu extends React.Component {
     items: [
       { label: 'Reset', icon: 'pi pi-fw pi-replay', command: () => { this.resetClickHandler(); } },
       { label: 'Modes', icon: 'pi pi-fw pi-book', command: () => { this.modesClickHandler(); } },
-      { label: 'Ban List', icon: 'pi pi-fw pi-trash', command: () => { this.banListClickHandler(); } }],
+      { label: 'Hidden words', icon: 'pi pi-fw pi-eye-slash', command: () => { this.banListClickHandler(); } },
+      { label: 'Delete', icon: 'pi pi-fw pi-trash', command: () => { this.deleteClickHandler(); }, visible: this.props.isCustomDeck }],
     banListDialogIsVisible: false
   };
 
   resetClickHandler = () => {
-    showResetConfirmDialog(this.props.deck.deckState, this.props.updateDeckStateDisplay);
+    const{ deckState, refreshDecks } = this.props
+    showResetConfirmDialog(deckState, refreshDecks);
   };
 
   banListClickHandler = () => {
@@ -27,20 +31,37 @@ export default class OptionsMenu extends React.Component {
     console.log("Modes");
   };
 
+  deleteClickHandler = () => {
+    const { deck, refreshDecks } = this.props
+    showDeleteDeckConfirmDialog(deck.id, refreshDecks)
+  };
+
   showBanList = () => {
     this.setState({ banListDialogIsVisible: true });
-  }
+  };
 
   hideBanList = () => {
     this.setState({ banListDialogIsVisible: false })
-  }
+  };
+
+  toggleMenu = (event) => {
+    if (this.menu.current) {
+      this.menu.current.toggle(event);
+    }
+  };
 
   renderElement() {
+    const { items, banListDialogIsVisible } = this.state;
+    const { deck, deckState, refreshDecks } = this.props;
     return (
       <>
-        <button onClick={(event) => this.menu.current.toggle(event)}>...</button>
-        <Menu model={this.state.items} popup ref={this.menu} />
-        <BanListDialog hideBanList={this.hideBanList} isVisible={this.state.banListDialogIsVisible} deck={this.props.deck} updateDeckStateDisplay={this.props.updateDeckStateDisplay} />
+        <OptionsButton name="..."  clickHandler={this.toggleMenu}/>
+        <Menu model={items} popup ref={this.menu} />
+        <BanListDialog hideBanList={this.hideBanList}
+          isVisible={banListDialogIsVisible}
+          deck={deck}
+          deckState={deckState}
+          refreshDecks={refreshDecks} />
       </>
     )
   }

@@ -4,7 +4,7 @@ export default {
     login(username, password) {
         return apiAccess.PostJson(`auth/signin`, { username, password })
         .then((res) => {
-            if (res.accessToken) {
+            if (res.token) {
               localStorage.setItem("user", JSON.stringify(res));
             }
             return res;

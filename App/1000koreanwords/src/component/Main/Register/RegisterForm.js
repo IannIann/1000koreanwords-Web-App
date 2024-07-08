@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input';
 import AuthService from '@app/service/auth.service'
+import customdecksData from '@app/data/customdecks.data';
 import {getErrorMessage} from '@app/tool/tool'
 import {withRouter} from '@app/tool/withRouter'
 
@@ -60,7 +61,8 @@ class RegisterForm extends React.Component {
                     successful: true
                 })
 
-                this.navigateToMainPage();
+                this.createDefaultCustomDeck(res.id);
+
             })
             .catch((error) => {
                 this.setState({
@@ -74,29 +76,41 @@ class RegisterForm extends React.Component {
         setTimeout(() => {this.props.router.navigate("/learn")}, 3000);
     }
 
+    createDefaultCustomDeck = (userId) => {
+        customdecksData.createCustomDeck(userId, "Custom Deck", "eng")
+            .then(() => {
+                this.navigateToMainPage();
+            })
+            .catch(() => {
+                this.navigateToMainPage();  
+            });
+    }
+
     renderElement() {
+
+        const { email, username, password, passwordConfirm, successful, message } = this.state;
         return (
             <form onSubmit={this.handleRegister}>
-                {!this.state.successful && (
+                {!successful && (
                     <div>
                         <label htmlFor="email">Email</label>
-                        <Input name="email" type="email" value={this.state.email} handler={this.handleChange} />
+                        <Input name="email" type="email" value={email} handler={this.handleChange} />
 
                         <label htmlFor="username">Username</label>
-                        <Input name="username" type="text" value={this.state.username} handler={this.handleChange} />
+                        <Input name="username" type="text" value={username} handler={this.handleChange} />
 
                         <label htmlFor="password">Password</label>
-                        <Input id="password" name="password" type="password" value={this.state.password} handler={this.handleChange} />
+                        <Input id="password" name="password" type="password" value={password} handler={this.handleChange} />
 
                         <label htmlFor="password-confirm">Confirm password</label>
-                        <Input name="password-confirm" type="password" value={this.state.passwordConfirm} handler={this.handleChange} />
+                        <Input name="password-confirm" type="password" value={passwordConfirm} handler={this.handleChange} />
 
                         <input type="submit" value="Register" />
                     </div>
                 )}
 
-                {this.state.message && (<div> {this.state.message} </div>)}
-                
+                {message && (<div> {message} </div>)}
+
             </form>
         )
     }

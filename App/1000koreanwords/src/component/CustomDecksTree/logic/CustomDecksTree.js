@@ -1,36 +1,19 @@
-import decksData from '@app/data/decks.data';
+import customDecksData from '@app/data/customdecks.data';
 import userdeckstatesData from '@app/data/userdeckstates.data';
-import AuthService from '@app/service/auth.service'
-
-var deckList;
-var deckState;
+import AuthService from '@app/service/auth.service';
 
 export default {
-    instantiateDecks(){
+  async fetchDecks(){
+    const userId = AuthService.getCurrentUser().id;
+    const decks = await customDecksData.getCustomDecks(userId);
+    
+    return decks.length ? decks : [];
+  },
 
-        let userId = AuthService.getCurrentUser().id;
+  async fetchUserDeckStates(){
+    const userId = AuthService.getCurrentUser().id;
+    const deckState = await userdeckstatesData.getUserDeckStatesById(userId);
 
-        return decksData.getCustomDecks(userId)
-        .then((res) => {
-            if(res.length)
-                deckList = res;
-
-            return deckList;
-        })
-        .catch((err) => { console.log(err) });
-    },
-
-    instantiateUserDeckStates(){
-
-        let userId = AuthService.getCurrentUser().id;
-
-        return userdeckstatesData.getUserDeckStatesById(userId)
-        .then((res) => {
-            if(res._id)
-                deckState = res;
-                
-            return deckState;
-        })
-        .catch((err) => { console.log(err) });
-    }
-}
+    return deckState._id ? deckState : {};
+  },
+};

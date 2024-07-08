@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "primeicons": "^6.0.1",
-    "primereact": "^8.6.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "primereact": "^10.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^6.2.1"
   }
 }

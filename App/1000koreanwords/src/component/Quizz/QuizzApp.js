@@ -4,17 +4,13 @@ import DisplayIndex from "./DisplayIndex";
 import DisplayWord from "./DisplayWord";
 import DisplayScore from "./DisplayScore";
 import ButtonPanel from "./ButtonPanel";
+import CommandButton from "./CommandButton.js";
 import TextToSpeech from "./TextToSpeech";
-import {withRouter} from '@app/tool/withRouter'
-import Button from "./Button.js";
+import CardsOptionsMenu from "../QuizzOptionMenu/CardsOptionsMenu";
+import { BanCardDialog } from "../QuizzOptionMenu/BanCardDialog.js";
+import { withRouter } from '@app/tool/withRouter'
 
 class QuizzApp extends React.Component {
-    componentDidMount() {
-        const deckId = this.props.router.params.deckId
-
-        Quizz.instantiateQuizzDeck(deckId)
-            .then((res) => this.setState(res));
-    }
 
     state = {
         isAnswered: false,
@@ -23,30 +19,59 @@ class QuizzApp extends React.Component {
         cardId: 0,
         maxIndex: 0,
         score: 0,
+        card: {},
     };
 
-    handleClick = buttonName => {
-        this.setState(Quizz.updateQuizz(this.state.cardId, this.state.score, buttonName));
+    componentDidMount() {
+
+        const { deckId } = this.props.router.params;
+        const isCustomDeck = this.isCustomDeck()
+
+        Quizz.instantiateQuizzDeck(deckId, isCustomDeck)
+            .then(({ currentWord, maxIndex, card }) => {
+                this.setState({ currentWord, maxIndex, card });
+            })
+            .catch(error => {
+                this.navigateToLearnPage(); // Navigate to learn page on error
+            });
+    }
+
+    isCustomDeck = () => {
+        if (this.props.router.location.pathname.includes('/mydecks'))
+            return true;
+        else 
+            return false;
+    }
+
+    handleClick = command => {
+        this.setState(Quizz.updateQuizz(this.state.cardId, this.state.score, command));
     };
 
     navigateToLearnPage = () => {
-        this.props.router.navigate("/learn");
+        if(this.isCustomDeck)
+            this.props.router.navigate("/mydecks");
+        else
+            this.props.router.navigate("/learn");
     }
 
     renderElement() {
-        if (this.state.isFinished) {
+        const { isAnswered, isFinished, currentWord, cardId, maxIndex, score, card } = this.state;
+
+        if (isFinished) {
             return (
                 <>
-                <DisplayScore score={this.state.score} maxScore={this.state.maxIndex} />
-                <Button name="Done" clickHandler={this.navigateToLearnPage}/>
+                    <DisplayScore score={score} maxScore={maxIndex} />
+                    <CommandButton name="Done" clickHandler={this.navigateToLearnPage} />
                 </>
             )
         } else {
             return (
                 <>
-                    <DisplayIndex currentIndex={this.state.cardId + 1} maxIndex={this.state.maxIndex} />
-                    <DisplayWord isAnswered={this.state.isAnswered} word={this.state.currentWord} />
-                    <ButtonPanel isAnswered={this.state.isAnswered} clickHandler={this.handleClick} />
+                    <DisplayIndex currentIndex={cardId + 1} maxIndex={maxIndex} />
+                    <DisplayWord isAnswered={isAnswered} word={currentWord} />
+                    <ButtonPanel isAnswered={isAnswered} clickHandler={this.handleClick} />
+                    <CardsOptionsMenu banCardClickHandler={this.handleClick} card={card} />
+                    <BanCardDialog />
                     {/* <TextToSpeech lang={"ko"} word={this.state.currentWord.question} /> */}
                 </>
             );

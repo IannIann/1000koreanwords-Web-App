@@ -4,24 +4,21 @@ import userdeckstatesData from '@app/data/userdeckstates.data';
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 
-function showResetConfirmDialog(deckState, updateDeckStateDisplay) {
+function showResetConfirmDialog(deckState, refreshDecks) {
   confirmDialog({
-      message: 'Do you want to reset your progression ?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => acceptFunc(deckState, updateDeckStateDisplay)
+    message: 'Do you want to reset your progression ?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => acceptFunc(deckState, refreshDecks)
   });
 }
 
-function acceptFunc(deckState, updateDeckStateDisplay) 
-{
-  if(deckState)
-  {
-    let userId = AuthService.getCurrentUser().id
-    let newDeckState = {...deckState};
-    newDeckState.correctCards = [];
+function acceptFunc(deckState, refreshDecks) {
+  if (deckState) {
+    const userId = AuthService.getCurrentUser().id
+    const newDeckState = { ...deckState, correctCards: [] };
     userdeckstatesData.resetDeckProgression(userId, newDeckState)
-    updateDeckStateDisplay(newDeckState);
+      .then(refreshDecks);
   }
 }
 
@@ -29,10 +26,10 @@ class ResetDialog extends React.Component {
   render() {
     return (
       <div className="component-reset-dialog">
-         <ConfirmDialog /> 
+        <ConfirmDialog />
       </div>
     );
   }
 }
 
-export {ResetDialog, showResetConfirmDialog}
+export { ResetDialog, showResetConfirmDialog }

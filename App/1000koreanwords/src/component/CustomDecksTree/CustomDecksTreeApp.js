@@ -1,35 +1,50 @@
 import React from 'react';
+import ButtonAddDeck from "./ButtonAddDeck"
 import Tree from '@app/component/DecksTree/Tree'
 import DecksTree from './logic/CustomDecksTree';
-import {ResetDialog} from '@app/component/QuizzOptionMenu/ResetDialog'
+import { ResetDialog } from '@app/component/QuizzOptionMenu/ResetDialog'
 
 export default class CustomDecksTreeApp extends React.Component {
+
     state = {
         decks: [],
-        userDeckStates : {}
+        userDeckStates: {}
     };
 
     componentDidMount() {
-        //this.instantiateDecksTree(this.getDefaultGrade());
+        this.fetchDecksTree();
     }
 
-    instantiateDecksTree(grade)
-    {
-        Promise.all([DecksTree.instantiateDecks(grade),
-            DecksTree.instantiateUserDeckStates()])
-                .then((res) => {
-                    this.setState({
-                        decks: res[0],
-                        userDeckStates: res[1],
-                    });
-                });
+    async fetchDecksTree() {
+        const [decks, userDeckStates] = await Promise.all([
+            DecksTree.fetchDecks(),
+            DecksTree.fetchUserDeckStates(),
+        ]);
+
+        this.setState({ decks, userDeckStates });
+    };
+
+    refreshDecks = () => {
+        this.fetchDecksTree()
     }
 
     renderElement() {
+        const { decks, userDeckStates } = this.state;
+        const maximumDeck = 10;
         return (
             <>
-                <Tree decks={this.state.decks} userDeckStates={this.state.userDeckStates}/>
+                <Tree
+                    decks={decks}
+                    userDeckStates={userDeckStates}
+                    refreshDecks={this.refreshDecks}
+                />
                 <ResetDialog />
+                {decks.length < maximumDeck && (
+                    <ButtonAddDeck
+                        refreshDecks={this.refreshDecks}
+                        decks={decks}
+                    />
+                )}
             </>
         )
     }

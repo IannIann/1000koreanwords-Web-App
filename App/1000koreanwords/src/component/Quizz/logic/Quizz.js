@@ -1,5 +1,6 @@
 import cardsData from '@app/data/cards.data';
 import decksData from '@app/data/decks.data';
+import customdecksData from '@app/data/customdecks.data';
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import AuthService from '@app/service/auth.service'
 
@@ -9,34 +10,34 @@ var deckState = {
     bannedCards: []
 }
 
-var cardList;
-var maxCard = 15;
+var cards;
+var maxCard = 5;
 
 export default {
-    updateQuizz(cardId, score, buttonName) {
+    updateQuizz(cardId, score, command) {
 
-        if (buttonName === "Show")
+        if (command === "Show")
             return {
                 isAnswered: true,
             };
 
-        if (buttonName === "Wrong"
-            || buttonName === "Correct"
-            || buttonName === "Ban") {
+        if (command === "Wrong"
+            || command === "Correct"
+            || command === "Ban") {
 
             let updatedScore = score;
 
-            let nextCardId = incrementcardIndex(cardId);
-            let currentCard = getCard(cardId);
-            let nextCard = getCard(nextCardId);
+            let nextCardId = incrementCardIndex(cardId);
+            let currentCard = getCardAtIndex(cardId);
+            let nextCard = getCardAtIndex(nextCardId);
             let isFinished = isQuizzFinished(nextCardId);
 
-            if (buttonName === "Correct") {
+            if (command === "Correct") {
                 updatedScore = incrementScore(score);
                 addCardToCorrectArray(currentCard._id);
             }
 
-            if (buttonName === "Ban") {
+            if (command === "Ban") {
                 updatedScore = incrementScore(score);
                 addCardToBannedArray(currentCard._id);
             }
@@ -55,75 +56,64 @@ export default {
                 cardId: nextCardId,
                 currentWord: buildWordFromCard(nextCard),
                 score: updatedScore,
-                isFinished: isFinished
+                isFinished: isFinished,
+                card: nextCard
             }
         }
     },
 
-    async instantiateQuizzDeck(deckId) {
+    async instantiateQuizzDeck(deckId, isCustomDeck) {
 
         //Getting deck state from user
-        let userId = AuthService.getCurrentUser().id
-        let ds = await userdeckstatesData.getSingleDeckState(userId, deckId);
+        const userId = AuthService.getCurrentUser().id;
+        const userDeckState = await userdeckstatesData.getSingleDeckState(userId, deckId);
 
-        if (ds.length > 0) 
-            deckState = ds[0];
-        else
-            deckState.deckId = deckId; //just adding the deckId and using an empty deckstate if no result
+        deckState = userDeckState.length > 0 ? userDeckState[0] : createDeckState(deckId);
 
+        const res = isCustomDeck
+            ? await customdecksData.getCustomDeck(deckId, userId)
+            : await decksData.getDeckById(deckId);
 
-        return decksData.getDeckById(deckId)
-            .then((res) => {
+        cards = filterCardsToPlay(deckState, res.deck[0].cards);
+        cards = shuffleCards(cards);
+        cards = cards.slice(0, Math.min(maxCard, cards.length));
 
-                cardList = res.result[0].cards;
-                cardList = setCardListToPlay(deckState, cardList);
-
-                shuffleCards(cardList);
-
-                if(cardList.length > maxCard)
-                    cardList = shortenCardList(cardList, maxCard);
-
-                let quizzState = {
-                    currentWord: buildWordFromCard(cardList[0]),
-                    maxIndex: cardList.length
-                }
-
-                return quizzState;
-            })
-            .catch((err) => { console.log(err) });
+        return {
+            currentWord: buildWordFromCard(cards[0]),
+            maxIndex: cards.length,
+            card: cards[0]
+        }
     },
-
-
 };
 
-//Internal func
-function setCardListToPlay(deckState, allCards)
-{
-    const cardsToRemove = new Set(deckState.correctCards.concat(deckState.bannedCards));
-    const cardList = allCards.filter((card) => {
-        return !cardsToRemove.has(card._id);
-    })
+function filterCardsToPlay(deckState, allCards) {
+  const { correctCards, bannedCards } = deckState;
+  const cardsToRemove = new Set([...correctCards, ...bannedCards]);
+  const playableCards = allCards.filter(card => !cardsToRemove.has(card._id));
 
-    return cardList;
+  return playableCards;
 }
 
-function shuffleCards(cardList)
-{
-    return cardList.sort(() => Math.random() - 0.5);
+//Shuffles an array of cards in-place using the Fisher-Yates algorithm.
+function shuffleCards(cards) {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  return cards;
 }
 
-function shortenCardList(cardList, maxCard)
-{
-    return cardList.slice(0, maxCard)
+function createDeckState(deckId) {
+  return {
+    deckId,
+    bannedCards: [],
+    correctCards: [],
+  };
 }
 
-function updateDeckState() {
+async function updateDeckState() {
     let userId = AuthService.getCurrentUser().id
-    
-    userdeckstatesData.updateDeckState(userId, deckState)
-    .then((res) => {
-        console.log(res);
-    });
+    await userdeckstatesData.updateDeckState(userId, deckState);
 }
 
 function addCardToCorrectArray(cardId) {
@@ -134,11 +124,11 @@ function addCardToBannedArray(cardId) {
     deckState.bannedCards.push(cardId);
 }
 
-function getCard(cardIndex) {
-    if (!isQuizzFinished(cardIndex)) {
-        let card = cardList[cardIndex];
-        return card;
-    }
+function getCardAtIndex(index) {
+  if (!isQuizzFinished(index)) {
+    const card = cards[index];
+    return card;
+  }
 }
 
 function buildWordFromCard(card) {
@@ -151,18 +141,13 @@ function buildWordFromCard(card) {
 }
 
 function isQuizzFinished(cardIndex) {
-    if (cardIndex >= cardList.length) {
-        return true;
-    }
-    else {
-        return false;
-    }
+  return cardIndex >= cards.length;
 }
 
-function incrementScore(score) {
-    return score += 1;
+function incrementScore(currentScore) {
+    return currentScore + 1;
 }
 
-function incrementcardIndex(cardId) {
-    return cardId += 1;
+function incrementCardIndex(currentCardIndex) {
+    return currentCardIndex + 1;
 }

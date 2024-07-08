@@ -6,7 +6,8 @@ import OptionsMenu from '@app/component/QuizzOptionMenu/OptionsMenu';
 
 export default class Deck extends React.Component {
   state = {
-    deckState: this.props.deck.deckState
+    deckState: this.props.deck.deckState,
+    isCustomDeck: this.props.deck.isCustom
   }
 
   componentDidUpdate(prevProps) {
@@ -20,12 +21,12 @@ export default class Deck extends React.Component {
   }
 
   handleCompletedDeckClick = () => {
-    showResetConfirmDialog(this.props.deck.deckState, this.updateDeckState);
+    showResetConfirmDialog(this.props.deck.deckState, this.props.refreshDecks);
   }
 
   isDeckCompleted = () => {
     if (this.state.deckState) {
-      
+
       let correctCardsNb = this.state.deckState.correctCards.length;
       let bannedCardsNb = this.state.deckState.bannedCards.length
       let size = this.props.deck.size - bannedCardsNb
@@ -37,34 +38,65 @@ export default class Deck extends React.Component {
     return false;
   }
 
-  showDeckButton() {
-    //Open reset dialog if progression is already 100%
+  isDeckEmpty = () => {
+    if (this.props.deck.size <= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  showDeckButton = () => {
+    const { deck } = this.props;
+    const { isCustomDeck } = this.state;
+
     if (this.isDeckCompleted()) {
       return (
-        <button onClick={this.handleCompletedDeckClick}>{this.props.deck.name}</button>
-      )
+        <button onClick={this.handleCompletedDeckClick}>
+          {deck.name}
+        </button>
+      );
+    } else if (this.isDeckEmpty()) {
+      return (
+        <button disabled>
+          {deck.name}
+        </button>
+      );
+    } else if (isCustomDeck) {
+      return (
+        <Link to={`/mydecks/quizz/${deck.id}`}>
+          <button>{deck.name}</button>
+        </Link>
+      );
     } else {
       return (
-        <Link to={"/learn/quizz/" + this.props.deck.id}>
-          <button>{this.props.deck.name}</button>
+        <Link to={`/learn/quizz/${deck.id}`}>
+          <button>{deck.name}</button>
         </Link>
-      )
+      );
     }
   }
 
   render() {
+
+    const { deckState, isCustomDeck } = this.state;
+    const { deck, refreshDecks } = this.props;
+
     return (
       <div className="component-deck">
-
         <DeckScoreDisplay
-          deckState={this.state.deckState}
-          deckSize={this.props.deck.size}
-          deckId={this.props.deck.id} />
+          deckState={deckState}
+          deckSize={deck.size}
+          deckId={deck.id}
+        />
 
         {this.showDeckButton()}
 
-        <OptionsMenu deck={this.props.deck} updateDeckStateDisplay={this.updateDeckState} />
-
+        <OptionsMenu
+          deck={deck}
+          deckState={deckState}
+          refreshDecks={refreshDecks}
+          isCustomDeck={isCustomDeck}
+        />
       </div>
     );
   }
