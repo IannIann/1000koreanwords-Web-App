@@ -1,2 +1,4 @@
 /App/.vscode/chrome
 /App/1000koreanwords/build
+/App/1000koreanwords/node_modules
+/App/node_modules
