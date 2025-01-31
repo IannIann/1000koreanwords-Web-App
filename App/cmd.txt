@@ -8,3 +8,13 @@ net start MongoDB
 //connect to db from cmd
 mongo
 use 1000koreanwords
+
+GIT 
+
+git status
+git add . 
+git commit -m "comment"
+git push
+
+------------------
+git status

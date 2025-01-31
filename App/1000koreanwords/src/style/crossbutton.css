@@ -1,0 +1,25 @@
+.component-cross-button {
+    position: relative;
+    bottom: 0.5%;
+    left: 3%;
+    float: right;
+    background: none;
+    border: none;
+    color: #8899A6;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.05s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.component-cross-button::before {
+    content: '\2716'; /* Unicode for multiplication (×) symbol */
+}
+
+.component-cross-button:hover {
+    color: #D34400
+}

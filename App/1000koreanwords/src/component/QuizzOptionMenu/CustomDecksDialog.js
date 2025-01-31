@@ -76,7 +76,7 @@ class CustomDecksDialog extends React.Component {
 
         return deckList.map((deck, index) => (
             <div key={index}>
-                {deck.name}
+                {deck.theme}
                 <button onClick={() => this.handleAddClick(deck._id, card)}>
                     Add
                 </button>

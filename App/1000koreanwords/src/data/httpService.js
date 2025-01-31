@@ -1,5 +1,3 @@
-//const urlLocation = 'http://127.0.0.1:8000/api/v1/';
-
 const host = process.env.API_HOST
 const port = process.env.API_PORT
 const endpoint = process.env.API_ENDPOINT

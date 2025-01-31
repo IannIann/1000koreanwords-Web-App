@@ -1,0 +1,70 @@
+/*For the editable deck page*/
+
+.component-deck-name {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.deck-name-group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.deck-name-field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #8899A6;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #000000;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.deck-name-field::placeholder {
+  color: transparent;
+}
+
+.deck-name-field:placeholder-shown ~ .deck-name-label {
+  font-size: 1.3rem;
+  cursor: text;
+  top: 20px;
+}
+
+.deck-name-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: #5c6d7a;
+}
+
+.deck-name-field:focus ~ .deck-name-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: #7187C3;
+  font-weight: 700;    
+}
+
+.deck-name-field:focus {
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #5ab9d8, #7f3169);
+  border-image-slice: 1;
+}
+
+/* reset input */
+.deck-name-field:required,
+.deck-name-field:invalid { 
+  box-shadow: none; 
+}

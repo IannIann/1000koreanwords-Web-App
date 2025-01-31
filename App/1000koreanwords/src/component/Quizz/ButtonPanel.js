@@ -3,8 +3,8 @@ import React from "react";
 
 export default class ButtonPanel extends React.Component {
 
-    handleClick = command => {
-        this.props.clickHandler(command);
+    handleCommandClick = command => {
+        this.props.commandHandler(command);
     };
 
     render() {
@@ -12,15 +12,15 @@ export default class ButtonPanel extends React.Component {
         if (this.props.isAnswered) {
             return (
                 <div className="component-button-panel">
-                        <CommandButton name="Correct" command="Correct" clickHandler={this.handleClick} />
-                        <CommandButton name="Wrong" command="Wrong" clickHandler={this.handleClick} />
-                        <CommandButton name="Ban" command="Ban" clickHandler={this.handleClick} />
+                        <CommandButton name="Correct" command="Correct" clickHandler={this.handleCommandClick} />
+                        <CommandButton name="Wrong" command="Wrong" clickHandler={this.handleCommandClick} />
+                        <CommandButton name="Ban" command="Ban" clickHandler={this.handleCommandClick} />
                 </div>
             );
         } else {
             return (
                 <div className="component-button-panel">
-                        <CommandButton name="Show" command="Show" clickHandler={this.handleClick} />
+                        <CommandButton name="Show" command="Show" clickHandler={this.handleCommandClick} />
                 </div>
             );
         }

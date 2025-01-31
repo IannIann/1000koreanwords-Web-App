@@ -1,0 +1,14 @@
+.component-deck-button-group {
+    display: flex;
+    justify-content: center;
+}
+
+.component-deck-button-group .button-pushable {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.component-deck-button-group .button-pushable .button-front {
+    font-size: 1em;
+    padding: 10px 15px;
+}

@@ -1,0 +1,21 @@
+.component-favorite-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+
+    position: absolute;
+    top: 3%;
+    right: 2%;
+
+    background: none;
+    border: none;
+    color: #8899A6;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.05s;
+}
+
+.component-favorite-button:hover {
+    color: #e4bd0d
+}

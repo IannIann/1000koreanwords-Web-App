@@ -1,6 +1,7 @@
 import React from "react";
 import AuthService from '@app/service/auth.service'
 import customdecksData from '@app/data/customdecks.data';
+import userdeckstatesData from '@app/data/userdeckstates.data';
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 
@@ -17,8 +18,14 @@ function acceptFunc(deckId, refreshDecks)
 {
   const userId = AuthService.getCurrentUser().id;
   if (deckId) {
-    customdecksData.deleteCustomDeck(userId, deckId)
-      .then(refreshDecks);
+    customdecksData.deleteCustomDeck(userId, deckId).
+    then(refreshDecks)
+      .catch(() => {
+        // TODO: toast error
+      })
+      .finally(() => {
+        userdeckstatesData.deleteUserDeckState(userId, deckId);
+      });
   }
 }
 

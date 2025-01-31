@@ -1,0 +1,193 @@
+* {
+    box-sizing: border-box;
+}
+
+html.modal-active, body.modal-active {
+    overflow: hidden;
+}
+#modal-container {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+    color: #000000
+}
+
+#modal-container.display {
+    transform: scale(1);
+}
+#modal-container.display .modal-background {
+    background: rgba(0, 0, 0, .0);
+    animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.display .modal-background .modal {
+    opacity: 0;
+    animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.display + .content {
+    animation: scaleBack 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.display.out {
+    animation: quickScaleDown 0s 0.5s linear forwards;
+}
+#modal-container.display.out .modal-background {
+    animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.display.out .modal-background .modal {
+    animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.display.out + .content {
+    animation: scaleForward 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container .modal-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, .8);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#modal-container .modal-background .modal {
+    /* background: linear-gradient(to bottom right, #063665, #04192A); */
+    background: linear-gradient(to bottom right, #f1eee6, #d6d2c8);
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin-left: 25%;
+    margin-right: 25%;
+    max-height: 75vh;
+}
+
+#modal-container .modal-background .modal .modal-content {
+    overflow: auto; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#modal-container .modal-background .modal h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#modal-container .modal-background .modal p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#modal-container .modal-background .modal .close-button-container {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+
+#modal-container .modal-background .modal .modal-footer .modal-buttons {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    justify-content: right;
+}
+
+ #modal-container .modal-background .modal .modal-footer .modal-buttons button {
+    margin-left: 7px;
+    margin-right: 7px;
+} 
+
+hr {
+    width: 80%;
+    border: none; /* Removes the default border */
+    height: 2px; /* Specifies the thickness of the hr */
+    /*background-image: linear-gradient(to right, #674E00, #D3A200); *//* Gradient from pink to orange */
+    background-color: #8899A6;
+}
+
+@keyframes fadeIn {
+    0% {
+        background: rgba(0, 0, 0, .0);
+   }
+    100% {
+        background: rgba(0, 0, 0, .7);
+   }
+}
+@keyframes fadeOut {
+    0% {
+        background: rgba(0, 0, 0, .7);
+   }
+    100% {
+        background: rgba(0, 0, 0, .0);
+   }
+}
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.8) translateY(1000px);
+        opacity: 0;
+   }
+    100% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+   }
+}
+@keyframes scaleDown {
+    0% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+   }
+    100% {
+        transform: scale(0.8) translateY(1000px);
+        opacity: 0;
+   }
+}
+@keyframes scaleBack {
+    0% {
+        transform: scale(1);
+   }
+    100% {
+        transform: scale(0.85);
+   }
+}
+@keyframes scaleForward {
+    0% {
+        transform: scale(0.85);
+   }
+    100% {
+        transform: scale(1);
+   }
+}
+@keyframes quickScaleDown {
+    0% {
+        transform: scale(1);
+   }
+    99.9% {
+        transform: scale(1);
+   }
+    100% {
+        transform: scale(0);
+   }
+}
+@keyframes roadRunnerIn {
+    0% {
+        transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
+   }
+    70% {
+        transform: translateX(30px) skewX(0deg) scaleX(0.9);
+   }
+    100% {
+        transform: translateX(0px) skewX(0deg) scaleX(1);
+   }
+}
+
+.content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+  }

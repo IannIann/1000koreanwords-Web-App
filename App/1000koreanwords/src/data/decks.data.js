@@ -1,11 +1,12 @@
-import apiAccess from "./httpService";
+import apiAccess from '@app/data/httpService';
 
 export default {
-    getDecksByLangAndGrade(lang, grade) {
-        return apiAccess.GetJson(`decks/${lang}/${grade}/`)
+
+    getAllDecks() {
+        return apiAccess.GetJson('decks_new')
     },
-    getDeckById(id)
+    getDeck(id)
     {
-        return apiAccess.GetJson(`decks/${id}`)
+        return apiAccess.GetJson(`decks_new/${id}`)
     }
 }

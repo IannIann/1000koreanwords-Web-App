@@ -77,7 +77,7 @@ class RegisterForm extends React.Component {
     }
 
     createDefaultCustomDeck = (userId) => {
-        customdecksData.createCustomDeck(userId, "Custom Deck", "eng")
+        customdecksData.createCustomDeck(userId, "Custom Deck")
             .then(() => {
                 this.navigateToMainPage();
             })

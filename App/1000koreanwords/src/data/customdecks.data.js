@@ -1,19 +1,25 @@
-import apiAccess from "./httpService";
+import apiAccess from '@app/data/httpService';
 
 export default {
     getCustomDecks(userId){
-        return apiAccess.GetJson(`customdecks/${userId}`)
+        return apiAccess.GetJson(`customdecks_new/${userId}`)
     },
     getCustomDeck(deckId, userId){
-        return apiAccess.GetJson(`customdecks/${userId}/${deckId}`)
+        return apiAccess.GetJson(`customdecks_new/${userId}/${deckId}`)
     },
-    createCustomDeck(userId, name, lang) {
-        return apiAccess.PostJson('customdecks/create', { userId, name, lang });
+    createCustomDeck(userId, theme) {
+        return apiAccess.PostJson('customdecks_new/create', { userId, theme});
     },
     deleteCustomDeck(userId, id) {
-        return apiAccess.DeleteJson('customdecks/delete', {userId, id});
+        return apiAccess.DeleteJson('customdecks_new/delete', {userId, id});
     },
     pushCardToDeck(userId, deckId, cardId) {
-        return apiAccess.PostJson('customdecks/pushCardToDeck', {userId, deckId, cardId});
+        return apiAccess.PostJson('customdecks_new/pushCardToDeck', {userId, deckId, cardId});
+    },
+    updateCustomDeck(deck){ 
+        return apiAccess.PostJson('customdecks_new/updateCustomDeck', deck)
+    },
+    deleteCardFromDeck(userId, deckId, cardId) {
+        return apiAccess.DeleteJson('customdecks_new/deleteCardFromDeck', {userId, deckId, cardId});
     }
 }

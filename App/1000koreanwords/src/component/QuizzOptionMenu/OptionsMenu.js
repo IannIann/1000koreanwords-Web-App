@@ -5,21 +5,22 @@ import { Menu } from 'primereact/menu';
 import { showResetConfirmDialog } from './ResetDialog'
 import { showDeleteDeckConfirmDialog } from "./DeleteDeckDialog";
 import { BanListDialog } from './BanListDialog'
+import { withRouter } from '@app/tool/withRouter'
 
-export default class OptionsMenu extends React.Component {
+class OptionsMenu extends React.Component {
   menu = React.createRef();
 
   state = {
     items: [
       { label: 'Reset', icon: 'pi pi-fw pi-replay', command: () => { this.resetClickHandler(); } },
-      { label: 'Modes', icon: 'pi pi-fw pi-book', command: () => { this.modesClickHandler(); } },
+      { label: 'Edit', icon: 'pi pi-fw pi-file-edit', command: () => { this.editClickHandler() }, visible: this.props.isCustomDeck },
       { label: 'Hidden words', icon: 'pi pi-fw pi-eye-slash', command: () => { this.banListClickHandler(); } },
       { label: 'Delete', icon: 'pi pi-fw pi-trash', command: () => { this.deleteClickHandler(); }, visible: this.props.isCustomDeck }],
     banListDialogIsVisible: false
   };
 
   resetClickHandler = () => {
-    const{ deckState, refreshDecks } = this.props
+    const { deckState, refreshDecks } = this.props
     showResetConfirmDialog(deckState, refreshDecks);
   };
 
@@ -27,8 +28,9 @@ export default class OptionsMenu extends React.Component {
     this.showBanList();
   };
 
-  modesClickHandler = () => {
-    console.log("Modes");
+  editClickHandler = () => {
+    const { deck } = this.props;
+    this.props.router.navigate(`/mydecks/edit/${deck.id}`);
   };
 
   deleteClickHandler = () => {
@@ -55,7 +57,7 @@ export default class OptionsMenu extends React.Component {
     const { deck, deckState, refreshDecks } = this.props;
     return (
       <>
-        <OptionsButton name="..."  clickHandler={this.toggleMenu}/>
+        <OptionsButton name="..." clickHandler={this.toggleMenu} />
         <Menu model={items} popup ref={this.menu} />
         <BanListDialog hideBanList={this.hideBanList}
           isVisible={banListDialogIsVisible}
@@ -74,3 +76,5 @@ export default class OptionsMenu extends React.Component {
     )
   }
 }
+
+export default withRouter(OptionsMenu)

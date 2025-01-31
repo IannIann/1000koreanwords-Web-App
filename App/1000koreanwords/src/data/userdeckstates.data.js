@@ -1,4 +1,4 @@
-import apiAccess from "./httpService";
+import apiAccess from '@app/data/httpService';
 
 export default {
     createUserDeckState(userId) {
@@ -25,5 +25,14 @@ export default {
         }
 
         return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState });
+    },
+
+    deleteCardFromDeckState(userId, deckId, cardId) {
+        return apiAccess.DeleteJson('userdeckstates/deleteCardFromDeckState', { userId, deckId, cardId });
+    },
+
+    deleteUserDeckState(userId, deckId)
+    {
+        return apiAccess.DeleteJson('userdeckstates/deleteUserDeckState', { userId, deckId });
     }
 }

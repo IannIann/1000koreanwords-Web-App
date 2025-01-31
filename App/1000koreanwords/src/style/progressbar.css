@@ -1,0 +1,41 @@
+.progress-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 15px; 
+    justify-content: center; 
+    align-items: center; 
+
+    background-color: #e0e0e0; 
+    border-radius: 5px; 
+    overflow: hidden;
+  }
+
+  .progress-container.quizz {
+    height: 20px; 
+    width: 100%;
+  }
+  
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 5px; 
+    background: linear-gradient(to right, #50cff9   , #b31fa4  );
+
+    transition: width 0.3s ease-in-out;
+  }
+  
+.score {
+    position: absolute; 
+    color: black;
+    font-size: 0.8rem;
+    pointer-events: none; 
+    z-index: 1;
+  }
+
+.score.quizz {
+  font-size: 1rem;
+  font-weight: bold;
+}

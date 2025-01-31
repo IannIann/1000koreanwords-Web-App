@@ -1,0 +1,8 @@
+.component-quizz-button-panel {
+    margin-bottom: 5%;
+}
+
+.component-quizz-button-panel .button-pushable {
+    margin-left: 10px;
+    margin-right: 10px;
+}

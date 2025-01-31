@@ -1,42 +1,188 @@
-//make a new react card component 
-//it should have a question and answer as props
-//it should render a card with the question and answer
-//the design should be a square with a rounded border
-//the question should be on top of the card
-//the answer should be below the question
-//the question and answer should be centered
-//the question should be bold
-//question and answer should be separated by a line
-//make it beautiful
-
-import React, { Component } from 'react';
-
-// class Card extends Component {
-//     render() {
-//         const { question, answer } = this.props;
-
-//         return (
-//             <div style={{ border: '1px solid black', borderRadius: '5px', width: '1200px', height: '150px', padding: '10px', textAlign: 'center' }}>
-//                 <div style={{ fontWeight: 'bold' }}>{question}</div>
-//                 <hr />
-//                 <div>{answer}</div>
-//             </div>
-//         );
-//     }
-// }
-
+import React from 'react';
+import CardQuestion from '@app/component/Card/CardQuestion';
+import CardAnswer from '@app/component/Card/CardAnswer';
+import CrossButton from '@app/component/Buttons/CrossButton';
+import FavoriteButton from '@app/component/Buttons/FavoriteButton';
+import HideButton from '@app/component/Buttons/HideButton';
 import '@app/style/card.css'
 
 class Card extends React.Component {
-    render() {
-        const { question, answer } = this.props;
+
+    state = { card: null };
+    previousCard = { question: "", answer: "" };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.card !== this.props.card) {
+            this.setState({ card: this.props.card });
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ card: this.props.card });
+    }
+
+    setQuestion = (value) => {
+        const card = this.state.card;
+        card.question = value;
+        this.setState({ card: card });
+    }
+
+    setAnswer = (value) => {
+        const card = this.state.card;
+        card.answer = value;
+        this.setState({ card: card });
+    }
+
+    handleBlur = () => {
+        const { card } = this.state;
+
+        if (card.question !== this.previousCard.question ||
+            card.answer !== this.previousCard.answer) {
+            this.props.saveCard(card);
+        }
+    }
+
+    handleFocus = () => {
+        this.previousCard.question = this.state.card.question
+        this.previousCard.answer = this.state.card.answer
+    }
+
+    handleDeleteClick = () => {
+        const {editable} = this.props;
+
+        if(editable) {
+            this.props.deleteCard(this.state.card);
+        } else 
+        {
+            this.props.restoreCard(this.state.card._id);
+        }
+    }
+
+    onChangeAnswer = (e) => {
+        this.setAnswer((e.target.value));
+    };
+
+    onChangeQuestion = (e) => {
+        this.setQuestion(e.target.value);
+    }
+
+    handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.target.blur();
+        }
+    }
+
+    renderEditableCard = (card) => {
+        const questionId = `${card._id}-question`;
+        const answerId = `${card._id}-answer`;
+        const editable = true;
 
         return (
-            <div className="card">
-                <div className="question">{question}</div>
-                <hr />
-                <div className="answer">{answer}</div>
+            <div className="component-card" >
+                <CrossButton handleClick={this.handleDeleteClick} />
+                <CardQuestion 
+                    id={questionId}
+                    value={card.question}
+                    handleKeyPress={this.handleKeyPress}
+                    onChangeQuestion={this.onChangeQuestion}
+                    handleBlur={this.handleBlur}
+                    handleFocus={this.handleFocus}
+                    editable={editable}
+                />
+                <CardAnswer
+                    id={answerId}
+                    value={card.answer}
+                    handleKeyPress={this.handleKeyPress}
+                    onChangeAnswer={this.onChangeAnswer}
+                    handleBlur={this.handleBlur}
+                    handleFocus={this.handleFocus}
+                    editable={editable}
+                />
             </div>
+        )
+    }
+
+    renderPlainCard = (card) => {
+        const questionId = `${card._id}-question`;
+        const answerId = `${card._id}-answer`;
+        const editable = false;
+
+        return (
+            <div className="component-card">
+                <CrossButton handleClick={this.handleDeleteClick} />
+                <CardQuestion 
+                    id={questionId}
+                    value={card.question}
+                    editable={editable}
+                />
+                <CardAnswer
+                    id={answerId}
+                    value={card.answer}
+                    editable={editable}
+                />
+            </div>
+        )
+    }
+
+    renderCardInPlay = (card) => {
+        const { isAnswered, 
+            openHideSingleCardModal, 
+            openCopyToDeckModal
+        } = this.props;
+
+        let cardClassName = "component-card flip-card";
+        let shadowClassName = "component-shadow"; //has to trick the shadow box so it can be flipped
+        if (isAnswered) {
+            cardClassName += " flipped";
+            shadowClassName += " flipped";
+        }
+
+        return (
+            <div className="component-wrapper">
+            <div className={shadowClassName}></div>
+                <div className={cardClassName}>
+                    <div className="card-front">
+                        <CardQuestion value={card.question} inPlay={true} />
+                        <FavoriteButton  />
+                        <HideButton handleClick={openHideSingleCardModal} />
+                    </div>
+                    <div className="card-back">
+                        <CardQuestion value={card.question} inPlay={true} />
+                        <CardAnswer value={card.answer} inPlay={true} />
+                        <FavoriteButton  />
+                        <HideButton handleClick={openHideSingleCardModal} />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+
+    renderCard = (card, editable, inPlay) => {
+
+        if (inPlay) {
+            return this.renderCardInPlay(card);
+        }
+        if (editable) {
+            return this.renderEditableCard(card);
+        } else {
+            return this.renderPlainCard(card);
+        }
+    }
+
+    render() {
+        const { editable, inPlay } = this.props;
+        const { card } = this.state;
+
+        if (!card) {
+            return null;
+        }
+
+        return (
+            <>
+                {this.renderCard(card, editable, inPlay)}
+            </>
         );
     }
 }

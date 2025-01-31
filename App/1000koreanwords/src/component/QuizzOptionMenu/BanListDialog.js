@@ -24,7 +24,7 @@ class BanListDialog extends React.Component {
 
             const fetchDeck = deck.isCustom 
             ? customdecks.getCustomDeck
-            : decksData.getDeckById
+            : decksData.getDeck
 
             if (isVisible && deckState) {
                 fetchDeck(deck.id, userId).then((res) => {
@@ -97,9 +97,9 @@ class BanListDialog extends React.Component {
         }
 
         return (
-            bannedCards.map((card, index) => (
-                <div key={index}>
-                    <Card question={card.word} answer={card.wordTranslated.eng}/>
+            bannedCards.map((card) => (
+                <div key={card._id}>
+                    <Card card={card}/>
                     <button onClick={() => this.onClickRestore(card._id)}>Restore</button>
                 </div>
             ))

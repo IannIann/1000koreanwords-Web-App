@@ -1,4 +1,3 @@
-import cardsData from '@app/data/cards.data';
 import decksData from '@app/data/decks.data';
 import customdecksData from '@app/data/customdecks.data';
 import userdeckstatesData from '@app/data/userdeckstates.data';
@@ -14,7 +13,7 @@ var cards;
 var maxCard = 5;
 
 export default {
-    updateQuizz(cardId, score, command) {
+    updateQuizz(cardIndex, score, command) {
 
         if (command === "Show")
             return {
@@ -23,21 +22,21 @@ export default {
 
         if (command === "Wrong"
             || command === "Correct"
-            || command === "Ban") {
+            || command === "Hide") {
 
             let updatedScore = score;
 
-            let nextCardId = incrementCardIndex(cardId);
-            let currentCard = getCardAtIndex(cardId);
-            let nextCard = getCardAtIndex(nextCardId);
-            let isFinished = isQuizzFinished(nextCardId);
+            let nextCardIndex = incrementCardIndex(cardIndex);
+            let currentCard = getCardAtIndex(cardIndex);
+            let nextCard = getCardAtIndex(nextCardIndex);
+            let isFinished = isQuizzFinished(nextCardIndex);
 
             if (command === "Correct") {
                 updatedScore = incrementScore(score);
                 addCardToCorrectArray(currentCard._id);
             }
 
-            if (command === "Ban") {
+            if (command === "Hide") {
                 updatedScore = incrementScore(score);
                 addCardToBannedArray(currentCard._id);
             }
@@ -53,8 +52,7 @@ export default {
 
             return {
                 isAnswered: false,
-                cardId: nextCardId,
-                currentWord: buildWordFromCard(nextCard),
+                cardIndex: nextCardIndex,
                 score: updatedScore,
                 isFinished: isFinished,
                 card: nextCard
@@ -72,16 +70,18 @@ export default {
 
         const res = isCustomDeck
             ? await customdecksData.getCustomDeck(deckId, userId)
-            : await decksData.getDeckById(deckId);
+            : await decksData.getDeck(deckId);
 
         cards = filterCardsToPlay(deckState, res.deck[0].cards);
         cards = shuffleCards(cards);
         cards = cards.slice(0, Math.min(maxCard, cards.length));
 
+        let theme = res.deck[0].theme;
+
         return {
-            currentWord: buildWordFromCard(cards[0]),
             maxIndex: cards.length,
-            card: cards[0]
+            card: cards[0],
+            theme : theme
         }
     },
 };
@@ -116,12 +116,12 @@ async function updateDeckState() {
     await userdeckstatesData.updateDeckState(userId, deckState);
 }
 
-function addCardToCorrectArray(cardId) {
-    deckState.correctCards.push(cardId);
+function addCardToCorrectArray(cardIndex) {
+    deckState.correctCards.push(cardIndex);
 }
 
-function addCardToBannedArray(cardId) {
-    deckState.bannedCards.push(cardId);
+function addCardToBannedArray(cardIndex) {
+    deckState.bannedCards.push(cardIndex);
 }
 
 function getCardAtIndex(index) {
@@ -132,16 +132,16 @@ function getCardAtIndex(index) {
 }
 
 function buildWordFromCard(card) {
-    let word = {
-        question: card.word,
-        answer: card.wordTranslated.eng
+    const word = {
+        question: card.question,
+        answer: card.answer
     };
 
     return word;
 }
 
 function isQuizzFinished(cardIndex) {
-  return cardIndex >= cards.length;
+    return cardIndex >= cards.length;
 }
 
 function incrementScore(currentScore) {

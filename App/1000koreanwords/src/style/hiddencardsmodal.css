@@ -1,0 +1,22 @@
+.cards-hidden-grid-container {
+    display: flex;
+    width: 100%; /* Take the full width of the modal */
+    height: 100%; /* Full height to contain all cards */
+}
+
+.cards-hidden-grid {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%; /* Ensure it does not exceed the modal's width */
+}
+
+#modal-container .modal-background .hidden-cards-modal {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#modal-container .modal-background .text-modal {
+    margin-left: 40%;
+    margin-right: 40%;
+}
