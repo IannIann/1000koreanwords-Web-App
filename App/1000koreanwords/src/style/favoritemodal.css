@@ -1,0 +1,14 @@
+.modal-content-favorite{
+    display: flex;
+    align-items: center;    
+    justify-content: space-around;
+    overflow: auto; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#modal-container .modal-background .favorite-modal{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+

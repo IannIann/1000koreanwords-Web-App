@@ -19,8 +19,8 @@ class CardQuestion extends React.Component {
                         id={id}
                         className="card-field"
                         placeholder="Question"
-                        title={value}
-                        value={value}
+                        title={value || ""}
+                        value={value || ""} 
                         maxLength={30}
                         spellCheck="false"
                         onKeyDown={(e) => handleKeyPress(e)}
@@ -47,7 +47,7 @@ class CardQuestion extends React.Component {
                         id={id}
                         className="card-field"
                         placeholder="Question"
-                        value={value}
+                        value={value || ""} 
                         disabled="disabled"
                     />
                     <label htmlFor={id} className="card-label">Question</label>

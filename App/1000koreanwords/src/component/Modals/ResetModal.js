@@ -61,7 +61,7 @@ class ResetModal extends React.Component {
     return (
       <div id="modal-container" className={modalClass}>
         <div className="modal-background" onClick={this.handleBackgroundClick}>
-          <div className="modal text-modal">
+          <div className="modal">
             {this.renderHtml()}
           </div>
         </div>

@@ -17,6 +17,7 @@ html.modal-active, body.modal-active {
     color: #000000
 }
 
+
 #modal-container.display {
     transform: scale(1);
 }
@@ -61,15 +62,19 @@ html.modal-active, body.modal-active {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 35%;
+    margin-right: 35%;
     max-height: 75vh;
 }
 
 #modal-container .modal-background .modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow: auto; 
     margin-top: 10px;
     margin-bottom: 10px;
+
 }
 
 #modal-container .modal-background .modal h2 {

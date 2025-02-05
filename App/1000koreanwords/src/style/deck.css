@@ -72,8 +72,8 @@
 .stacked-decks-grid, .custom-decks-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly; /* Evenly space the stacks */
-    width: 60%; /* Adjust width as needed */
+    justify-content: space-evenly;
+    width: 70%; 
 }
 
 .stacked-decks {

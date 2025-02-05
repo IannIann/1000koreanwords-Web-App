@@ -12,8 +12,9 @@ body
     align-items: center;
     min-height: 100vh;
     font-size: 1rem;
+    width: 100vw;
+    overflow-x: hidden;
 }
-
 
 .component-display-word
 {

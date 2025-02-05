@@ -18,3 +18,5 @@ git push
 
 ------------------
 git status
+git fetch
+git pull

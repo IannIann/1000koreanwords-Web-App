@@ -80,6 +80,7 @@ class HiddenCardsModal extends React.Component {
               key={index}
               card={card}
               restoreCard={this.restoreCard}
+              isDeletable={true }
             />
           ))}
 
@@ -120,7 +121,7 @@ class HiddenCardsModal extends React.Component {
     const { modalClass, deck } = this.props;
     const { bannedCards } = this.state;
     const hasNoHiddenCards = !deck || !deck.deckState || bannedCards.length === 0;
-    const modalType = hasNoHiddenCards ? 'modal text-modal' : 'modal hidden-cards-modal';
+    const modalType = hasNoHiddenCards ? 'modal' : 'modal hidden-cards-modal';
 
     return (
       <div id="modal-container" className={modalClass}>

@@ -103,14 +103,17 @@ class Card extends React.Component {
         )
     }
 
-    renderPlainCard = (card) => {
+    renderPlainCard = (card, isDeletable) => {
         const questionId = `${card._id}-question`;
         const answerId = `${card._id}-answer`;
         const editable = false;
 
         return (
             <div className="component-card">
-                <CrossButton handleClick={this.handleDeleteClick} />
+                {isDeletable &&
+                    <CrossButton handleClick={this.handleDeleteClick} />
+                }
+                
                 <CardQuestion 
                     id={questionId}
                     value={card.question}
@@ -118,7 +121,7 @@ class Card extends React.Component {
                 />
                 <CardAnswer
                     id={answerId}
-                    value={card.answer}
+                    value={card.answer} 
                     editable={editable}
                 />
             </div>
@@ -128,7 +131,7 @@ class Card extends React.Component {
     renderCardInPlay = (card) => {
         const { isAnswered, 
             openHideSingleCardModal, 
-            openCopyToDeckModal
+            openFavoriteModal
         } = this.props;
 
         let cardClassName = "component-card flip-card";
@@ -144,13 +147,13 @@ class Card extends React.Component {
                 <div className={cardClassName}>
                     <div className="card-front">
                         <CardQuestion value={card.question} inPlay={true} />
-                        <FavoriteButton  />
+                        <FavoriteButton handleClick={openFavoriteModal} />
                         <HideButton handleClick={openHideSingleCardModal} />
                     </div>
                     <div className="card-back">
                         <CardQuestion value={card.question} inPlay={true} />
                         <CardAnswer value={card.answer} inPlay={true} />
-                        <FavoriteButton  />
+                        <FavoriteButton handleClick={openFavoriteModal} />
                         <HideButton handleClick={openHideSingleCardModal} />
                     </div>
                 </div>
@@ -158,21 +161,19 @@ class Card extends React.Component {
         )
     }
 
-
-    renderCard = (card, editable, inPlay) => {
-
+    renderCard = (card, editable, inPlay, isDeletable) => {
         if (inPlay) {
             return this.renderCardInPlay(card);
         }
         if (editable) {
             return this.renderEditableCard(card);
         } else {
-            return this.renderPlainCard(card);
+            return this.renderPlainCard(card, isDeletable);
         }
     }
 
     render() {
-        const { editable, inPlay } = this.props;
+        const { editable, inPlay, isDeletable } = this.props;
         const { card } = this.state;
 
         if (!card) {
@@ -181,7 +182,7 @@ class Card extends React.Component {
 
         return (
             <>
-                {this.renderCard(card, editable, inPlay)}
+                {this.renderCard(card, editable, inPlay, isDeletable)}
             </>
         );
     }

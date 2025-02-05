@@ -4,7 +4,7 @@
 }
 
 .cards-edit-grid {
-    width: 50%;
+    width: 65%;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;

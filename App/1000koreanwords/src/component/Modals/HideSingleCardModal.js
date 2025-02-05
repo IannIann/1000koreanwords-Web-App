@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthService from '@app/service/auth.service'
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import Card from '@app/component/Card/Card'
 
 import '@app/style/modal.css';
 
@@ -20,33 +20,32 @@ class HideSingleCardModal extends React.Component {
   }
 
   renderHtml() {
-    const { onClose } = this.props;
+    const { onClose, card } = this.props;
 
     return (
-    <>  
+      <>
         <div className="modal-header">
           <div className="close-button-container">
             <ModalCrossButton handleClick={onClose} />
           </div>
           <h2>Hide this card ?</h2>
-          <hr />
+          <hr />  
         </div>
 
         <div className="modal-content">
-        <p>You can hide this card from this deck.</p>
-        <p>This change is not permanent and can be reverted.</p>
+          <Card card={card} editable={false} inPlay={false} />
         </div>
 
         <div className="modal-footer">
           <hr />
           <div className="modal-buttons">
 
-            <ButtonPushable label="No" onClick={onClose} color="red"/>
-            <ButtonPushable label="Yes" onClick={this.hideCard} color="green"/>
+            <ButtonPushable label="No" onClick={onClose} color="red" />
+            <ButtonPushable label="Yes" onClick={this.hideCard} color="green" />
 
           </div>
         </div>
-    </>
+      </>
     );
   }
 
@@ -56,7 +55,7 @@ class HideSingleCardModal extends React.Component {
     return (
       <div id="modal-container" className={modalClass}>
         <div className="modal-background" onClick={this.handleBackgroundClick}>
-          <div className="modal text-modal">
+          <div className="modal">
             {this.renderHtml()}
           </div>
         </div>

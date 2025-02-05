@@ -11,11 +11,10 @@ import { BanCardDialog } from "../QuizzOptionMenu/BanCardDialog.js";
 import Card from "@app/component/Card/Card";
 import { withRouter } from '@app/tool/withRouter'
 import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
-import ButtonPushable from "@app/component/Buttons/ButtonPushable.js";
 import QuizzButtonPanel from "@app/component/Buttons/QuizzButtonPanel.js";
 
 import HideSingleCardModal from '@app/component/Modals/HideSingleCardModal';
-// import CopyToDeckModal from '@app/component/Modals/CopyToDeckModal';
+import FavoriteModal from '@app/component/Modals/FavoriteModal';
 
 import "@app/style/quizzapp.css";
 
@@ -30,7 +29,7 @@ class QuizzApp extends React.Component {
         maxIndex: 0,
         score: 0,
 
-        enableCopyToDeckModal: true,
+        enableFavoriteModal: true,
         enableHideSingleCardModal: true
     };
 
@@ -66,10 +65,10 @@ class QuizzApp extends React.Component {
             this.props.router.navigate("/learn");
     }
 
-    openCopyToDeckModal = () => {
+    openFavoriteModal = () => {
         this.setState({
-            copyToDeckModalClass: 'display',
-            enableCopyToDeckModal: true,
+            favoriteModalClass: 'display',
+            enableFavoriteModal: true,
             enableHideSingleCardModal: false
         });
         document.body.classList.add('modal-active');
@@ -78,7 +77,7 @@ class QuizzApp extends React.Component {
     openHideSingleCardModal = () => {
         this.setState({
             hideSingleCardModalClass: 'display',
-            enableCopyToDeckModal: false,
+            enableFavoriteModal: false,
             enableHideSingleCardModal: true
         });
         document.body.classList.add('modal-active');
@@ -87,24 +86,25 @@ class QuizzApp extends React.Component {
     closeModal = () => {
         this.setState({
             hideSingleCardModalClass: 'display out',
-            copyToDeckModalClass: 'display out'
+            favoriteModalClass: 'display out'
         });
 
         document.body.classList.remove('modal-active');
     }
 
     renderElement() {
-        const { isAnswered,
+        const { 
+            isAnswered,
             isFinished,
             cardIndex,
             maxIndex,
             score,
             card,
             theme,
-            enableCopyToDeckModal,
+            enableFavoriteModal,
             enableHideSingleCardModal,
             hideSingleCardModalClass,
-            copyToDeckModalClass
+            favoriteModalClass
         } = this.state;
 
         if (isFinished) {
@@ -126,16 +126,17 @@ class QuizzApp extends React.Component {
                 //     {/* <TextToSpeech lang={"ko"} word={this.state.currentWord.question} /> */}
                 // </>
                 <>
-                {/* 
-                    {enableCopyToDeckModal &&
-                        <CopyToDeckModal modalClass={copyToDeckModalClass}
-                            onClose={this.closeModal} />
-                    } */}
+                    {enableFavoriteModal &&
+                        <FavoriteModal modalClass={favoriteModalClass}
+                            onClose={this.closeModal} 
+                            card={card}/>
+                    }
 
                     {enableHideSingleCardModal &&
                         <HideSingleCardModal modalClass={hideSingleCardModalClass}
-                            onClose={this.closeModal}                             
-                            commandHandler={this.handleCommandClick}/>
+                            onClose={this.closeModal}
+                            commandHandler={this.handleCommandClick}
+                            card={card} />
                     }
 
                     <div className="content">
@@ -145,8 +146,7 @@ class QuizzApp extends React.Component {
                             inPlay={true}
                             isAnswered={isAnswered}
                             openHideSingleCardModal={this.openHideSingleCardModal}
-                            openCopyToDeckModal={this.openCopyToDeckModal}
-
+                            openFavoriteModal={this.openFavoriteModal}
                         />
                         <QuizzButtonPanel isAnswered={isAnswered} commandHandler={this.handleCommandClick} />
                         <QuizzProgressBar currentIndex={cardIndex} maxIndex={maxIndex} />
