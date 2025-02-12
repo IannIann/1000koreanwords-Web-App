@@ -11,12 +11,15 @@ import Card from '../Card/Card';
 
 class FavoriteModal extends React.Component {
 
+    selectRef = React.createRef();
+
     state = {
         deckList: []
     }
 
     componentDidMount() {
         this.fetchCustomDecks();
+
     }
 
     handleBackgroundClick = (event) => {
@@ -52,24 +55,31 @@ class FavoriteModal extends React.Component {
 
             <>
                 <div className="modal-content-decklist">
-                    {deckList.map((deck, index) => (
-                        <div key={index}>
-                            {deck.theme}
 
-                            <ButtonPushable
-                                onClick={    this.copyCardToDeck(deck._id, card)}
-                                label="Add"
-                                color="blue"
-                                size="small"
-                            />
-                        </div>
-                    ))}
+                    <div className="modal-content-card">
+                        <Card card={card} editable={false} inPlay={false} />
+                    </div>
+
+                    <div className="dropdown">
+                        <select ref={this.selectRef}>
+                            <option value="">Select a deck</option>
+                            {deckList.map((deck, index) => (
+                                <option key={index} value={deck._id}>{deck.theme}</option>
+                            ))}
+                        </select>
+                        <ButtonPushable
+                            onClick={() => {
+                                const selectedDeckId = this.selectRef.current.value;
+                                if (selectedDeckId) {
+                                    this.copyCardToDeck(selectedDeckId, card);
+                                }
+                            }}
+                            label="Add"
+                            color="blue"
+                            size="small"
+                        />
+                    </div>
                 </div>
-
-                <div className="modal-content-card">   
-                    <Card card={card} editable={false} inPlay={false} />
-                </div>
-
             </>
         );
     }

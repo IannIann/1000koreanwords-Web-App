@@ -74,8 +74,9 @@ class Card extends React.Component {
     }
 
     renderEditableCard = (card) => {
-        const questionId = `${card._id}-question`;
-        const answerId = `${card._id}-answer`;
+        const id = Math.random().toString(36).substring(2, 10);
+        const questionId = `${id}-question`;
+        const answerId = `${id}-answer`;
         const editable = true;
 
         return (
@@ -104,8 +105,9 @@ class Card extends React.Component {
     }
 
     renderPlainCard = (card, isDeletable) => {
-        const questionId = `${card._id}-question`;
-        const answerId = `${card._id}-answer`;
+        const id = Math.random().toString(36).substring(2, 10);
+        const questionId = `${id}-question`;
+        const answerId = `${id}-answer`;
         const editable = false;
 
         return (
@@ -130,6 +132,8 @@ class Card extends React.Component {
 
     renderCardInPlay = (card) => {
         const { isAnswered, 
+            playAnimation,
+            animationDirection,
             openHideSingleCardModal, 
             openFavoriteModal
         } = this.props;
@@ -139,6 +143,10 @@ class Card extends React.Component {
         if (isAnswered) {
             cardClassName += " flipped";
             shadowClassName += " flipped";
+        }
+        if(playAnimation) {
+            cardClassName += " " + animationDirection;
+            shadowClassName += " " + animationDirection;
         }
 
         return (

@@ -25,6 +25,8 @@ class QuizzApp extends React.Component {
         theme: "",
         isAnswered: false,
         isFinished: false,
+        playAnimation : false,
+        animationDirection : "",
         cardIndex: 0,
         maxIndex: 0,
         score: 0,
@@ -53,9 +55,30 @@ class QuizzApp extends React.Component {
         else
             return false;
     }
+    
+    setAnimation = (command) => {
+        const directions = {
+            Correct: "left",
+            Wrong: "right"
+        };
 
-    handleCommandClick = command => {
-        this.setState(Quizz.updateQuizz(this.state.cardIndex, this.state.score, command));
+        const animationState = {
+            playAnimation: true,
+            animationDirection: directions[command]
+        };
+
+        this.setState(animationState);
+
+        setTimeout(() => this.setState({ playAnimation: false, animationDirection: "" }), 300);
+    };
+
+    handleCommandClick = (command) => {
+        if (command === "Correct" || command === "Wrong") {
+            this.setAnimation(command);
+            setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, this.state.score, command)), 300);
+        } else {
+            this.setState(Quizz.updateQuizz(this.state.cardIndex, this.state.score, command));
+        }
     };
 
     navigateToLearnPage = () => {
@@ -104,7 +127,9 @@ class QuizzApp extends React.Component {
             enableFavoriteModal,
             enableHideSingleCardModal,
             hideSingleCardModalClass,
-            favoriteModalClass
+            favoriteModalClass,
+            playAnimation,
+            animationDirection
         } = this.state;
 
         if (isFinished) {
@@ -116,15 +141,6 @@ class QuizzApp extends React.Component {
             )
         } else {
             return (
-
-                // <>
-                //     
-                //     <DisplayWord isAnswered={isAnswered} word={currentWord} />
-                //     <ButtonPanel isAnswered={isAnswered} clickHandler={this.handleCommandClick} />
-                //     <CardsOptionsMenu banCardClickHandler={this.handleCommandClick} card={card} />
-                //     <BanCardDialog />
-                //     {/* <TextToSpeech lang={"ko"} word={this.state.currentWord.question} /> */}
-                // </>
                 <>
                     {enableFavoriteModal &&
                         <FavoriteModal modalClass={favoriteModalClass}
@@ -145,6 +161,8 @@ class QuizzApp extends React.Component {
                         <Card card={card}
                             inPlay={true}
                             isAnswered={isAnswered}
+                            playAnimation={playAnimation}
+                            animationDirection={animationDirection}
                             openHideSingleCardModal={this.openHideSingleCardModal}
                             openFavoriteModal={this.openFavoriteModal}
                         />

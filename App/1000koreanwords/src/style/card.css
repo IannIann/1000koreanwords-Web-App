@@ -2,7 +2,7 @@
     text-align: center;
     width: 250px;
     height: 375px;
-    background: linear-gradient(to bottom right, #ffffff, #f3f0eb);
+    background: linear-gradient(to bottom right, #ffffff, #f8f7f5);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -34,7 +34,6 @@ and shadow are grouped together when it get flipped*/
     filter: blur(3px);
     border-radius: 5px;
     z-index: 0;
-    transition: transform 0.8s;
     transform-style: preserve-3d;
 }
 
@@ -46,7 +45,7 @@ and shadow are grouped together when it get flipped*/
 
     width: 300px;
     height: 450px;
-    transition: transform 0.8s;
+
     transform-style: preserve-3d;
     box-shadow: none;
 }
@@ -54,6 +53,19 @@ and shadow are grouped together when it get flipped*/
 .flip-card.flipped,
 .component-shadow.flipped {
     transform: rotateY(180deg);
+    transition: transform 0.8s;
+}
+
+.flip-card.flipped.right,
+.component-shadow.flipped.right {
+    transform: translateX(600%) rotateZ(180deg) rotateY(180deg);
+    transition: transform 0.4s;
+}
+
+.flip-card.flipped.left,
+.component-shadow.flipped.left {
+    transform: translateX(-600%) rotateZ(180deg) rotateY(180deg);
+    transition: transform 0.4s;
 }
 
 .card-answer,
@@ -90,6 +102,7 @@ and shadow are grouped together when it get flipped*/
     transform: rotateY(180deg);
     flex-direction: column;
 }
+
 
 
 /* Below the css is used in cards displayed outside of quiz */
