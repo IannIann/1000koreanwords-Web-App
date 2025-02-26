@@ -1,0 +1,10 @@
+.component-quizz-result {
+}
+
+.component-quizz-result .correct-cards, 
+.component-quizz-result .wrong-cards {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}

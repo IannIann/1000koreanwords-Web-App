@@ -20,9 +20,9 @@ class ButtonPushable extends React.Component {
   }
 
   render() {
-    const { onClick, label, color, isIcon, size } = this.props;
+    const { onClick, label, color, isIcon, size, disabled } = this.props;
     return (
-        <button onClick={onClick} className={`button-pushable ${color}`} role="button">
+        <button disabled={disabled} onClick={onClick} className={`button-pushable ${color}`} role="button">
             <span className="button-edge"></span>
             {this.renderSpan(label, isIcon, size)}
         </button>

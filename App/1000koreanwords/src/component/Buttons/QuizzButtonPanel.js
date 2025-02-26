@@ -11,18 +11,36 @@ export default class QuizzButtonPanel extends React.Component {
     };
 
     render() {
+        const {isAnswered, isAnimating} = this.props;
 
-        if (this.props.isAnswered) {
+        if (isAnswered) {
             return (
                 <div className="component-quizz-button-panel">
-                    <ButtonPushable label="Correct" color="green" size="big" onClick={() => this.handleCommandClick("Correct")} />
-                    <ButtonPushable label="Wrong" color="red" size="big" onClick={() => this.handleCommandClick("Wrong")} />
+                    <ButtonPushable
+                        label="Correct"
+                        color="green"
+                        size="big"
+                        onClick={() => this.handleCommandClick("Correct")}
+                        disabled={isAnimating}
+                    />
+                    <ButtonPushable
+                        label="Wrong"
+                        color="red"
+                        size="big"
+                        onClick={() => this.handleCommandClick("Wrong")}
+                        disabled={isAnimating}
+                    />
                 </div>
             );
         } else {
             return (
                 <div className="component-quizz-button-panel">
-                    <ButtonPushable label="Show answer" color="blue" size="big" onClick={() => this.handleCommandClick("Show")} />
+                    <ButtonPushable
+                        label="Show answer"
+                        color="blue"
+                        size="big"
+                        onClick={() => this.handleCommandClick("Show")}
+                    />
                 </div>
             );
         }

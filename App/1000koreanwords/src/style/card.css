@@ -2,7 +2,8 @@
     text-align: center;
     width: 250px;
     height: 375px;
-    background: linear-gradient(to bottom right, #ffffff, #f8f7f5);
+    /* background: linear-gradient(to bottom right, #ffffff, #f8f7f5); */
+    background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -50,22 +51,59 @@ and shadow are grouped together when it get flipped*/
     box-shadow: none;
 }
 
+
+.component-wrapper
+{
+    transition : opacity 0.3s ease-in-out;
+}
+
+.component-wrapper.fade-out {
+    opacity: 0;
+}
+
+ .component-wrapper.fade-in 
+{
+    opacity: 1;
+}
+
 .flip-card.flipped,
 .component-shadow.flipped {
     transform: rotateY(180deg);
-    transition: transform 0.8s;
+    transition: transform 0.8s, background-color 0.2s ease-in-out, border 0.2s ease-in-out; 
 }
 
-.flip-card.flipped.right,
-.component-shadow.flipped.right {
-    transform: translateX(600%) rotateZ(180deg) rotateY(180deg);
-    transition: transform 0.4s;
+.flip-card.flipped.red {
+    background: #ffcaca;
+
+    border: 5px solid #C14300;
 }
 
-.flip-card.flipped.left,
-.component-shadow.flipped.left {
-    transform: translateX(-600%) rotateZ(180deg) rotateY(180deg);
-    transition: transform 0.4s;
+.flip-card.flipped.red,
+.component-shadow.flipped.red {
+    animation: shake 0.3s ease-in-out;
+}
+
+.flip-card.flipped.green {
+    background: #ceffdd;
+
+    border: 5px solid #0C8230;
+}
+
+.flip-card.flipped.green,
+.component-shadow.flipped.green {
+    animation: grow 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotateY(180deg); }
+    25% { transform: translateX(-5px) rotateY(180deg); }
+    50% { transform: translateX(5px) rotateY(180deg); }
+    75% { transform: translateX(-5px) rotateY(180deg); }
+}
+
+@keyframes grow {
+    0%, 100% { transform: scale(1) rotateY(180deg); }
+    50% { transform: scale(1.1) rotateY(180deg); }
 }
 
 .card-answer,

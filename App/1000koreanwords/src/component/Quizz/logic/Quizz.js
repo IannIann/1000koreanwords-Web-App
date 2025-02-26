@@ -9,11 +9,16 @@ var deckState = {
     bannedCards: []
 }
 
+var score = {
+    wrongCards: [],
+    correctCards: []
+}
+
 var cards;
 var maxCard = 5;
 
 export default {
-    updateQuizz(cardIndex, score, command) {
+    updateQuizz(cardIndex, command) {
 
         if (command === "Show")
             return {
@@ -24,36 +29,26 @@ export default {
             || command === "Correct"
             || command === "Hide") {
 
-            let updatedScore = score;
-
-            let nextCardIndex = incrementCardIndex(cardIndex);
-            let currentCard = getCardAtIndex(cardIndex);
+            let nextCardIndex = cardIndex + 1;
             let nextCard = getCardAtIndex(nextCardIndex);
+            let currentCard = getCardAtIndex(cardIndex);
             let isFinished = isQuizzFinished(nextCardIndex);
 
-            if (command === "Correct") {
-                updatedScore = incrementScore(score);
-                addCardToCorrectArray(currentCard._id);
-            }
-
-            if (command === "Hide") {
-                updatedScore = incrementScore(score);
-                addCardToBannedArray(currentCard._id);
-            }
+            updateScore(command, currentCard);
+            updateLocalDeckState(command, currentCard._id);
 
             if (isFinished) {
                 updateDeckState();
-
                 return {
                     isFinished: isFinished,
-                    score: updatedScore
+                    cardIndex: nextCardIndex,
+                    score : score
                 }
             }
 
             return {
                 isAnswered: false,
                 cardIndex: nextCardIndex,
-                score: updatedScore,
                 isFinished: isFinished,
                 card: nextCard
             }
@@ -77,6 +72,12 @@ export default {
         cards = cards.slice(0, Math.min(maxCard, cards.length));
 
         let theme = res.deck[0].theme;
+
+        //Reseting the score
+        score = {
+            wrongCards: [],
+            correctCards: []
+          }
 
         return {
             maxIndex: cards.length,
@@ -107,7 +108,7 @@ function createDeckState(deckId) {
   return {
     deckId,
     bannedCards: [],
-    correctCards: [],
+    correctCards: []
   };
 }
 
@@ -116,12 +117,19 @@ async function updateDeckState() {
     await userdeckstatesData.updateDeckState(userId, deckState);
 }
 
-function addCardToCorrectArray(cardIndex) {
-    deckState.correctCards.push(cardIndex);
+function updateLocalDeckState(command, cardIndex) {
+    if (command === "Correct") {
+        deckState.correctCards.push(cardIndex);
+    } else if (command === "Hide") {
+        deckState.bannedCards.push(cardIndex);
+    }
 }
 
-function addCardToBannedArray(cardIndex) {
-    deckState.bannedCards.push(cardIndex);
+function updateScore(command, card) {
+    if(command === "Wrong")
+        score.wrongCards.push(card);
+    else if (command === "Correct")
+        score.correctCards.push(card);
 }
 
 function getCardAtIndex(index) {
@@ -131,23 +139,6 @@ function getCardAtIndex(index) {
   }
 }
 
-function buildWordFromCard(card) {
-    const word = {
-        question: card.question,
-        answer: card.answer
-    };
-
-    return word;
-}
-
 function isQuizzFinished(cardIndex) {
     return cardIndex >= cards.length;
-}
-
-function incrementScore(currentScore) {
-    return currentScore + 1;
-}
-
-function incrementCardIndex(currentCardIndex) {
-    return currentCardIndex + 1;
 }

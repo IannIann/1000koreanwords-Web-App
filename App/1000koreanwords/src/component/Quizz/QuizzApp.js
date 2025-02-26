@@ -12,6 +12,7 @@ import Card from "@app/component/Card/Card";
 import { withRouter } from '@app/tool/withRouter'
 import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
 import QuizzButtonPanel from "@app/component/Buttons/QuizzButtonPanel.js";
+import QuizzResult from "@app/component/Quizz/QuizzResult.js";
 
 import HideSingleCardModal from '@app/component/Modals/HideSingleCardModal';
 import FavoriteModal from '@app/component/Modals/FavoriteModal';
@@ -22,21 +23,26 @@ class QuizzApp extends React.Component {
 
     state = {
         card: {},
+        score : {},
         theme: "",
         isAnswered: false,
         isFinished: false,
-        playAnimation : false,
-        animationDirection : "",
+        isAnimating : false,
+
         cardIndex: 0,
         maxIndex: 0,
-        score: 0,
+
+        changeColor : false,
+        color : "",
+
+        fade : false,
+        fadeClass : "",
 
         enableFavoriteModal: true,
         enableHideSingleCardModal: true
     };
 
     componentDidMount() {
-
         const { deckId } = this.props.router.params;
         const isCustomDeck = this.isCustomDeck()
 
@@ -56,28 +62,35 @@ class QuizzApp extends React.Component {
             return false;
     }
     
-    setAnimation = (command) => {
-        const directions = {
-            Correct: "left",
-            Wrong: "right"
+    playColorAnimation = (command) => {
+        const colors = {
+            Correct: "green",
+            Wrong: "red",
+            Hide: "colorless"
         };
 
-        const animationState = {
-            playAnimation: true,
-            animationDirection: directions[command]
-        };
+        this.setState({ isAnimating: true, changeColor: true, color: colors[command] });
 
-        this.setState(animationState);
+        setTimeout(() => this.setState({changeColor: false, color: "" }), 600);
+    };
 
-        setTimeout(() => this.setState({ playAnimation: false, animationDirection: "" }), 300);
+    playFadeAnimation = () => {
+        this.setState({ fade: true, fadeClass: "fade-out" });
+
+        setTimeout(() => this.setState({ isAnimating: false, fade: false, fadeClass: "" }), 300);
     };
 
     handleCommandClick = (command) => {
-        if (command === "Correct" || command === "Wrong") {
-            this.setAnimation(command);
-            setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, this.state.score, command)), 300);
-        } else {
-            this.setState(Quizz.updateQuizz(this.state.cardIndex, this.state.score, command));
+        if (command === "Correct" || command === "Wrong" || command === "Hide") {
+            //We play a short animation if the command is Correct or Wrong before updating the quizz
+            this.playColorAnimation(command, 300);
+            setTimeout(() => this.playFadeAnimation(), 600);
+            setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, command)), 900); 
+
+
+        } else { 
+            //If the command is Show, update the quizz
+            this.setState(Quizz.updateQuizz(this.state.cardIndex, command));
         }
     };
 
@@ -115,63 +128,80 @@ class QuizzApp extends React.Component {
         document.body.classList.remove('modal-active');
     }
 
-    renderElement() {
-        const { 
+    renderModal() {
+        const { enableFavoriteModal, enableHideSingleCardModal, hideSingleCardModalClass, favoriteModalClass } = this.state;
+
+        return (
+            <>
+                {enableFavoriteModal &&
+                    <FavoriteModal modalClass={favoriteModalClass}
+                        onClose={this.closeModal} 
+                        card={this.state.card}/>
+                }
+
+                {enableHideSingleCardModal &&
+                    <HideSingleCardModal modalClass={hideSingleCardModalClass}
+                        onClose={this.closeModal}
+                        commandHandler={this.handleCommandClick}
+                        card={this.state.card} />
+                }
+            </>
+        );
+    }
+
+    renderCardQuizz() {
+        const {
             isAnswered,
-            isFinished,
-            cardIndex,
-            maxIndex,
-            score,
             card,
-            theme,
-            enableFavoriteModal,
-            enableHideSingleCardModal,
-            hideSingleCardModalClass,
-            favoriteModalClass,
-            playAnimation,
-            animationDirection
+            changeColor,
+            color,
+            fade,
+            fadeClass,
+            isAnimating,
+            cardIndex,
+            maxIndex
         } = this.state;
 
-        if (isFinished) {
-            return (
-                <>
-                    <DisplayScore score={score} maxScore={maxIndex} />
-                    <CommandButton name="Done" clickHandler={this.navigateToLearnPage} />
-                </>
-            )
-        } else {
-            return (
-                <>
-                    {enableFavoriteModal &&
-                        <FavoriteModal modalClass={favoriteModalClass}
-                            onClose={this.closeModal} 
-                            card={card}/>
-                    }
+        return (
+            <>
+                <Card card={card}
+                    inPlay={true}
+                    isAnswered={isAnswered}
+                    changeColor={changeColor}
+                    color={color}
+                    fade={fade}
+                    fadeClass={fadeClass}
+                    openHideSingleCardModal={this.openHideSingleCardModal}
+                    openFavoriteModal={this.openFavoriteModal}
+                />
 
-                    {enableHideSingleCardModal &&
-                        <HideSingleCardModal modalClass={hideSingleCardModalClass}
-                            onClose={this.closeModal}
-                            commandHandler={this.handleCommandClick}
-                            card={card} />
-                    }
+                <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
+                <QuizzProgressBar currentIndex={cardIndex} maxIndex={maxIndex} />
+            </>
+        );
+    }
 
-                    <div className="content">
-                        <h1>{theme}</h1>
+    renderElement() {
+        const { isFinished, theme, cardIndex, maxIndex, score } = this.state;
 
-                        <Card card={card}
-                            inPlay={true}
-                            isAnswered={isAnswered}
-                            playAnimation={playAnimation}
-                            animationDirection={animationDirection}
-                            openHideSingleCardModal={this.openHideSingleCardModal}
-                            openFavoriteModal={this.openFavoriteModal}
-                        />
-                        <QuizzButtonPanel isAnswered={isAnswered} commandHandler={this.handleCommandClick} />
-                        <QuizzProgressBar currentIndex={cardIndex} maxIndex={maxIndex} />
-                    </div>
-                </>
-            );
-        }
+        return (
+            <>
+                {this.renderModal()}
+
+                <div className="content">
+                    <h1>{theme}</h1>
+
+                    {!isFinished
+                        && this.renderCardQuizz()}
+
+                    {isFinished
+                        && <QuizzResult correctCards={score.correctCards} wrongCards={score.wrongCards} />}
+
+                    
+                </div>
+            </>
+        );
+
     }
 
     render() {

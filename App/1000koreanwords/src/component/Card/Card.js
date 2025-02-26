@@ -132,25 +132,32 @@ class Card extends React.Component {
 
     renderCardInPlay = (card) => {
         const { isAnswered, 
-            playAnimation,
-            animationDirection,
+            changeColor,
+            color,
+            fade,
+            fadeClass,
             openHideSingleCardModal, 
             openFavoriteModal
         } = this.props;
 
         let cardClassName = "component-card flip-card";
         let shadowClassName = "component-shadow"; //has to trick the shadow box so it can be flipped
+        let wrapperClassName = "component-wrapper";
+
         if (isAnswered) {
             cardClassName += " flipped";
             shadowClassName += " flipped";
         }
-        if(playAnimation) {
-            cardClassName += " " + animationDirection;
-            shadowClassName += " " + animationDirection;
+        if (changeColor) {
+            cardClassName += " " + color;
+            shadowClassName += " " + color;
+        }
+        if (fade) {
+            wrapperClassName += " " + fadeClass;
         }
 
         return (
-            <div className="component-wrapper">
+            <div className={wrapperClassName} >
             <div className={shadowClassName}></div>
                 <div className={cardClassName}>
                     <div className="card-front">
@@ -195,5 +202,6 @@ class Card extends React.Component {
         );
     }
 }
+
 
 export default Card;
