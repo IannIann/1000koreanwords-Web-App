@@ -13,6 +13,7 @@ import { withRouter } from '@app/tool/withRouter'
 import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
 import QuizzButtonPanel from "@app/component/Buttons/QuizzButtonPanel.js";
 import QuizzResult from "@app/component/Quizz/QuizzResult.js";
+import QuizzTheme from "@app/component/Quizz/QuizzTheme.js";
 
 import HideSingleCardModal from '@app/component/Modals/HideSingleCardModal';
 import FavoriteModal from '@app/component/Modals/FavoriteModal';
@@ -182,14 +183,14 @@ class QuizzApp extends React.Component {
     }
 
     renderElement() {
-        const { isFinished, theme, cardIndex, maxIndex, score } = this.state;
+        const { isFinished, theme, score } = this.state;
 
         return (
             <>
                 {this.renderModal()}
 
                 <div className="content">
-                    <h1>{theme}</h1>
+                    <QuizzTheme theme={theme} isFinished={isFinished} navigateToLearnPage={this.navigateToLearnPage} />
 
                     {!isFinished
                         && this.renderCardQuizz()}

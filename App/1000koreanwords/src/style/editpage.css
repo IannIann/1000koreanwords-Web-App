@@ -18,19 +18,19 @@
 
 }
 
-.center {
+.cards-edit-header .center {
     width: 33%;
 }
 
-.left, .right {
+.cards-edit-header .left, .cards-edit-header .right {
     flex: 1;
 }
 
-.left {
+.cards-edit-header .left {
     display: flex;
     justify-content: right;
 }
 
-.left a {
+.cards-edit-header .left a {
     padding-right: 5%;
 }

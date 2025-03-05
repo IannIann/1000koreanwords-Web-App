@@ -13,9 +13,9 @@ class CustomDecksManager extends React.Component {
     state = {
         decks: [],
         userDeckStates: {},
-        enableHiddenCardsModal: true,
-        enableResetModal: true,
-        enableDeleteModal: true
+        enableHiddenCardsModal: false,
+        enableResetModal: false,
+        enableDeleteModal: false
     };
 
     componentDidMount() {

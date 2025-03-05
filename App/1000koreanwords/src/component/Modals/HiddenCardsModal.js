@@ -17,25 +17,34 @@ class HiddenCardsModal extends React.Component {
     modalType: ""
   }
 
+  componentDidMount() {
+    this.fetchBannedCardsList();
+  }
+
   componentDidUpdate(prevProps) {
-    const { deckState, deck, modalClass } = this.props;
-    const userId = AuthService.getCurrentUser().id
+    const { modalClass } = this.props
 
     if (prevProps.modalClass !== modalClass) {
+      this.fetchBannedCardsList();
+    }
+  }
 
-      const fetchDeck = deck.isCustom
-        ? customdecks.getCustomDeck
-        : decksData.getDeck
+  fetchBannedCardsList = () => {
+    const { deckState, deck } = this.props;
+    const userId = AuthService.getCurrentUser().id
 
-      if (deckState) {
-        fetchDeck(deck.id, userId).then((res) => {
-          const cards = res.deck[0].cards;
-          const bannedCards = deckState.bannedCards;
-          const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
+    const fetchDeck = deck.isCustom
+      ? customdecks.getCustomDeck
+      : decksData.getDeck
 
-          this.setState({ bannedCards: bannedCardsList });
-        });
-      }
+    if (deckState) {
+      fetchDeck(deck.id, userId).then((res) => {
+        const cards = res.deck[0].cards;
+        const bannedCards = deckState.bannedCards;
+        const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
+
+        this.setState({ bannedCards: bannedCardsList });
+      });
     }
   }
 

@@ -8,8 +8,8 @@ export default class DecksManager extends React.Component {
     state = {
         decks: [],
         userDeckStates: {},
-        enableHiddenCardsModal: true,
-        enableResetModal: true,
+        enableHiddenCardsModal: false,
+        enableResetModal: false,
     };
 
     componentDidMount() {
