@@ -21,35 +21,48 @@ import FavoriteModal from '@app/component/Modals/FavoriteModal';
 import "@app/style/quizzapp.css";
 
 class QuizzApp extends React.Component {
-
     state = {
         card: {},
-        score : {},
+        score: {},
         theme: "",
         isAnswered: false,
         isFinished: false,
-        isAnimating : false,
+        isAnimating: false,
 
         cardIndex: 0,
         maxIndex: 0,
 
-        changeColor : false,
-        color : "",
+        changeColor: false,
+        color: "",
 
-        fade : false,
-        fadeClass : "",
+        fade: false,
+        fadeClass: "",
 
         enableFavoriteModal: true,
         enableHideSingleCardModal: true
     };
 
     componentDidMount() {
+        this.startQuizz();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.isFinished !== this.state.isFinished && this.state.isFinished) {
+            this.updateDeckCompletion();
+        }
+    }
+
+    startQuizz = () => {
         const { deckId } = this.props.router.params;
         const isCustomDeck = this.isCustomDeck()
 
         Quizz.instantiateQuizzDeck(deckId, isCustomDeck)
             .then(({ maxIndex, card, theme }) => {
-                this.setState({ maxIndex, card, theme });
+
+                if (maxIndex <= 0)
+                    throw new Error("Quizz deck is empty");
+
+                this.setState({ maxIndex, card, theme, cardIndex: 0, isFinished: false });
             })
             .catch(error => {
                 this.navigateToLearnPage(); // Navigate to learn page on error
@@ -62,7 +75,20 @@ class QuizzApp extends React.Component {
         else
             return false;
     }
-    
+
+    updateDeckCompletion = () => {
+        const { deckId } = this.props.router.params;
+        const isCustomDeck = this.isCustomDeck();
+
+        Quizz.updateDeckState()
+            .then(() => {
+                Quizz.checkDeckFullCompletion(deckId, isCustomDeck)
+                    .then(isDeckFullyCompleted => {
+                        this.setState({ isDeckFullyCompleted });
+                    });
+            });
+    }
+
     playColorAnimation = (command) => {
         const colors = {
             Correct: "green",
@@ -72,7 +98,7 @@ class QuizzApp extends React.Component {
 
         this.setState({ isAnimating: true, changeColor: true, color: colors[command] });
 
-        setTimeout(() => this.setState({changeColor: false, color: "" }), 600);
+        setTimeout(() => this.setState({ changeColor: false, color: "" }), 600);
     };
 
     playFadeAnimation = () => {
@@ -86,10 +112,10 @@ class QuizzApp extends React.Component {
             //We play a short animation if the command is Correct or Wrong before updating the quizz
             this.playColorAnimation(command, 300);
             setTimeout(() => this.playFadeAnimation(), 600);
-            setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, command)), 900); 
+            setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, command)), 900);
 
 
-        } else { 
+        } else {
             //If the command is Show, update the quizz
             this.setState(Quizz.updateQuizz(this.state.cardIndex, command));
         }
@@ -136,8 +162,8 @@ class QuizzApp extends React.Component {
             <>
                 {enableFavoriteModal &&
                     <FavoriteModal modalClass={favoriteModalClass}
-                        onClose={this.closeModal} 
-                        card={this.state.card}/>
+                        onClose={this.closeModal}
+                        card={this.state.card} />
                 }
 
                 {enableHideSingleCardModal &&
@@ -183,14 +209,22 @@ class QuizzApp extends React.Component {
     }
 
     renderElement() {
-        const { isFinished, theme, score } = this.state;
+        const { isFinished, theme, score, isDeckFullyCompleted } = this.state;
+
 
         return (
             <>
                 {this.renderModal()}
 
                 <div className="content">
-                    <QuizzTheme theme={theme} isFinished={isFinished} navigateToLearnPage={this.navigateToLearnPage} />
+                    <QuizzTheme
+                        theme={theme}
+                        isFinished={isFinished}
+                        hideRestartButton={true}
+                        restartQuizz={this.startQuizz}
+                        navigateToLearnPage={this.navigateToLearnPage}
+                        isDeckFullyCompleted={isDeckFullyCompleted}
+                    />
 
                     {!isFinished
                         && this.renderCardQuizz()}
@@ -198,11 +232,9 @@ class QuizzApp extends React.Component {
                     {isFinished
                         && <QuizzResult correctCards={score.correctCards} wrongCards={score.wrongCards} />}
 
-                    
                 </div>
             </>
         );
-
     }
 
     render() {

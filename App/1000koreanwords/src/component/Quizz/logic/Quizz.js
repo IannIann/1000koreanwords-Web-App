@@ -38,7 +38,6 @@ export default {
             updateLocalDeckState(command, currentCard._id);
 
             if (isFinished) {
-                updateDeckState();
                 return {
                     isFinished: isFinished,
                     cardIndex: nextCardIndex,
@@ -85,6 +84,27 @@ export default {
             theme : theme
         }
     },
+    
+    async checkDeckFullCompletion(deckId, isCustomDeck) {
+
+        const userId = AuthService.getCurrentUser().id;
+        const userDeckState = await userdeckstatesData.getSingleDeckState(userId, deckId);
+
+        const res = isCustomDeck
+            ? await customdecksData.getCustomDeck(deckId, userId)
+            : await decksData.getDeck(deckId);
+
+        const deckSize = res.deck[0].cards.length;
+        const correctCardsLength = userDeckState[0].correctCards.length;
+        const bannedCardsLength = userDeckState[0].bannedCards.length;
+
+        return correctCardsLength + bannedCardsLength >= deckSize;
+    },
+
+    async updateDeckState() {
+        let userId = AuthService.getCurrentUser().id
+        return userdeckstatesData.updateDeckState(userId, deckState);
+    }
 };
 
 function filterCardsToPlay(deckState, allCards) {
@@ -110,11 +130,6 @@ function createDeckState(deckId) {
     bannedCards: [],
     correctCards: []
   };
-}
-
-async function updateDeckState() {
-    let userId = AuthService.getCurrentUser().id
-    await userdeckstatesData.updateDeckState(userId, deckState);
 }
 
 function updateLocalDeckState(command, cardIndex) {

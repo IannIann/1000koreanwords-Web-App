@@ -6,7 +6,7 @@
 }
 
 .quizz-theme-header .center {
-    width: 50%;
+    width: 33%;
     text-align: center;
 }
 
@@ -16,10 +16,10 @@
 
 .quizz-theme-header .left {
     display: flex;
-    justify-content: left;
+    justify-content: right;
 }
 
 .quizz-theme-header .right {
     display: flex;
-    justify-content: right;
+    justify-content: left;
 }

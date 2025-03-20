@@ -20,7 +20,7 @@ and shadow are grouped together when it get flipped*/
 .component-wrapper {
     position: relative;
     display: inline-block;
-    margin: 0% 5% 5% 5%;
+    margin: 0% 5% 2% 5%;
 }
 
 .component-shadow {

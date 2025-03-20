@@ -11,8 +11,8 @@ body
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-size: 1rem;
     width: 100vw;
+    font-size: 1rem;
     overflow-x: hidden;
 }
 
@@ -50,6 +50,11 @@ body
 .component-button-grade
 {
     text-align: center;
+}
+
+.component-app {
+    display: flex;
+    flex-direction: column;
 }
 
 a {

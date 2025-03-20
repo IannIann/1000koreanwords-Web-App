@@ -1,6 +1,3 @@
-.component-quizz-result {
-}
-
 .component-quizz-result .correct-cards, 
 .component-quizz-result .wrong-cards {
     display: flex;

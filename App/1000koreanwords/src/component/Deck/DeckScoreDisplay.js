@@ -47,12 +47,12 @@ export default class DeckScoreDisplay extends React.Component {
   }
 
   render() {
-    const { deckSize, deckScore, progressPercentage } = this.state;
-
+    const { progressPercentage } = this.state;
+    
     return (
       <div className="component-deck-score">
         <div className="progress-container">
-          <div className="score">{deckScore} / {deckSize}</div>
+          <div className="score"> {`${progressPercentage}%`}</div>
           <div className="progress-bar" style={{ width: `${progressPercentage}%` }} ></div>
         </div>
       </div>
