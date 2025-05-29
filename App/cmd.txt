@@ -17,6 +17,6 @@ git commit -m "comment"
 git push
 
 ------------------
-git status
 git fetch
+git status
 git pull

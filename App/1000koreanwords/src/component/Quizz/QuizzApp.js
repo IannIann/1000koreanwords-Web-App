@@ -2,7 +2,6 @@ import React from "react";
 import Quizz from "./logic/Quizz.js";
 import DisplayIndex from "./DisplayIndex";
 import DisplayWord from "./DisplayWord";
-import DisplayScore from "./DisplayScore";
 import ButtonPanel from "./ButtonPanel";
 import CommandButton from "./CommandButton.js";
 import TextToSpeech from "./TextToSpeech";
@@ -31,6 +30,7 @@ class QuizzApp extends React.Component {
 
         cardIndex: 0,
         maxIndex: 0,
+        scoreIndex: 0,
 
         changeColor: false,
         color: "",
@@ -62,7 +62,7 @@ class QuizzApp extends React.Component {
                 if (maxIndex <= 0)
                     throw new Error("Quizz deck is empty");
 
-                this.setState({ maxIndex, card, theme, cardIndex: 0, isFinished: false });
+                this.setState({card, theme, cardIndex: 0, scoreIndex: 0, maxIndex, isFinished: false, isAnswered: false});
             })
             .catch(error => {
                 this.navigateToLearnPage(); // Navigate to learn page on error
@@ -109,12 +109,13 @@ class QuizzApp extends React.Component {
 
     handleCommandClick = (command) => {
         if (command === "Correct" || command === "Wrong" || command === "Hide") {
+            //increment score for progress bar
+            this.setState({ scoreIndex: this.state.scoreIndex + 1 });
+
             //We play a short animation if the command is Correct or Wrong before updating the quizz
             this.playColorAnimation(command, 300);
             setTimeout(() => this.playFadeAnimation(), 600);
             setTimeout(() => this.setState(Quizz.updateQuizz(this.state.cardIndex, command)), 900);
-
-
         } else {
             //If the command is Show, update the quizz
             this.setState(Quizz.updateQuizz(this.state.cardIndex, command));
@@ -185,8 +186,8 @@ class QuizzApp extends React.Component {
             fade,
             fadeClass,
             isAnimating,
-            cardIndex,
-            maxIndex
+            maxIndex,
+            scoreIndex
         } = this.state;
 
         return (
@@ -203,7 +204,7 @@ class QuizzApp extends React.Component {
                 />
 
                 <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
-                <QuizzProgressBar currentIndex={cardIndex} maxIndex={maxIndex} />
+                <QuizzProgressBar scoreIndex={scoreIndex} maxIndex={maxIndex} />
             </>
         );
     }

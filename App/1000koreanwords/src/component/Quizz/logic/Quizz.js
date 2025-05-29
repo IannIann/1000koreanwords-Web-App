@@ -29,13 +29,14 @@ export default {
             || command === "Correct"
             || command === "Hide") {
 
+            let currentCard = getCardAtIndex(cardIndex);
+            updateScore(command, currentCard);
+            updateLocalDeckState(command, currentCard);
+
             let nextCardIndex = cardIndex + 1;
             let nextCard = getCardAtIndex(nextCardIndex);
-            let currentCard = getCardAtIndex(cardIndex);
             let isFinished = isQuizzFinished(nextCardIndex);
 
-            updateScore(command, currentCard);
-            updateLocalDeckState(command, currentCard._id);
 
             if (isFinished) {
                 return {
@@ -132,11 +133,11 @@ function createDeckState(deckId) {
   };
 }
 
-function updateLocalDeckState(command, cardIndex) {
+function updateLocalDeckState(command, card) {
     if (command === "Correct") {
-        deckState.correctCards.push(cardIndex);
+        deckState.correctCards.push(card._id);
     } else if (command === "Hide") {
-        deckState.bannedCards.push(cardIndex);
+        deckState.bannedCards.push(card._id);
     }
 }
 

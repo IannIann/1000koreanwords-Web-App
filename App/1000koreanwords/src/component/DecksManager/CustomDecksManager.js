@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import ButtonAddDeck from '@app/component/Buttons/ButtonAddDeck';
 import DecksList from '@app/component/DecksManager/DecksList';
 import CustomDecksService from '@app/component/DecksManager/logic/CustomDecksService';
@@ -144,7 +144,6 @@ class CustomDecksManager extends React.Component {
                 <div className="component-custom-decks-manager">
                     {this.renderElement()}
                 </div>
-                <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick />
             </>
         )
     }

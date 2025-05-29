@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { withRouter } from '@app/tool/withRouter';
 import { Link } from "react-router-dom";
 import Card from '@app/component/Card/Card';
@@ -9,10 +9,9 @@ import ButtonAddCard from '@app/component/Buttons/ButtonAddCard';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 
 import '@app/style/editpage.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 class EditPage extends React.Component {
-    static maximumCards = 12;
+    static maximumCards = 1000;
 
     state = {
         deck: {},
@@ -32,17 +31,18 @@ class EditPage extends React.Component {
                 toast.error('Oops! Something went wrong...');
             });
     };
-
     saveDeckTheme = (theme) => {
         const { deck } = this.state;
         const savedTheme = deck.theme;
 
         this.setState({ deck: { ...deck, theme } });
 
-        Edition.updateDeck({ ...deck, theme }).catch(() => {
-            this.setState({ deck: { ...deck, theme: savedTheme } });
-            toast.error('Failed to change deck theme');
-        });
+        Edition.updateDeck({ ...deck, theme })
+            .then(() => toast.success('Deck theme successfully updated'))
+            .catch(() => {
+                this.setState({ deck: { ...deck, theme: savedTheme } });
+                toast.error('Failed to change deck theme');
+            });
     };
 
     saveCard = (updatedCard) => {
@@ -67,7 +67,13 @@ class EditPage extends React.Component {
         Edition.createCustomCard(deck._id)
             .then((res) => Edition.pushToDeck(deck._id, res.cardId))
             .then(() => this.loadDeck())
-            .catch(() => toast.error('Failed to add new card'));
+            .catch((error) => {
+                if (error.message) {
+                    toast.error(JSON.parse(error.message));
+                } else {
+                    toast.error('Failed to add new card.');
+                }
+            });
     };
 
     deleteCard = (card) => {
@@ -101,7 +107,7 @@ class EditPage extends React.Component {
     };
 
     render() {
-        const { deck } = this.state;
+        const { deck } = this.state;    
 
         return (
             <>
@@ -120,7 +126,6 @@ class EditPage extends React.Component {
                         {this.renderButtonAddCard()}
                     </div>
                 </div>
-                <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick />
             </>
         );
     }

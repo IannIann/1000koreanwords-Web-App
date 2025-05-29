@@ -12,10 +12,12 @@ import Profile from '@app/component/Main/Profile/Profile';
 import Navbar from '@app/component/Main/Navbar';
 import {Routes, Route} from 'react-router-dom'
 
+import { ToastContainer } from 'react-toastify';
 
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/md-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 //test
 import deck from "../test/deck";
@@ -39,6 +41,9 @@ export default class App extends React.Component {
                     <Route path="/logout" element={<CustomRoute.Private component={Logout}/>}/>
                     <Route path="/test" element={<CustomRoute.Private component={deck}/>}/>
                 </Routes>
+
+                <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick />
+                
             </>
         )
     }
@@ -50,4 +55,4 @@ export default class App extends React.Component {
             </div>
         )
     }
-}
+}   

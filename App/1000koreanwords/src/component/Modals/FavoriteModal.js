@@ -4,6 +4,7 @@ import customDecksData from '@app/data/customdecks.data';
 import customCardsData from '@app/data/customcards.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import {  toast } from 'react-toastify';
 
 import '@app/style/modal.css';
 import '@app/style/favoritemodal.css';
@@ -19,8 +20,7 @@ class FavoriteModal extends React.Component {
 
     componentDidMount() {
         this.fetchCustomDecks();
-
-    }
+        }
 
     handleBackgroundClick = (event) => {
         if (event.target.className.includes('modal-background')) {
@@ -31,9 +31,15 @@ class FavoriteModal extends React.Component {
     copyCardToDeck = (deckId, card) => {
         const userId = AuthService.getCurrentUser().id;
 
-        customCardsData.createCustomCard(userId, card).then(res => {
-            customDecksData.pushCardToDeck(userId, deckId, res.cardId);
-        });
+        customCardsData.createCustomCard(userId, card)
+            .then((res) => { customDecksData.pushCardToDeck(userId, deckId, res.cardId) })
+            .catch((error) => {
+                if (error.message) {
+                    toast.error(JSON.parse(error.message));
+                } else {
+                    toast.error('Failed to add new card.');
+                }
+            });
     }
 
     fetchCustomDecks = () => {

@@ -4,7 +4,7 @@ import ButtonAddDeck from '@app/component/Buttons/ButtonAddDeck';
 
 export default class DecksList extends React.Component {
 
-    maximumCustomDecks = 12;
+    maximumCustomDecks = 32;
 
     state = {
         decks: []

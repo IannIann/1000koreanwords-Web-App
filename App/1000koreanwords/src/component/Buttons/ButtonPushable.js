@@ -12,7 +12,7 @@ class ButtonPushable extends React.Component {
     }
     else {
       return (
-        <span className={`button-front ${size}`}>
+        <span className={`button-front ${size ? size : ''}`}>
           {label}
         </span>
       )
