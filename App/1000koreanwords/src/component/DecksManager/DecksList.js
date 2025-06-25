@@ -4,8 +4,6 @@ import ButtonAddDeck from '@app/component/Buttons/ButtonAddDeck';
 
 export default class DecksList extends React.Component {
 
-    maximumCustomDecks = 32;
-
     state = {
         decks: []
     };
@@ -13,8 +11,8 @@ export default class DecksList extends React.Component {
     componentDidUpdate(prevProps) {
         const { decks, userDeckStates } = this.props;
         if (decks !== prevProps.decks && decks) {
-            const deckStates = userDeckStates.decks;
 
+            const deckStates = userDeckStates.decks;
             const updatedDecks = decks.map(deck => ({
                 id: deck._id,
                 theme: deck.theme,
@@ -31,7 +29,7 @@ export default class DecksList extends React.Component {
         this.addFocusedToFirstDeck();
     }
 
-    //Build an array of stacked decks by themes
+    //Build a map of stacked decks by themes
     stackDecks = (decks) => {
         const stackedDecks = decks.reduce((stack, deck) => {
             const theme = deck.theme;
@@ -112,13 +110,25 @@ export default class DecksList extends React.Component {
     };
 
     renderStackedDecks() {
-        const stackedDecks = this.stackDecks(this.state.decks)
+        const {decks} = this.state;
+        const stackedDecks = this.stackDecks(decks)
+        const defaultThemesOrder = Object.keys(stackedDecks);
+        const userThemesOrder = JSON.parse(window.localStorage.getItem('userThemesOrder'));
+
+        if (userThemesOrder) {
+            userThemesOrder.map(theme => {
+                if (defaultThemesOrder.includes(theme)) {
+                    defaultThemesOrder.splice(defaultThemesOrder.indexOf(theme), 1);
+                    defaultThemesOrder.unshift(theme);
+                }
+            })
+        }
 
         return (
             <div className="stacked-decks-grid">
-                {Object.keys(stackedDecks).map((theme, index) => (
-                    <div key={index} className="stacked-decks" id={index}>
-                        {this.renderDeck(stackedDecks[theme], index)}
+                {defaultThemesOrder.map((theme, index) => (
+                    <div key={index} className="stacked-decks" id={theme}>
+                        {this.renderDeck(stackedDecks[theme], theme)}
                     </div>
                 ))}
             </div>
@@ -135,7 +145,6 @@ export default class DecksList extends React.Component {
         } = this.props;
 
         decks = this.orderDecksByGrade(decks).flat();
-
         const classNames = this.buildDeckClassNames(decks, stackId);
 
         return (
@@ -157,6 +166,7 @@ export default class DecksList extends React.Component {
         const {
             openResetModal,
             refreshDecks,
+            maxCustomDecksLimit,
             openHiddenCardsModal,
             openEditPage,
             openDeleteModal,
@@ -178,7 +188,7 @@ export default class DecksList extends React.Component {
                         openEditPage={openEditPage} />
                 ))}
 
-                {decks.length < this.maximumCustomDecks && (
+                {decks.length < maxCustomDecksLimit && (
                     <ButtonAddDeck
                         refreshDecks={refreshDecks}
                         decks={decks}
@@ -191,12 +201,13 @@ export default class DecksList extends React.Component {
     };
 
     render() {
-        const isCustomDeck = this.props.isCustomDeck;
+        const { isCustomDeck }= this.props;
+        const { decks } = this.state;
 
         return (
             <div className="component-decks-list">
                 {isCustomDeck && this.renderCustomDeck()}
-                {!isCustomDeck && this.renderStackedDecks()}
+                {!isCustomDeck && decks.length > 0 && this.renderStackedDecks()}
             </div>
         )
     }

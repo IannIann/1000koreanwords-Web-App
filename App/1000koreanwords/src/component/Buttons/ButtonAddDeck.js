@@ -14,9 +14,13 @@ export default class ButtonAddDeck extends React.Component {
     customdecksData.createCustomDeck(userId, theme)
       .then(() => {
         this.props.refreshDecks();
-      }).catch(() => {
-        this.props.toast.error('Failed to create a deck');
-    });
+      }).catch((error) => {
+        if (error.message) {
+          this.props.toast.error(JSON.parse(error.message));
+        } else {
+          this.props.toast.error('Failed to create a deck');
+        }
+      });
   };
 
   render() {

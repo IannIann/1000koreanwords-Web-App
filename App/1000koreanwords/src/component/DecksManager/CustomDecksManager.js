@@ -1,6 +1,5 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import ButtonAddDeck from '@app/component/Buttons/ButtonAddDeck';
 import DecksList from '@app/component/DecksManager/DecksList';
 import CustomDecksService from '@app/component/DecksManager/logic/CustomDecksService';
 import ResetModal from '@app/component/Modals/ResetModal';
@@ -15,20 +14,23 @@ class CustomDecksManager extends React.Component {
         userDeckStates: {},
         enableHiddenCardsModal: false,
         enableResetModal: false,
-        enableDeleteModal: false
+        enableDeleteModal: false,
+        maxCustomDecksLimit: 32
     };
 
     componentDidMount() {
         this.fetchDecksList();
+        
     }
 
     async fetchDecksList() {
-        const [decks, userDeckStates] = await Promise.all([
+        const [decks, userDeckStates, maxCustomDecksLimit] = await Promise.all([
             CustomDecksService.fetchDecks(),
             CustomDecksService.fetchUserDeckStates(),
+            CustomDecksService.fetchMaxCustomDecksLimit(),
         ]);
 
-        this.setState({ decks, userDeckStates });
+        this.setState({ decks, userDeckStates, maxCustomDecksLimit });
     };
 
     refreshDecks = () => {
@@ -93,8 +95,8 @@ class CustomDecksManager extends React.Component {
             hiddenCardsModalClass,
             enableHiddenCardsModal,
             deleteModalClass,
-            enableDeleteModal
-            
+            enableDeleteModal,
+            maxCustomDecksLimit
         } = this.state;
 
         return (
@@ -125,6 +127,7 @@ class CustomDecksManager extends React.Component {
                     <DecksList
                         decks={decks}
                         userDeckStates={userDeckStates}
+                        maxCustomDecksLimit={maxCustomDecksLimit}
                         isCustomDeck = {true}
                         refreshDecks={this.refreshDecks}
                         openResetModal={this.openResetModal}

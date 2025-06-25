@@ -16,5 +16,10 @@ export default {
     const decks = await customDecksData.getCustomDecks(userId);
     
     return decks.length ? decks : [];
-  },
+  },  
+
+  async fetchMaxCustomDecksLimit(){
+    const maxDecks = await customDecksData.getMaxCustomDecksLimit();
+    return maxDecks.maxCustomDecksLimit;
+  }
 };

@@ -77,10 +77,26 @@ export default class Deck extends React.Component {
     } else {
       return (
         <Link to={`/learn/quizz/${deck.id}`}>
-          <ButtonPushable label="Start" color="green" />
+          <ButtonPushable label="Start" color="green" onClick={() => this.saveUserThemesOrder(deck.theme)} />
         </Link>
       );
     }
+  }
+
+  saveUserThemesOrder = (theme) => {
+    let userThemesOrder = JSON.parse(window.localStorage.getItem('userThemesOrder'));
+
+    console.log(userThemesOrder);
+
+    if (!userThemesOrder) {
+      userThemesOrder = [];
+      userThemesOrder.push(theme);
+    } else {
+      userThemesOrder = userThemesOrder.filter((t) => t !== theme);
+      userThemesOrder.push(theme);
+    }
+
+    localStorage.setItem('userThemesOrder', JSON.stringify(userThemesOrder));
   }
 
   addFocusedClass = (event) => {
