@@ -1,15 +1,15 @@
 import apiAccess from '@app/data/httpService';
 
 export default {
-        createCustomCard(userId, card) {
-        return apiAccess.PostJson('customcards/create', {userId, card});
+    createCustomCard(card) {
+        return apiAccess.PostJson('/customcards/create', { card });
     },
 
     updateCustomCard(card) {
-        return apiAccess.PostJson('customcards/update', {card});
+        return apiAccess.PostJson('/customcards/update', { card });
     },
 
-    deleteCustomCard(userId, cardId) {
-        return apiAccess.DeleteJson('customcards/delete', {userId, cardId});
+    deleteCustomCard(cardId) {
+        return apiAccess.DeleteJson('/customcards/delete', { cardId });
     }
 }

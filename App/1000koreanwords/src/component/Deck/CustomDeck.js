@@ -56,7 +56,6 @@ export default class CustomDeck extends React.Component {
 
   renderStartButton = () => {
     const { deck } = this.props;
-    console.log("xd")
 
     if (this.isDeckEmpty()) {
       return (

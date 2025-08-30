@@ -30,17 +30,14 @@ class CustomDecksDialog extends React.Component {
     }
 
     copyCardToDeck(deckId, card) {
-        const userId = AuthService.getCurrentUser().id;
 
-        customCardsData.createCustomCard(userId, card).then(res => {
-            customDecksData.pushCardToDeck(userId, deckId, res.cardId);
+        customCardsData.createCustomCard(card).then(res => {
+            customDecksData.pushCardToDeck(deckId, res.cardId);
         });
     }
 
     fetchCustomDecks = () => {
-        const userId = AuthService.getCurrentUser().id;
-
-        customDecksData.getCustomDecks(userId)
+        customDecksData.getCustomDecks()
             .then(deckList => this.setState({ deckList }));
     }
 

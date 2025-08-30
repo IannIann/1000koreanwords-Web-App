@@ -32,7 +32,6 @@
         const maxLines = Math.floor(textarea.clientHeight / lineHeight);
         // Split the textarea value into lines
         const lines = textarea.value.split('\n');
-        console.log(lines.length)
         let truncatedValue = ''; // Store the truncated text
         let currentLineCount = 0; // Keep track of the current line count
 

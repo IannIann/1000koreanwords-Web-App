@@ -17,7 +17,6 @@ class BanListDialog extends React.Component {
     componentDidUpdate(prevProps) {
         const { isVisible, deckState, deck } = this.props;
         const { isVisible: wasVisible } = prevProps;
-        const userId = AuthService.getCurrentUser().id
 
         if (isVisible !== wasVisible) {
             this.setState({ isVisible });
@@ -27,8 +26,7 @@ class BanListDialog extends React.Component {
             : decksData.getDeck
 
             if (isVisible && deckState) {
-                fetchDeck(deck.id, userId).then((res) => {
-                        console.log(res);
+                fetchDeck(deck.id).then((res) => {
                         const cards = res.deck[0].cards;
                         const bannedCards = deckState.bannedCards;
                         const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
@@ -50,14 +48,13 @@ class BanListDialog extends React.Component {
     }
 
     onConfirm = () => {
-        const userId = AuthService.getCurrentUser().id
         const { deckState, refreshDecks } = this.props
         const updatedDeckState = {
             ...deckState,
             bannedCards: this.state.bannedCards
         }
 
-        userdeckstatesData.updateDeckState(userId, updatedDeckState)
+        userdeckstatesData.updateDeckState( updatedDeckState)
             .then(refreshDecks)
             .finally(this.closeDialog)
     }

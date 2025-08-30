@@ -4,9 +4,19 @@ import AuthService from '@app/service/auth.service'
 
 import '@app/style/navbar.css';
 
-let isLogged = AuthService.getCurrentUser();
-
 export default class Navbar extends React.Component {
+
+    state = {
+        isLogged: null
+    };
+
+    componentDidMount() {
+        this.isUserLoggedIn();
+    }
+    async isUserLoggedIn() {
+        await AuthService.checkAuthToken()
+        .then((res) => this.setState({ isLogged: res.valid }));
+    }
 
     displayLogo = () => {
         return (
@@ -19,35 +29,43 @@ export default class Navbar extends React.Component {
     }
 
     displayLinks = () => {
-      return (
-        // <ul className="navbar-links">
-        //     <li><Link className="navbar-item" to={"/homepage/"}> Home </Link></li>
-        //     <li><Link className="navbar-item" to={"/learn/"}> Learn </Link></li>
-        //     <li><Link className="navbar-item" to={"/mydecks/"}> My decks </Link></li>
-        //     <li><Link className="navbar-item" to={"/profile/"}> Profile </Link></li>
-        //     <li><Link className="navbar-item" to={"/logout/"}> Quit </Link></li>
-        // </ul>
-
-          <div className="navbar-links">
-              <div className="navbar-link">
-                  <Link to={"/homepage/"}> Home </Link>
-              </div>
-              <div className="navbar-link">
-                  <Link to={"/learn/"}> Learn </Link>
-              </div>
-              <div className="navbar-link">
-                  <Link to={"/mydecks/"}> My decks </Link>
-              </div>
-              <div className="navbar-link">
-                  <Link to={"/profile/"}> Profile </Link>
-              </div>
-              <div className="navbar-link">
-                  <Link to={"/logout/"}> Quit </Link>
-              </div>
-          </div>
-
-
-      )
+        if (this.state.isLogged) {
+            return (
+                <div className="navbar-links">
+                    <div className="navbar-link">
+                        <Link to={"/homepage/"}> Home </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/learn/"}> Learn </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/mydecks/"}> My decks </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/profile/"}> Profile </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/logout/"}> Quit </Link>
+                    </div>
+                </div>
+            )
+        }
+        else
+        {
+            return (
+                <div className="navbar-links">
+                    <div className="navbar-link">
+                        <Link to={"/homepage/"}> Home </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/login/"}> Login </Link>
+                    </div>
+                    <div className="navbar-link">
+                        <Link to={"/register/"}> Register </Link>
+                    </div>
+                </div>
+            )
+        }
     }
 
     displayFeatures = () => {
@@ -62,25 +80,19 @@ export default class Navbar extends React.Component {
     renderElement() {
         return (
             <>
-            <div className='empty'></div>
+                <div className='empty'></div>
                 {/* { this.displayLogo() } */}
-                { this.displayLinks() }
+                {this.displayLinks()}
                 {/* { this.displayFeatures() } */}
-            <div className='empty'></div>
+                <div className='empty'></div>
             </>
         )
     }
     render() {
-        if(isLogged)
-        {
             return (
                 <nav className="component-navbar">
                         {this.renderElement()}
                 </nav>
             )
-        } else
-        {
-            return null
-        }
     }
 }

@@ -58,13 +58,12 @@ export default {
     async instantiateQuizzDeck(deckId, isCustomDeck) {
 
         //Getting deck state from user
-        const userId = AuthService.getCurrentUser().id;
-        const userDeckState = await userdeckstatesData.getSingleDeckState(userId, deckId);
+        const userDeckState = await userdeckstatesData.getSingleDeckState(deckId);
 
         deckState = userDeckState.length > 0 ? userDeckState[0] : createDeckState(deckId);
 
         const res = isCustomDeck
-            ? await customdecksData.getCustomDeck(deckId, userId)
+            ? await customdecksData.getCustomDeck(deckId)
             : await decksData.getDeck(deckId);
 
         cards = filterCardsToPlay(deckState, res.deck[0].cards);
@@ -87,12 +86,10 @@ export default {
     },
     
     async checkDeckFullCompletion(deckId, isCustomDeck) {
-
-        const userId = AuthService.getCurrentUser().id;
-        const userDeckState = await userdeckstatesData.getSingleDeckState(userId, deckId);
+        const userDeckState = await userdeckstatesData.getSingleDeckState(deckId);
 
         const res = isCustomDeck
-            ? await customdecksData.getCustomDeck(deckId, userId)
+            ? await customdecksData.getCustomDeck(deckId)
             : await decksData.getDeck(deckId);
 
         const deckSize = res.deck[0].cards.length;
@@ -103,8 +100,7 @@ export default {
     },
 
     async updateDeckState() {
-        let userId = AuthService.getCurrentUser().id
-        return userdeckstatesData.updateDeckState(userId, deckState);
+        return userdeckstatesData.updateDeckState(deckState);
     }
 };
 

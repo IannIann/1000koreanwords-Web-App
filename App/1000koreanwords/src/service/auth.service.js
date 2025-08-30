@@ -1,26 +1,25 @@
-import apiAccess from "../data/httpService";
+import apiAccess from '@app/data/httpService';
 
 export default {
     login(username, password) {
-        return apiAccess.PostJson(`auth/signin`, { username, password })
-        .then((res) => {
-            if (res.token) {
-              localStorage.setItem("user", JSON.stringify(res));
-            }
-            return res;
-          })
+        return apiAccess.PostJson(`/auth/signin`, { username, password })
     },
     register(username, email, password) {
-        return apiAccess.PostJson(`auth/signup`, { username, email, password })
+        return apiAccess.PostJson(`/auth/signup`, { username, email, password })
     },
     logout() {
-        localStorage.removeItem("user");
+        return apiAccess.PostJson(`/auth/signout`);
     },
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));;
+    forgotPassword(email){
+        return apiAccess.PostJson(`/auth/forgotpassword`, { email });
     },
-    checkPremium()
-    {
-        return apiAccess.GetJson(`user/premium`);
+    checkAuthToken() {
+        return apiAccess.GetJson(`/auth/checkauthtoken`);
+    },
+    validateResetToken(token) {
+        return apiAccess.GetJson(`/auth/validateresettoken/${token}`);
+    },
+    resetPassword(token, password) {
+        return apiAccess.PostJson(`/auth/resetpassword/${token}`, { password });
     }
 }

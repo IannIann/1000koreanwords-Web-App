@@ -16,15 +16,14 @@ function showDeleteDeckConfirmDialog(deckId, refreshDecks) {
 
 function acceptFunc(deckId, refreshDecks) 
 {
-  const userId = AuthService.getCurrentUser().id;
   if (deckId) {
-    customdecksData.deleteCustomDeck(userId, deckId).
+    customdecksData.deleteCustomDeck(deckId).
     then(refreshDecks)
       .catch(() => {
         // TODO: toast error
       })
       .finally(() => {
-        userdeckstatesData.deleteUserDeckState(userId, deckId);
+        userdeckstatesData.deleteUserDeckState(deckId);
       });
   }
 }

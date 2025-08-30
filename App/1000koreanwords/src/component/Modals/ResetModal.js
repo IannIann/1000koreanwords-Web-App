@@ -16,9 +16,8 @@ class ResetModal extends React.Component {
     const { deckState, refreshDecks, onClose } = this.props;
 
     if (deckState) {
-      const userId = AuthService.getCurrentUser().id
       const newDeckState = { ...deckState, correctCards: [] };
-      userdeckstatesData.resetDeckProgression(userId, newDeckState)
+      userdeckstatesData.resetDeckProgression(newDeckState)
         .then(refreshDecks)
         .finally(onClose);
     }

@@ -31,14 +31,13 @@ class HiddenCardsModal extends React.Component {
 
   fetchBannedCardsList = () => {
     const { deckState, deck } = this.props;
-    const userId = AuthService.getCurrentUser().id
 
     const fetchDeck = deck.isCustom
       ? customdecks.getCustomDeck
       : decksData.getDeck
 
     if (deckState) {
-      fetchDeck(deck.id, userId).then((res) => {
+      fetchDeck(deck.id).then((res) => {
         const cards = res.deck[0].cards;
         const bannedCards = deckState.bannedCards;
         const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
@@ -61,14 +60,13 @@ class HiddenCardsModal extends React.Component {
   }
 
   onConfirm = () => {
-    const userId = AuthService.getCurrentUser().id
     const { deckState, refreshDecks, onClose } = this.props
     const updatedDeckState = {
       ...deckState,
       bannedCards: this.state.bannedCards
     }
 
-    userdeckstatesData.updateDeckState(userId, updatedDeckState)
+    userdeckstatesData.updateDeckState(updatedDeckState)
       .then(refreshDecks)
       .finally(onClose)
   }

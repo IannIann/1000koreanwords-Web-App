@@ -1,38 +1,36 @@
 import apiAccess from '@app/data/httpService';
 
 export default {
-    createUserDeckState(userId) {
-        return apiAccess.postJson('/userdeckstates/create', { userId });
+    createUserDeckState() {
+        return apiAccess.postJson('/userdeckstates/create');
     },
-    getUserDeckStatesById(id) {
-        return apiAccess.GetJson(`userdeckstates/${id}`)
+    getUserDeckStates() {
+        return apiAccess.GetJson(`/userdeckstates`)
     },
-    getSingleDeckState(userId, deckId) {
-        return apiAccess.GetJson(`userdeckstates/${userId}/${deckId}`)
+    getSingleDeckState(deckId) {
+        return apiAccess.GetJson(`/userdeckstates/${deckId}`)
     },
-    updateDeckState(userId, deckState) {
+    updateDeckState(deckState) {
         const userDeckState = {
-            userId,
             deckState
         };
 
-        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState });
+        return apiAccess.PostJson('/userdeckstates/updateDeckState', { userDeckState });
     },
-    resetDeckProgression(userId, deckState) {
+    resetDeckProgression(deckState) {
         const userDeckState = {
-            userId,
             deckState
         }
 
-        return apiAccess.PostJson('userdeckstates/updateDeckState', { userDeckState });
+        return apiAccess.PostJson('/userdeckstates/updateDeckState', { userDeckState });
     },
 
-    deleteCardFromDeckState(userId, deckId, cardId) {
-        return apiAccess.DeleteJson('userdeckstates/deleteCardFromDeckState', { userId, deckId, cardId });
+    deleteCardFromDeckState(deckId, cardId) {
+        return apiAccess.DeleteJson('/userdeckstates/deleteCardFromDeckState', { deckId, cardId });
     },
 
-    deleteUserDeckState(userId, deckId)
+    deleteUserDeckState(deckId)
     {
-        return apiAccess.DeleteJson('userdeckstates/deleteUserDeckState', { userId, deckId });
+        return apiAccess.DeleteJson('/userdeckstates/deleteUserDeckState', { deckId });
     }
 }

@@ -4,11 +4,9 @@ import AuthService from '@app/service/auth.service'
 export default class Profile extends React.Component {
 
     state = {
-        currentUser: AuthService.getCurrentUser()
     };
 
     renderElement() {
-        console.log(this.state.currentUser);
         return (
             <>
                 <h1>Profile</h1>

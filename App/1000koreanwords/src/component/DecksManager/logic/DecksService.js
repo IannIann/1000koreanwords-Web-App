@@ -5,9 +5,7 @@ import AuthService from '@app/service/auth.service'
 export default {
 
     async fetchUserDeckStates() {
-        const userId = AuthService.getCurrentUser().id;
-        const deckStates = await userdeckstatesData.getUserDeckStatesById(userId);
-
+        const deckStates = await userdeckstatesData.getUserDeckStates();
         return deckStates._id ? deckStates : {};
     },
 

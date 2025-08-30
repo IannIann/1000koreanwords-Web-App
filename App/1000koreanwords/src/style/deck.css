@@ -71,9 +71,16 @@
 
 .stacked-decks-grid, .custom-decks-grid {
     gap: 10px;
-    width: 63%;
+    width: 67%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+}
+
+/* For 2560px wide screens and larger (1440p and above) */
+@media (min-width: 2560px) {
+    .stacked-decks-grid, .custom-decks-grid {
+        width: 62%;
+    }
 }
 
 .stacked-decks {
@@ -132,12 +139,8 @@
     cursor: pointer;
 }
 
-/* .component-deck:hover {
-    z-index: 5; 
-} */
-
 .component-deck.focused {
-    z-index: 5;
+    z-index: 5; 
 }
 
 .in-between {

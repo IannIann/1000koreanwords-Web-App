@@ -1,18 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthService from '@app/service/auth.service'
 
-export default
-    {
-        Private({ component: Component, ...rest }) {
+const AlreadyLogged = ({ component: Component, ...rest }) => {
+  const [isLogged, setIsLogged] = useState(null);
 
-            const isLogged = AuthService.getCurrentUser();
-            return isLogged ? <Component /> : <Navigate to="/" />;
-        },
+  useEffect(() => {
+      AuthService.checkAuthToken().then((res) => {
+          setIsLogged(res.valid);
+      })
+          .catch(() => {
+              setIsLogged(false);
+          });
+  }, []);
 
-        AlreadyLogged({ component: Component, ...rest }) {
+  if (isLogged === null) {
+    return <div>Loading...</div>;
+  }
 
-            const isLogged = AuthService.getCurrentUser();
-            return !isLogged ? <Component /> : <Navigate to="/" />;
-        }
-    }
+  if (!isLogged) {
+    return <Component />;
+  } else {
+    return <Navigate to="/" />;
+  }
+};
+
+const Private = ({ component: Component, ...rest }) => {
+  const [isLogged, setIsLogged] = useState(null);
+
+  useEffect(() => {
+      AuthService.checkAuthToken().then((res) => {
+          setIsLogged(res.valid);
+      })
+          .catch(() => {
+              setIsLogged(false);
+          });
+  }, []);
+
+  if (isLogged === null) {
+    return <div>Loading...</div>;
+  }
+
+  if (isLogged) {
+    return <Component />;
+  } else {
+    return <Navigate to="/" />;
+  }
+};
+
+export { Private, AlreadyLogged };

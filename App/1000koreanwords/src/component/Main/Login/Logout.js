@@ -5,19 +5,18 @@ import { withRouter } from '@app/tool/withRouter'
 class Logout extends React.Component {
 
     logout = () => {
-        AuthService.logout();
+        AuthService.logout().then(() => {
+            this.refreshPage();
+        });
     }
 
     refreshPage = () => {
         window.location.reload();
     }
 
-    handleLogoutClick = () =>
-    {
+    handleLogoutClick = () => {
         this.logout();
-        this.refreshPage();
     }
-
     renderElement() {
         return (
             this.handleLogoutClick()

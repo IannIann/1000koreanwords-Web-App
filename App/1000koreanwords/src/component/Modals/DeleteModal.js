@@ -16,11 +16,10 @@ class DeleteModal extends React.Component {
 
   deleteDeck = () => {
     const { deck, refreshDecks, onClose} = this.props;
-    const userId = AuthService.getCurrentUser().id;
     
     Promise.all([
-      customdecksData.deleteCustomDeck(userId, deck.id),
-      userdeckstatesData.deleteUserDeckState(userId, deck._id)
+      customdecksData.deleteCustomDeck(deck.id),
+      userdeckstatesData.deleteUserDeckState(deck.id)
     ])
       .then(refreshDecks)
       .catch(() => {/*TODO: toast error*/  })

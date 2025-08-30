@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input';
 import AuthService from '@app/service/auth.service'
+import { Link } from "react-router-dom";
 import { getErrorMessage } from '@app/tool/tool'
 import { withRouter } from '@app/tool/withRouter'
 
@@ -55,16 +56,23 @@ class LoginForm extends React.Component {
     renderElement() {
         const { username, password, message } = this.state;
         return (
-            <form onSubmit={this.handleLogin}>
-                <label htmlFor="username">Username</label>
-                <Input name="username" type="text" value={username} handler={this.handleChange} />
+            <>
+                <form onSubmit={this.handleLogin}>
+                    <label htmlFor="username">Username</label>
+                    <Input name="username" type="text" value={username} handler={this.handleChange} />
 
-                <label htmlFor="password">Password</label>
-                <Input id="password" name="password" type="password" value={password} handler={this.handleChange} />
-            <input type="submit" value="Login" />
+                    <label htmlFor="password">Password</label>
+                    <Input id="password" name="password" type="password" value={password} handler={this.handleChange} />
+                    <input type="submit" value="Login" />
 
-            {message && (<div> {message} </div>)}
-            </form>
+
+                    {message && (<div> {message} </div>)}
+                </form>
+
+                <div className="forgot-password">
+                    <Link to="/forgotpassword/">Forgot your password ?</Link>
+                </div>
+            </>
         )
     }
 

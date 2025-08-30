@@ -61,7 +61,7 @@ class RegisterForm extends React.Component {
                     successful: true
                 })
 
-                this.createDefaultCustomDeck(res.id);
+                this.createDefaultCustomDeck();
 
             })
             .catch((error) => {
@@ -73,11 +73,11 @@ class RegisterForm extends React.Component {
     }
 
     navigateToMainPage = () => {
-        setTimeout(() => {this.props.router.navigate("/learn")}, 3000);
+        window.location.reload();
     }
 
-    createDefaultCustomDeck = (userId) => {
-        customdecksData.createCustomDeck(userId, "Custom Deck")
+    createDefaultCustomDeck = () => {
+        customdecksData.createCustomDeck("Custom Deck")
             .then(() => {
                 this.navigateToMainPage();
             })

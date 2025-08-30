@@ -20,7 +20,6 @@ class CustomDecksManager extends React.Component {
 
     componentDidMount() {
         this.fetchDecksList();
-        
     }
 
     async fetchDecksList() {

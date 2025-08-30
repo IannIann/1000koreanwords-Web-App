@@ -1,9 +1,3 @@
-const host = process.env.API_HOST
-const port = process.env.API_PORT
-const endpoint = process.env.API_ENDPOINT
-const urlLocation = `http://${host}:${port}/${endpoint}`;
-
-
 function getAcessToken() {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user && user.accessToken) {
@@ -11,23 +5,16 @@ function getAcessToken() {
   }
 }
 
-function getUserId() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    return user.id
-  }
-}
-
 export default
   {
     PostJson(url, data) {
-      return fetch(urlLocation + url, {
+      return fetch('http://localhost:8000/api/v1' + url, {
         method: 'POST',
         body: JSON.stringify(data),
+        credentials: "include",
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-access-token': getAcessToken()
+          'Content-Type': 'application/json'
         }
       })
         .then((res) => {
@@ -40,13 +27,12 @@ export default
     },
 
     GetJson(url) {
-      return fetch(urlLocation + url, {
+      return fetch('http://localhost:8000/api/v1' + url, {
         method: 'GET',
+        credentials: "include",
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-access-token': getAcessToken(),
-          'x-user-id': getUserId()
+          'Content-Type': 'application/json'
         }
       })
         .then((res) => {
@@ -59,14 +45,13 @@ export default
     },
 
     DeleteJson(url, data) {
-      return fetch(urlLocation + url, {
+      return fetch('http://localhost:8000/api/v1' + url, {
           method: 'DELETE',
           body: JSON.stringify(data),
+          credentials: "include",
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'x-access-token': getAcessToken(),
-            'x-user-id': getUserId()
+            'Content-Type': 'application/json'
           }
         }).then((res) => {
           if (res.ok) {
@@ -75,11 +60,6 @@ export default
             return res.text().then((err) => { throw Error(err) });
           }
         });
-    },
-
-    PutJson(url) {
-      return fetch(urlLocation + url, { method: 'PUT', headers: authHeaders })
-        .then((res) => res.json());
     }
   }
 

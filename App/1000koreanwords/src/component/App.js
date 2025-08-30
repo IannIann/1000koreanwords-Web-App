@@ -7,7 +7,9 @@ import HomePage from '@app/component/Main/HomePage';
 import RegisterForm from '@app/component/Main/Register/RegisterForm';
 import LoginForm from '@app/component/Main/Login/LoginForm';
 import Logout from '@app/component/Main/Login/Logout';
-import CustomRoute from '@app/tool/customRoute';
+import ForgotPassword from '@app/component/Main/Login/ForgotPassword';
+import ResetPassword from '@app/component/Main/Login/ResetPassword';
+import { AlreadyLogged, Private } from '@app/tool/customRoute'; //Private from '@app/tool/customRoute';
 import Profile from '@app/component/Main/Profile/Profile';
 import Navbar from '@app/component/Main/Navbar';
 import {Routes, Route} from 'react-router-dom'
@@ -30,16 +32,18 @@ export default class App extends React.Component {
                 <Navbar />
                 <Routes>
                     <Route path="/*" element={<HomePage/>}/>
-                    <Route path="/learn" element={<CustomRoute.Private component={DecksManager}/>}/>
-                    <Route path="/mydecks" element={<CustomRoute.Private component={CustomDecksManager}/>}/>
-                    <Route path="/profile" element={<CustomRoute.Private component={Profile}/>}/>
-                    <Route path="/learn/quizz/:deckId" element={<CustomRoute.Private component={QuizzApp}/>}/>
-                    <Route path="/mydecks/quizz/:deckId" element={<CustomRoute.Private component={QuizzApp}/>}/>
-                    <Route path="/mydecks/edit/:deckId" element={<CustomRoute.Private component={EditPage}/>}/>
-                    <Route path="/register" element={<CustomRoute.AlreadyLogged component={RegisterForm}/>}/>
-                    <Route path="/login" element={<CustomRoute.AlreadyLogged component={LoginForm}/>}/>
-                    <Route path="/logout" element={<CustomRoute.Private component={Logout}/>}/>
-                    <Route path="/test" element={<CustomRoute.Private component={deck}/>}/>
+                    <Route path="/learn" element={<Private component={DecksManager}/>}/>
+                    <Route path="/mydecks" element={<Private component={CustomDecksManager}/>}/>
+                    <Route path="/profile" element={<Private component={Profile}/>}/>
+                    <Route path="/learn/quizz/:deckId" element={<Private component={QuizzApp}/>}/>
+                    <Route path="/mydecks/quizz/:deckId" element={<Private component={QuizzApp}/>}/>
+                    <Route path="/mydecks/edit/:deckId" element={<Private component={EditPage}/>}/>
+                    <Route path="/register" element={<AlreadyLogged component={RegisterForm}/>}/>
+                    <Route path="/login" element={<AlreadyLogged component={LoginForm}/>}/>
+                    <Route path="/logout" element={<Private component={Logout}/>}/>
+                    <Route path="/forgotpassword" element={<AlreadyLogged component={ForgotPassword}/>}/>
+                    <Route path="/resetpassword/:token" element={<AlreadyLogged component={ResetPassword}/>}/>
+                    <Route path="/test" element={<Private component={deck}/>}/>
                 </Routes>
 
                 <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick />

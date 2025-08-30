@@ -86,8 +86,6 @@ export default class Deck extends React.Component {
   saveUserThemesOrder = (theme) => {
     let userThemesOrder = JSON.parse(window.localStorage.getItem('userThemesOrder'));
 
-    console.log(userThemesOrder);
-
     if (!userThemesOrder) {
       userThemesOrder = [];
       userThemesOrder.push(theme);

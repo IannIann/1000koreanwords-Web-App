@@ -8,10 +8,9 @@ import '@app/style/buttonadddeck.css';
 export default class ButtonAddDeck extends React.Component {
 
   handleAddDeckClick = () => {
-    const userId = AuthService.getCurrentUser().id;
     const theme = 'Custom Deck';
 
-    customdecksData.createCustomDeck(userId, theme)
+    customdecksData.createCustomDeck(theme)
       .then(() => {
         this.props.refreshDecks();
       }).catch((error) => {

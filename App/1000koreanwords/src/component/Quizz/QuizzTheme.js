@@ -30,7 +30,7 @@ export default class QuizzTheme extends React.Component {
 
         <div className="right">
           {isFinished && (
-            <ButtonPushable label="Restart" color={restartBtnColor} onClick={restartQuizz} />
+            <ButtonPushable label="Continue" color={restartBtnColor} onClick={restartQuizz} />
           )}
         </div>
       </div>

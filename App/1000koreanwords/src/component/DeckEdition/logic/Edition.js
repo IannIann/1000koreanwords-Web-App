@@ -5,8 +5,7 @@ import userdeckstatesData from '@app/data/userdeckstates.data'
 
 export default {
     async fetchDeck(deckId) {
-        const userId = AuthService.getCurrentUser().id;
-        const res = await customdecksData.getCustomDeck(deckId, userId)
+        const res = await customdecksData.getCustomDeck(deckId)
 
         return res.deck[0];
     },
@@ -25,22 +24,18 @@ export default {
             question: "",
             answer: ""
         }
-        const userId = AuthService.getCurrentUser().id;
-        const res = await customcardsData.createCustomCard(userId, card);
+        const res = await customcardsData.createCustomCard(card);
         return res;
     },
 
     async pushToDeck(deckId, cardId) {
-        const userId = AuthService.getCurrentUser().id;
-        await customdecksData.pushCardToDeck(userId, deckId, cardId);
+        await customdecksData.pushCardToDeck(deckId, cardId);
     },
 
     async deleteCard(deckId, cardId) {
-        const userId = AuthService.getCurrentUser().id;
-    
-        await customdecksData.deleteCardFromDeck(userId, deckId, cardId);
-        await userdeckstatesData.deleteCardFromDeckState(userId, deckId, cardId);
-        await customcardsData.deleteCustomCard(userId, cardId);
+        await customdecksData.deleteCardFromDeck(deckId, cardId);
+        await userdeckstatesData.deleteCardFromDeckState(deckId, cardId);
+        await customcardsData.deleteCustomCard(cardId);
     },
 
     formatDeckForUpdate(deck) {
