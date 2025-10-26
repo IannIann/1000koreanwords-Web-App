@@ -4,14 +4,15 @@ import DecksManager from '@app/component/DecksManager/DecksManager';
 import CustomDecksManager from '@app/component/DecksManager/CustomDecksManager';
 import EditPage from '@app/component/DeckEdition/EditPage';
 import HomePage from '@app/component/Main/HomePage';
-import RegisterForm from '@app/component/Main/Register/RegisterForm';
-import LoginForm from '@app/component/Main/Login/LoginForm';
-import Logout from '@app/component/Main/Login/Logout';
-import ForgotPassword from '@app/component/Main/Login/ForgotPassword';
-import ResetPassword from '@app/component/Main/Login/ResetPassword';
+import RegisterForm from '@app/component/Main/Authentification/RegisterForm';
+import LoginForm from '@app/component/Main/Authentification/LoginForm';
+import Logout from '@app/component/Main/Authentification/Logout';
+import ForgotPassword from '@app/component/Main/Authentification/ForgotPassword';
+import ResetPassword from '@app/component/Main/Authentification/ResetPassword';
 import { AlreadyLogged, Private } from '@app/tool/customRoute'; //Private from '@app/tool/customRoute';
 import Profile from '@app/component/Main/Profile/Profile';
 import Navbar from '@app/component/Main/Navbar';
+import Navbar_new from '@app/component/Main/Navbar_new';
 import {Routes, Route} from 'react-router-dom'
 
 import { ToastContainer } from 'react-toastify';
@@ -29,7 +30,7 @@ export default class App extends React.Component {
     renderElement() {
         return (
             <>
-                <Navbar />
+                <Navbar_new />
                 <Routes>
                     <Route path="/*" element={<HomePage/>}/>
                     <Route path="/learn" element={<Private component={DecksManager}/>}/>

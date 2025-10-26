@@ -1,0 +1,47 @@
+.form {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+}
+
+.form .button-pushable {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.form-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-title.small {
+    font-size: 1.7em;
+}
+
+.form .error-message {
+    margin-top: 5px;
+}
+
+.form .footer {    
+    margin-top: 10px;
+}
+
+.message-box {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.message-box .message-link {
+    font-size: 1.2rem;
+    text-align: center;
+}

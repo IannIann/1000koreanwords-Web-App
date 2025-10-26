@@ -26,7 +26,9 @@ export default class QuizzResult extends React.Component {
         };
 
         return (
+
             <div className="component-quizz-result">
+                <p>{`You had ${correctCards.length} correct answers out of ${correctCards.length + wrongCards.length} cards.`}</p>
                 {correctCards.length > 0 && renderCards(correctCards, "Correct")}
                 {wrongCards.length > 0 && renderCards(wrongCards, "Wrong")}
             </div>

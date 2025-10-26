@@ -1,7 +1,5 @@
 
-@import url(https://fonts.googleapis.com/css?family=Lato);
-
-nav {
+/* nav {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -12,7 +10,7 @@ nav {
   height: 60px;
   padding: 0 20px;
   margin-bottom: 1%;
-}
+} */
 
 .navbar-links {
   display: flex;

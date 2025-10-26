@@ -111,6 +111,8 @@ class EditPage extends React.Component {
 
         return (
             <>
+                <div className="page-title">Edit deck</div>
+                <div className="page-subtitle">Add, delete and customize your flashcards</div>
                 <div className="cards-edit-header">
                     <div className="left">   
                     <Link to={`/mydecks`}>

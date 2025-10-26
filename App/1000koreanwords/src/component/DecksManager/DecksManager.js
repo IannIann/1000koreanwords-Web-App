@@ -72,6 +72,9 @@ export default class DecksManager extends React.Component {
 
         return (
             <>
+                <div className="page-title">Explore korean vocabulary</div>
+                <div className="page-subtitle">Flashcards grouped by theme and level</div>
+                
                 {enableResetModal &&
                     <ResetModal modalClass={resetModalClass}
                         deckState={deckState}

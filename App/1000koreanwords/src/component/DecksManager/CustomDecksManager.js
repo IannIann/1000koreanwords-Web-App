@@ -100,6 +100,9 @@ class CustomDecksManager extends React.Component {
 
         return (
             <>
+                <div className="page-title">My decks</div>
+                <div className="page-subtitle">Create, edit and learn with your own decks</div>
+
                 {enableResetModal &&
                     <ResetModal modalClass={resetModalClass}
                         deckState={deckState}

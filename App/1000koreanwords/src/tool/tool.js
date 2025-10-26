@@ -1,96 +1,90 @@
-    export function getErrorMessage(error) {
-        try{
-            var errorJson = JSON.parse(error.message);
-            return errorJson.message
-        } catch {
-            return "An error happened."
-        }
+const getErrorMessage = (error) => {
+    try {
+        var errorJson = JSON.parse(error.message);
+        return errorJson.message
+    } catch {
+        return "An error happened."
+    }
+}
+
+const checkPasswordSecurity = (password) => {
+    const minPasswordLength = 8;
+    const maxPasswordLength = 64;
+
+    const constraints = [
+        {
+            test: password => /[A-Z]/.test(password),
+            message: "Password must have at least one upper case letter",
+        },
+        {
+            test: password => /[a-z]/.test(password),
+            message: "Password must have at least one lower case letter",
+        },
+        {
+            test: password => /\d/.test(password),
+            message: "Password must have at least one number",
+        },
+        {
+            test: password => password.length >= minPasswordLength,
+            message: `Password must be at least ${minPasswordLength} characters long`,
+        },
+        {
+            test: password => password.length <= maxPasswordLength,
+            message: `Password must be at most ${maxPasswordLength} characters long`,
+        },
+    ];
+
+    const errors = constraints.filter(constraint => !constraint.test(password));
+
+    if (errors.length > 0) {
+        return {
+            success: false,
+            message: errors.map(error => error.message).join("\n"),
+        };
     }
 
-    export function getLineHeight(element) {
-        // Create a temporary span element with the same styles as the textarea
-        const tempSpan = document.createElement('span');
-        tempSpan.style.visibility = 'hidden';
-        tempSpan.style.whiteSpace = 'normal';
-        tempSpan.style.fontFamily = getComputedStyle(element).fontFamily;
-        tempSpan.style.fontSize = getComputedStyle(element).fontSize;
-        tempSpan.style.lineHeight = getComputedStyle(element).lineHeight;
-        tempSpan.textContent = 'M'; // Use 'M' as it is often the tallest character
+    return { success: true };
+};
 
-        document.body.appendChild(tempSpan);
-        const lineHeight = tempSpan.offsetHeight;
-        document.body.removeChild(tempSpan);
-
-        return lineHeight;
-    }
-    
-    export function limitText(textarea) {
-        // Get the line height of the textarea
-
-        const lineHeight = getLineHeight(textarea);
-        // Determine the maximum number of visible lines
-        const maxLines = Math.floor(textarea.clientHeight / lineHeight);
-        // Split the textarea value into lines
-        const lines = textarea.value.split('\n');
-        let truncatedValue = ''; // Store the truncated text
-        let currentLineCount = 0; // Keep track of the current line count
-
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i];
-            const lineLength = line.length;
-            
-            // Handle lines longer than the textarea width
-            if (lineLength > textarea.cols) {
-                const wrappedLines = Math.ceil(lineLength / textarea.cols);
-                if (currentLineCount + wrappedLines > maxLines) {
-                    // Truncate the line if it exceeds the maximum visible lines
-                    truncatedValue += line.slice(0, textarea.cols * (maxLines - currentLineCount)) + '\n';
-                    break;
-                } else {
-                    for (let j = 0; j < wrappedLines; j++) {
-                        if (currentLineCount < maxLines) {
-                            // Add the wrapped line to the truncated text
-                            const slicedLine = line.slice(j * textarea.cols, (j + 1) * textarea.cols) + '\n';
-
-                            truncatedValue += slicedLine;
-                            currentLineCount++;
-                        }
-                    }
-                }
-            } else {
-                if (currentLineCount < maxLines) {
-                    // Add the line to the truncated text
-                    truncatedValue += line + '\n';
-                    currentLineCount++;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // Remove the last '\n' added in the loop
-        const finalText = adjustNewlines(truncatedValue.slice(0, -1));
-        return finalText;
+const checkPasswordMatch = (password, passwordConfirm) => {
+    if (password !== passwordConfirm) {
+        return {
+            success: false,
+            message: "Passwords do not match",
+        };
     }
 
-    function adjustNewlines(text) {
-        let result = '';
-        let i = 0;
-        
-        while (i < text.length) {
-            if (text[i] === '\n') {
-                // Check if there's a space before the newline and it's not already moved
-                let lastSpaceIndex = result.lastIndexOf(' ');
-                if (lastSpaceIndex !== -1 && result.charAt(lastSpaceIndex + 1) !== '\n') {
-                    result = result.substring(0, lastSpaceIndex + 1) + '\n' + result.substring(lastSpaceIndex + 1);
-                } else {
-                    result += '\n'; // If no space before, just append the newline
-                }
-            } else {
-                result += text[i]; // Append non-newline characters as they are
-            }
-            i++;
-        }
-        return result;
+    return { success: true };
+};
+
+
+const checkEmailFormat = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return {
+            success: false,
+            message: "Email is not valid"
+        };
     }
-    
+
+    return { success: true };
+};
+
+const checkUsernameFormat = (username) => {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+        return {
+            success: false,
+            message: "Username cannot contains special characters or be empty"
+        };
+    }
+    return { success: true };
+};
+
+export default {
+    getErrorMessage,
+    checkPasswordSecurity,
+    checkPasswordMatch,
+    checkEmailFormat,
+    checkUsernameFormat
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
 
-import '@app/style/navbar.css';
+// import '@app/style/navbar.css';
 
 export default class Navbar extends React.Component {
 

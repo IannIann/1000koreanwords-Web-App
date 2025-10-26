@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
-import Logout from './Login/Logout';
 
 export default class HomePage extends React.Component {
 

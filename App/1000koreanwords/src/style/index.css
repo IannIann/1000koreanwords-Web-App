@@ -1,4 +1,11 @@
 
+@font-face {
+  font-family: 'NanumGothic';
+  src: url(../assets/fonts/NanumGothic-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html 
 {
     color:#000000;
@@ -14,42 +21,16 @@ body
     width: 100vw;
     font-size: 1rem;
     overflow-x: hidden;
+    font-family: 'NanumGothic', sans-serif;
 }
 
-.component-display-word
-{
-    font-size: 3em;
-}
-.component-display-index
-{
-    font-size: 2em;
-}
-
-.component-display-score
-{
-    font-size: 2.5em;
-}
-
-.component-button-panel
-{
-    display: flex;
-    flex-flow: row;
-    justify-content : space-around;
-}
-
-.component-button > button
-{
-    font-size: 3em;
+input, textarea, button{
+    font-family: 'NanumGothic', sans-serif;
 }
 
 .component-tts 
 {
     display: none;
-}
-
-.component-button-grade
-{
-    text-align: center;
 }
 
 .component-app {
@@ -58,10 +39,25 @@ body
 }
 
 a {
-    color: inherit; /* Use the same color as the text or specify a custom color */
-    text-decoration: none; /* Optional: Remove underlines */
-  }
-  
-  a:visited {
-    color: inherit; /* Ensure visited links have the same color as normal links */
-  }
+    color: #000000;
+    transition: 0.2s;
+}
+
+a:hover {
+    color: #1b86a9;
+}
+
+.error-message {
+    color: #9B3200;
+    white-space: pre-line;
+}   
+
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.page-subtitle {
+    font-style: italic;
+    text-align: center;
+}

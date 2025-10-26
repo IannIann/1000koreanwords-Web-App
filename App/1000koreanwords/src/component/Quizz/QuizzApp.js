@@ -1,12 +1,6 @@
 import React from "react";
 import Quizz from "./logic/Quizz.js";
-import DisplayIndex from "./DisplayIndex";
-import DisplayWord from "./DisplayWord";
-import ButtonPanel from "./ButtonPanel";
-import CommandButton from "./CommandButton.js";
 import TextToSpeech from "./TextToSpeech";
-import CardsOptionsMenu from "../QuizzOptionMenu/CardsOptionsMenu";
-import { BanCardDialog } from "../QuizzOptionMenu/BanCardDialog.js";
 import Card from "@app/component/Card/Card";
 import { withRouter } from '@app/tool/withRouter'
 import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
@@ -57,12 +51,12 @@ class QuizzApp extends React.Component {
         const isCustomDeck = this.isCustomDeck()
 
         Quizz.instantiateQuizzDeck(deckId, isCustomDeck)
-            .then(({ maxIndex, card, theme }) => {
+            .then(({ maxIndex, card, theme, krTheme }) => {
 
                 if (maxIndex <= 0)
                     throw new Error("Quizz deck is empty");
 
-                this.setState({card, theme, cardIndex: 0, scoreIndex: 0, maxIndex, isFinished: false, isAnswered: false});
+                this.setState({card, theme, krTheme, cardIndex: 0, scoreIndex: 0, maxIndex, isFinished: false, isAnswered: false});
             })
             .catch(error => {
                 this.navigateToLearnPage(); // Navigate to learn page on error
@@ -210,7 +204,7 @@ class QuizzApp extends React.Component {
     }
 
     renderElement() {
-        const { isFinished, theme, score, isDeckFullyCompleted } = this.state;
+        const { isFinished, theme, krTheme, score, isDeckFullyCompleted } = this.state;
 
 
         return (
@@ -219,6 +213,7 @@ class QuizzApp extends React.Component {
 
                 <div className="content">
                     <QuizzTheme
+                        krTheme={krTheme}
                         theme={theme}
                         isFinished={isFinished}
                         hideRestartButton={true}

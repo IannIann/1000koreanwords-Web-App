@@ -1,27 +1,29 @@
 import React from 'react';
 import Input from '../Input';
+import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 import AuthService from '@app/service/auth.service'
 import { Link } from "react-router-dom";
-import { getErrorMessage } from '@app/tool/tool'
+import tool from '@app/tool/tool'
 import { withRouter } from '@app/tool/withRouter'
+
+import '@app/style/form.css';
 
 class LoginForm extends React.Component {
 
     state = {
         username: "",
         password: "",
-        successful: false,
         message: ""
     };
 
     handleChange = e => {
-        if (e.target.name === "username") {
+        if (e.target.id === "username") {
             this.setState({
                 username: e.target.value
             });
         }
 
-        if (e.target.name === "password") {
+        if (e.target.id === "password") {
             this.setState({
                 password: e.target.value
             });
@@ -29,22 +31,19 @@ class LoginForm extends React.Component {
     }
 
     handleLogin = e => {
+        const { username, password } = this.state;
+
         e.preventDefault();
 
         AuthService.login(
-            this.state.username,
-            this.state.password)
+            username,
+            password)
             .then(() => {
-                this.setState({
-                    successful: true
-                })
-
                 this.navigateToMainPage();
             })
             .catch((error) => {
                 this.setState({
-                    message: getErrorMessage(error),
-                    successful: false
+                    message: tool.getErrorMessage(error)
                 })
             })
     }
@@ -57,20 +56,24 @@ class LoginForm extends React.Component {
         const { username, password, message } = this.state;
         return (
             <>
+                <div className='form-title'>Sign in</div>
                 <form onSubmit={this.handleLogin}>
-                    <label htmlFor="username">Username</label>
-                    <Input name="username" type="text" value={username} handler={this.handleChange} />
+                    <Input id="username" placeholder="Username" type="text" value={username} handler={this.handleChange} />
+                    <Input id="password" placeholder="Password" type="password" value={password} handler={this.handleChange} />
+                    {message && (<div className="error-message"> {message} </div>)}
 
-                    <label htmlFor="password">Password</label>
-                    <Input id="password" name="password" type="password" value={password} handler={this.handleChange} />
-                    <input type="submit" value="Login" />
+                    <ButtonPushable label="Sign in" color="blue" size="small" />
 
-
-                    {message && (<div> {message} </div>)}
                 </form>
 
-                <div className="forgot-password">
-                    <Link to="/forgotpassword/">Forgot your password ?</Link>
+                <div className="footer">
+                    <div className="forgot-password">
+                        <Link to="/forgotpassword/">Forgot password?</Link>
+                    </div>
+
+                    <div className="register">
+                        Don't have an account? <Link to="/register/"> Create one. </Link>
+                    </div>
                 </div>
             </>
         )
@@ -78,7 +81,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="component-login">
+            <div className="component-login form">
                 {this.renderElement()}
             </div>
         );

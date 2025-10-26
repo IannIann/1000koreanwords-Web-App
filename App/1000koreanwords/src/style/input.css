@@ -1,0 +1,67 @@
+.component-input {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.input-group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.input-field {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #8899A6;
+  outline: 0;
+  font-size: 1.2rem;
+  color: #000000;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.input-field::placeholder {
+  color: transparent;
+}
+
+.input-field:placeholder-shown ~ .input-field-label {
+  font-size: 1.2rem;
+  cursor: text;
+  top: 20px;
+}
+
+.input-field-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: #5c6d7a;
+}
+
+.input-field:focus ~ .input-field-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: #7187C3;
+  font-weight: 700;    
+}
+
+.input-field:focus {
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #5ab9d8, #7f3169);
+  border-image-slice: 1;
+}   
+
+/* reset input */
+.deck-name-field:required,
+.deck-name-field:invalid { 
+  box-shadow: none; 
+}

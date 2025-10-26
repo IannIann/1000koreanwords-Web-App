@@ -8,9 +8,9 @@ import '@app/style/quizztheme.css';
 export default class QuizzTheme extends React.Component {
 
   render() {
-    const { theme, isFinished, navigateToLearnPage, restartQuizz, isDeckFullyCompleted } = this.props;
+    const { theme, krTheme, isFinished, navigateToLearnPage, restartQuizz, isDeckFullyCompleted } = this.props;
 
-    let restartBtnColor = "blue";
+    let restartBtnColor = "green";
 
     if (isDeckFullyCompleted) {
       restartBtnColor = "gray";
@@ -20,17 +20,18 @@ export default class QuizzTheme extends React.Component {
       <div className="quizz-theme-header">
         <div className="left">
           {isFinished && (
-            <ButtonPushable label="Home" color="blue" onClick={navigateToLearnPage} />
+            <ButtonPushable size="small" label="↤ Back" color="blue" onClick={navigateToLearnPage} />
           )}
         </div>
 
         <div className="center">
-          <h1>{theme}</h1>
+          <div className="page-title">{theme}</div>
+          <div className="page-subtitle">{krTheme}</div>
         </div>
 
         <div className="right">
           {isFinished && (
-            <ButtonPushable label="Continue" color={restartBtnColor} onClick={restartQuizz} />
+            <ButtonPushable size="small" label="Restart ⭯" color={restartBtnColor} onClick={restartQuizz} />
           )}
         </div>
       </div>

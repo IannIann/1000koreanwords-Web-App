@@ -1,9 +1,12 @@
 import React from 'react';
 import Input from '../Input';
+import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
 import { withRouter } from '@app/tool/withRouter'
 
+import '@app/style/form.css';
 class ForgotPassword extends React.Component {
 
     state = {
@@ -13,7 +16,7 @@ class ForgotPassword extends React.Component {
     };
 
     handleChange = e => {
-        if (e.target.name === "email") {
+        if (e.target.id === "email") {
             this.setState({
                 email: e.target.value
             });
@@ -40,17 +43,24 @@ class ForgotPassword extends React.Component {
         const { email, message, successful } = this.state;
         return (
             <>
-                {!successful && ( 
+                {!successful && (
+                <div className='form'>
+                    <div className='form-title small'> Reset your password</div>
                     <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="email">Enter your email address</label>
-                    <Input name="email" type="email" value={email} handler={this.handleChange} />
-
-                    <input type="submit" value="Continue" />
-                    
-                </form>
+                        <Input id="email" placeholder="Email" type="email" value={email} handler={this.handleChange} />
+                        <ButtonPushable label="Send link" color="blue" size="small" />
+                    </form>
+                </div>
                 )}
 
-                {message && (<div> {message} </div>)}
+                {message && (
+                    <div className='message-box'>
+                        <div> {message} </div>
+                        <br />
+                        <br />
+                        <div className='message-link'>Back to <Link to="/login/"> Login </Link></div>
+                    </div>
+                )}
             </>
         )
     }

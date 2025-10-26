@@ -71,6 +71,7 @@ export default {
         cards = cards.slice(0, Math.min(maxCard, cards.length));
 
         let theme = res.deck[0].theme;
+        let krTheme = res.deck[0].krTheme;
 
         //Reseting the score
         score = {
@@ -81,7 +82,8 @@ export default {
         return {
             maxIndex: cards.length,
             card: cards[0],
-            theme : theme
+            theme : theme,
+            krTheme : krTheme
         }
     },
     

@@ -74,7 +74,6 @@ and shadow are grouped together when it get flipped*/
 
 .flip-card.flipped.red {
     background: #ffcaca;
-
     border: 5px solid #C14300;
 }
 
@@ -85,7 +84,6 @@ and shadow are grouped together when it get flipped*/
 
 .flip-card.flipped.green {
     background: #ceffdd;
-
     border: 5px solid #0C8230;
 }
 
@@ -109,18 +107,14 @@ and shadow are grouped together when it get flipped*/
 .card-answer,
 .card-question {
     font-size: 1.8em;
-    overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center; /* Centers the text */
+    text-align: center; 
     word-break: break-word;
-}
-
-.card-question {
-    margin-bottom: 10%;
+    margin: 5% 0;
 }
 
 .card-answer {
-    margin-top: 10%;
+    overflow: hidden;
 }
 
 .card-front, .card-back  {
@@ -141,8 +135,6 @@ and shadow are grouped together when it get flipped*/
     flex-direction: column;
 }
 
-
-
 /* Below the css is used in cards displayed outside of quiz */
 .card-textarea-group,
 .card-input-group {
@@ -153,7 +145,6 @@ and shadow are grouped together when it get flipped*/
 }
 
 .card-field {
-    font-family: monospace;
     width: 100%;
     border: 0;
     border-bottom: 2px solid #5c6d7a;
@@ -170,7 +161,6 @@ and shadow are grouped together when it get flipped*/
     resize: none;
     height: 220px;
     box-sizing: border-box;
-    font-family: monospace;
     white-space: normal;
     text-overflow: ellipsis;
 }
