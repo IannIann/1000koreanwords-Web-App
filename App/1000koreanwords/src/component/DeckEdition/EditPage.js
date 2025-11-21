@@ -7,11 +7,12 @@ import Edition from '@app/component/DeckEdition/logic/Edition';
 import DeckName from '@app/component/DeckEdition/DeckName';
 import ButtonAddCard from '@app/component/Buttons/ButtonAddCard';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import tool from '@app/tool/tool'
 
 import '@app/style/editpage.css';
 
 class EditPage extends React.Component {
-    static maximumCards = 1000;
+    static maximumCards = 100;
 
     state = {
         deck: {},
@@ -31,6 +32,7 @@ class EditPage extends React.Component {
                 toast.error('Oops! Something went wrong...');
             });
     };
+
     saveDeckTheme = (theme) => {
         const { deck } = this.state;
         const savedTheme = deck.theme;
@@ -54,7 +56,9 @@ class EditPage extends React.Component {
         updatedCards[cardIndex] = updatedCard;
         this.setState({ cards: updatedCards });
 
-        Edition.updateCard(updatedCard).catch(() => {
+        Edition.updateCard(updatedCard)
+        .then(() => toast.success('Card successfully updated'))
+        .catch(() => {
             updatedCards[cardIndex] = savedCard;
             this.setState({ cards: updatedCards });
             toast.error('Failed to save card');
@@ -64,15 +68,13 @@ class EditPage extends React.Component {
     addCard = () => {
         const { deck } = this.state;
 
-        Edition.createCustomCard(deck._id)
+        Edition.createCustomCard()
             .then((res) => Edition.pushToDeck(deck._id, res.cardId))
             .then(() => this.loadDeck())
             .catch((error) => {
-                if (error.message) {
-                    toast.error(JSON.parse(error.message));
-                } else {
-                    toast.error('Failed to add new card.');
-                }
+                if (error) {
+                    toast.error(tool.getErrorMessage(error));
+                } 
             });
     };
 

@@ -19,12 +19,12 @@ export default {
         await customcardsData.updateCustomCard(card);
     },
 
-    async createCustomCard() {
+    async createCustomCard(deckId) {
         const card = {
             question: "",
             answer: ""
         }
-        const res = await customcardsData.createCustomCard(card);
+        const res = await customcardsData.createCustomCard(card, deckId);
         return res;
     },
 

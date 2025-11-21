@@ -215,18 +215,19 @@ class QuizzApp extends React.Component {
                     <QuizzTheme
                         krTheme={krTheme}
                         theme={theme}
-                        isFinished={isFinished}
-                        hideRestartButton={true}
-                        restartQuizz={this.startQuizz}
-                        navigateToLearnPage={this.navigateToLearnPage}
-                        isDeckFullyCompleted={isDeckFullyCompleted}
                     />
 
                     {!isFinished
                         && this.renderCardQuizz()}
 
                     {isFinished
-                        && <QuizzResult correctCards={score.correctCards} wrongCards={score.wrongCards} />}
+                        && <QuizzResult 
+                            correctCards={score.correctCards} 
+                            wrongCards={score.wrongCards} 
+                            restartQuizz={this.startQuizz}
+                            navigateToLearnPage={this.navigateToLearnPage}
+                            isDeckFullyCompleted={isDeckFullyCompleted}
+                        />}
 
                 </div>
             </>

@@ -5,7 +5,7 @@ import CustomDecksService from '@app/component/DecksManager/logic/CustomDecksSer
 import ResetModal from '@app/component/Modals/ResetModal';
 import HiddenCardsModal from '@app/component/Modals/HiddenCardsModal';
 import DeleteModal from '@app/component/Modals/DeleteModal';
-import  { withRouter } from '@app/tool/withRouter'
+import { withRouter } from '@app/tool/withRouter'
 
 class CustomDecksManager extends React.Component {
 
@@ -48,13 +48,13 @@ class CustomDecksManager extends React.Component {
     }
 
     openHiddenCardsModal = (deck, deckState) => {
-        this.setState({ 
-            hiddenCardsModalClass: 'display', 
-            deckState, 
+        this.setState({
+            hiddenCardsModalClass: 'display',
+            deckState,
             deck,
             enableResetModal: false,
             enableHiddenCardsModal: true,
-            enableDeleteModal: false 
+            enableDeleteModal: false
         });
         document.body.classList.add('modal-active');
     }
@@ -65,14 +65,14 @@ class CustomDecksManager extends React.Component {
             deck,
             enableResetModal: false,
             enableHiddenCardsModal: false,
-            enableDeleteModal: true 
+            enableDeleteModal: true
         });
         document.body.classList.add('modal-active');
     }
 
     openEditPage = (deck) => {
         this.props.router.navigate(`/mydecks/edit/${deck.id}`);
-      };
+    };
 
     closeModal = () => {
         this.setState({
@@ -80,7 +80,7 @@ class CustomDecksManager extends React.Component {
             resetModalClass: 'display out',
             deleteModalClass: 'display out'
         });
-        
+
         document.body.classList.remove('modal-active');
     }
 
@@ -100,9 +100,6 @@ class CustomDecksManager extends React.Component {
 
         return (
             <>
-                <div className="page-title">My decks</div>
-                <div className="page-subtitle">Create, edit and learn with your own decks</div>
-
                 {enableResetModal &&
                     <ResetModal modalClass={resetModalClass}
                         deckState={deckState}
@@ -126,11 +123,13 @@ class CustomDecksManager extends React.Component {
                 }
 
                 <div className="content">
+                    <div className="page-title">My decks</div>
+                    <div className="page-subtitle">Create, edit and learn with your own decks</div>
                     <DecksList
                         decks={decks}
                         userDeckStates={userDeckStates}
                         maxCustomDecksLimit={maxCustomDecksLimit}
-                        isCustomDeck = {true}
+                        isCustomDeck={true}
                         refreshDecks={this.refreshDecks}
                         openResetModal={this.openResetModal}
                         openHiddenCardsModal={this.openHiddenCardsModal}

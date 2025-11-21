@@ -1,7 +1,56 @@
-.component-quizz-result .correct-cards, 
+
+.component-quizz-result .correct-cards,
 .component-quizz-result .wrong-cards {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.correct-cards .component-card {
+    background: #ceffdd;
+    border: 5px solid #0C8230;
+}
+
+.wrong-cards .component-card {
+    background: #ffcaca;
+    border: 5px solid #C14300;
+}
+
+.component-quizz-result {
+    width: 100%;
+}
+
+.quizz-result-header {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.quizz-result-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 42%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.quizz-result-score .progress-container {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.result-section-header {
+    display: flex;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 2%;
 }

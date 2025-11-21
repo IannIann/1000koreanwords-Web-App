@@ -40,12 +40,12 @@ export default class DecksManager extends React.Component {
     }
 
     openHiddenCardsModal = (deck, deckState) => {
-        this.setState({ 
-            hiddenCardsModalClass: 'display', 
-            deckState, 
+        this.setState({
+            hiddenCardsModalClass: 'display',
+            deckState,
             deck,
             enableResetModal: false,
-            enableHiddenCardsModal: true 
+            enableHiddenCardsModal: true
         });
         document.body.classList.add('modal-active');
     }
@@ -55,26 +55,23 @@ export default class DecksManager extends React.Component {
             hiddenCardsModalClass: 'display out',
             resetModalClass: 'display out'
         });
-        
+
         document.body.classList.remove('modal-active');
     }
 
     renderElement() {
-        const { decks, 
+        const { decks,
             deck,
-            userDeckStates, 
-            deckState, 
-            resetModalClass, 
+            userDeckStates,
+            deckState,
+            resetModalClass,
             hiddenCardsModalClass,
             enableHiddenCardsModal,
-            enableResetModal 
+            enableResetModal
         } = this.state;
 
         return (
             <>
-                <div className="page-title">Explore korean vocabulary</div>
-                <div className="page-subtitle">Flashcards grouped by theme and level</div>
-                
                 {enableResetModal &&
                     <ResetModal modalClass={resetModalClass}
                         deckState={deckState}
@@ -91,6 +88,9 @@ export default class DecksManager extends React.Component {
                 }
 
                 <div className="content">
+                    <div className="page-title">Explore korean vocabulary</div>
+                    <div className="page-subtitle">Flashcards grouped by theme and level</div>
+
                     <DecksList decks={decks}
                         userDeckStates={userDeckStates}
                         refreshDecks={this.refreshDecks}
