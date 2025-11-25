@@ -6,8 +6,13 @@ import userdeckstatesData from '@app/data/userdeckstates.data'
 export default {
     async fetchDeck(deckId) {
         const res = await customdecksData.getCustomDeck(deckId)
+        const deck = res.deck[0];
+        return deck;
+    },
 
-        return res.deck[0];
+    async getDeckCardsLimit() {
+        const res = await customdecksData.getMaxCardsLimit();
+        return res.customDeckCardLimit;
     },
 
     async updateDeck(deck) {

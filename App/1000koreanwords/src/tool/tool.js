@@ -59,11 +59,30 @@ const checkPasswordMatch = (password, passwordConfirm) => {
 
 
 const checkEmailFormat = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const minEmailLength = 5;
+    const maxPasswordLength = 64;
+
+    const emailConstraints = [
+        {
+            test: email => email.length <= maxPasswordLength,
+            message: "Email must be at most 64 characters long",
+        },
+        {
+            test: email => email.length >= minEmailLength,
+            message: "Email must be at least 5 characters long",
+        },
+        {
+            test: email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(email),
+            message: "Email is not valid",
+        },
+    ];
+
+    const errors = emailConstraints.filter(constraint => !constraint.test(email));
+
+    if (errors.length > 0) {
         return {
             success: false,
-            message: "Email is not valid"
+            message: errors.map(error => error.message).join("\n"),
         };
     }
 
@@ -71,13 +90,33 @@ const checkEmailFormat = (email) => {
 };
 
 const checkUsernameFormat = (username) => {
-    const usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (!usernameRegex.test(username)) {
+    const minUsernameLength = 3;
+    const maxUsernameLength = 64;
+
+    const usernameConstraints = [
+        {
+            test: username => username.length <= maxUsernameLength,
+            message: `Username must be at most ${maxUsernameLength} characters long`,
+        },
+        {
+            test: username => username.length >= minUsernameLength,
+            message: `Username must be at least ${minUsernameLength} characters long`,
+        },
+        {
+            test: username => /^[a-zA-Z0-9]+$/i.test(username),
+            message: "Username cannot contains special characters or be empty",
+        },
+    ];
+
+    const errors = usernameConstraints.filter(constraint => !constraint.test(username));
+
+    if (errors.length > 0) {
         return {
             success: false,
-            message: "Username cannot contains special characters or be empty"
+            message: errors.map(error => error.message).join("\n"),
         };
     }
+
     return { success: true };
 };
 

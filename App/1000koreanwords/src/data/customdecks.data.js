@@ -10,6 +10,9 @@ export default {
     getMaxCustomDecksLimit(){
         return apiAccess.GetJson('/customdecks/limit')
     },
+    getMaxCardsLimit(){
+        return apiAccess.GetJson('/customdecks/cardsLimit')
+    },
     createCustomDeck(theme) {
         return apiAccess.PostJson('/customdecks/create', {theme});
     },

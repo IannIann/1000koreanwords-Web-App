@@ -12,11 +12,10 @@ import tool from '@app/tool/tool'
 import '@app/style/editpage.css';
 
 class EditPage extends React.Component {
-    static maximumCards = 100;
-
     state = {
         deck: {},
         cards: [],
+        maxCardsLimit: 0
     };
 
     componentDidMount() {
@@ -25,12 +24,18 @@ class EditPage extends React.Component {
 
     loadDeck = () => {
         const { deckId } = this.props.router.params;
+
         Edition.fetchDeck(deckId)
             .then((deck) => this.setState({ deck, cards: deck.cards }))
             .catch(() => {
                 this.navigateToMyDecksPage();
                 toast.error('Oops! Something went wrong...');
             });
+
+        if (this.state.maxCardsLimit === undefined || this.state.maxCardsLimit === 0) {
+            Edition.getDeckCardsLimit()
+                .then((maxCardsLimit) => this.setState({ maxCardsLimit }))
+        }
     };
 
     saveDeckTheme = (theme) => {
@@ -57,12 +62,12 @@ class EditPage extends React.Component {
         this.setState({ cards: updatedCards });
 
         Edition.updateCard(updatedCard)
-        .then(() => toast.success('Card successfully updated'))
-        .catch(() => {
-            updatedCards[cardIndex] = savedCard;
-            this.setState({ cards: updatedCards });
-            toast.error('Failed to save card');
-        });
+            .then(() => toast.success('Card successfully updated'))
+            .catch(() => {
+                updatedCards[cardIndex] = savedCard;
+                this.setState({ cards: updatedCards });
+                toast.error('Failed to save card');
+            });
     };
 
     addCard = () => {
@@ -74,7 +79,7 @@ class EditPage extends React.Component {
             .catch((error) => {
                 if (error) {
                     toast.error(tool.getErrorMessage(error));
-                } 
+                }
             });
     };
 
@@ -104,22 +109,22 @@ class EditPage extends React.Component {
     };
 
     renderButtonAddCard = () => {
-        const { cards } = this.state;
-        return cards.length < EditPage.maximumCards && <ButtonAddCard addCard={this.addCard} />;
+        const { cards, maxCardsLimit } = this.state;
+        return cards.length < maxCardsLimit && <ButtonAddCard addCard={this.addCard} />;
     };
 
     render() {
-        const { deck } = this.state;    
+        const { deck } = this.state;
 
         return (
             <>
                 <div className="page-title">Edit deck</div>
                 <div className="page-subtitle">Add, delete and customize your flashcards</div>
                 <div className="cards-edit-header">
-                    <div className="left">   
-                    <Link to={`/mydecks`}>
-                        <ButtonPushable label="↤ Back" color="blue" />
-                    </Link></div>
+                    <div className="left">
+                        <Link to={`/mydecks`}>
+                            <ButtonPushable label="↤ Back" color="blue" />
+                        </Link></div>
                     <div className="center">
                         <DeckName deck={deck} saveDeckTheme={this.saveDeckTheme} toast={toast} /></div>
                     <div className="right"></div>
