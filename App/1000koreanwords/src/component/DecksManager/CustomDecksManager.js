@@ -6,6 +6,8 @@ import ResetModal from '@app/component/Modals/ResetModal';
 import HiddenCardsModal from '@app/component/Modals/HiddenCardsModal';
 import DeleteModal from '@app/component/Modals/DeleteModal';
 import { withRouter } from '@app/tool/withRouter'
+import Loader from '@app/component/Main/Loader';
+
 
 class CustomDecksManager extends React.Component {
 
@@ -125,6 +127,9 @@ class CustomDecksManager extends React.Component {
                 <div className="content">
                     <div className="page-title">My decks</div>
                     <div className="page-subtitle">Create, edit and learn with your own decks</div>
+
+                    {decks.length === 0 && <Loader />}
+
                     <DecksList
                         decks={decks}
                         userDeckStates={userDeckStates}

@@ -61,3 +61,10 @@ a:hover {
     font-style: italic;
     text-align: center;
 }
+
+.loading {
+    opacity: 0.5;
+    filter: blur(2px);
+    pointer-events: none;
+    transition: opacity 150ms ease, filter 150ms ease;
+}

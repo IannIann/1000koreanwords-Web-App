@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
+import Loader from './Loader';
 
 export default class HomePage extends React.Component {
 
@@ -30,13 +31,12 @@ export default class HomePage extends React.Component {
                     <Link to={"/register/"}> <button>{"Register"}</button> </Link>
                     <Link to={"/login/"}> <button>{"Login"}</button> </Link>
                 </div>)
-        } else {
+        } 
+        else {
             return (
-                <div>
-                    <div>Loading...</div>
-                </div>
+                <Loader />
             )
-        }   
+        }
     }
 
     renderElement() {

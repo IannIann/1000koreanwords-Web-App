@@ -3,6 +3,7 @@ import DecksList from '@app/component/DecksManager/DecksList'
 import DecksService from '@app/component/DecksManager/logic/DecksService';
 import ResetModal from '@app/component/Modals/ResetModal';
 import HiddenCardsModal from '@app/component/Modals/HiddenCardsModal';
+import Loader from '@app/component/Main/Loader';
 
 export default class DecksManager extends React.Component {
     state = {
@@ -90,6 +91,8 @@ export default class DecksManager extends React.Component {
                 <div className="content">
                     <div className="page-title">Explore korean vocabulary</div>
                     <div className="page-subtitle">Flashcards grouped by theme and level</div>
+
+                    {decks.length === 0 && <Loader />}
 
                     <DecksList decks={decks}
                         userDeckStates={userDeckStates}

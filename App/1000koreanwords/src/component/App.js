@@ -47,7 +47,7 @@ export default class App extends React.Component {
                     <Route path="/test" element={<Private component={deck}/>}/>
                 </Routes>
 
-                <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick />
+                <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick position='bottom-right'/>
                 
             </>
         )

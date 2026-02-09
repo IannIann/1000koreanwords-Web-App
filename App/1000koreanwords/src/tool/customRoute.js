@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthService from '@app/service/auth.service'
+import Loader from '@app/component/Main/Loader';
 
 const AlreadyLogged = ({ component: Component, ...rest }) => {
   const [isLogged, setIsLogged] = useState(null);
@@ -15,10 +16,10 @@ const AlreadyLogged = ({ component: Component, ...rest }) => {
   }, []);
 
   if (isLogged === null) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
-  if (!isLogged) {
+    if (!isLogged) {
     return <Component />;
   } else {
     return <Navigate to="/" />;
@@ -38,7 +39,7 @@ const Private = ({ component: Component, ...rest }) => {
   }, []);
 
   if (isLogged === null) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   if (isLogged) {
