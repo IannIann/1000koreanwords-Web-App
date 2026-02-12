@@ -1,22 +1,67 @@
-.component-card {
+/* .component-card {
     text-align: center;
     width: 250px;
     height: 375px;
-    /* background: linear-gradient(to bottom right, #ffffff, #f8f7f5); */
+    background: linear-gradient(to bottom right, #ffffff, #f8f7f5); 
     background: #ffffff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     margin: 10px;
     padding-top: 5px;
     box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.6);
+} */
+
+
+/* .component-shadow {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 300px;
+    height: 450px;
+    padding: 10px;
+    margin: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    filter: blur(3px);
+    border-radius: 10px;
+    z-index: 0;
+    transform-style: preserve-3d;
+} */
+
+.component-card {
+    font-size: 1.5rem;
+    font-weight: 800;
+    
+    text-align: center;
+    width: 250px;
+    height: 375px;
+
+    background: white;
+    border-radius: 0px;
+    padding: 10px;
+    padding-top: 5px;
+    box-shadow: 12px 12px 0px rgba(0,0,0,0.1);
+
+    border: 3px solid var(--border-dark);
 }
 
-
 /*Section used for cards displayed in the quiz*/
-
 /*Added a wrapper and a shadow so that the card 
 and shadow are grouped together when it get flipped*/
+
+.component-card.flip-card {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+
+    width: 300px;
+    height: 450px;
+
+    transform-style: preserve-3d;
+    box-shadow: none;
+}
+
 .component-wrapper {
     position: relative;
     display: inline-block;
@@ -31,25 +76,12 @@ and shadow are grouped together when it get flipped*/
     height: 450px;
     padding: 10px;
     margin: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    filter: blur(3px);
-    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
     z-index: 0;
     transform-style: preserve-3d;
 }
 
-.component-card.flip-card {
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    position: relative; 
-
-    width: 300px;
-    height: 450px;
-
-    transform-style: preserve-3d;
-    box-shadow: none;
-}
 
 
 .component-wrapper
@@ -106,6 +138,7 @@ and shadow are grouped together when it get flipped*/
 
 .card-answer,
 .card-question {
+    font-family: 'Noto Serif KR', serif;
     font-size: 1.8em;
     text-overflow: ellipsis;
     text-align: center; 
@@ -114,7 +147,11 @@ and shadow are grouped together when it get flipped*/
 }
 
 .card-answer {
+    font-family: 'Outfit', sans-serif;
     overflow: hidden;
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--teal);
 }
 
 .card-front, .card-back  {

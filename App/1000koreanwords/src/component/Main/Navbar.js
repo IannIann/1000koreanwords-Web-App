@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { withRouter } from '@app/tool/withRouter'
 import AuthService from '@app/service/auth.service'
 
-// import '@app/style/navbar.css';
+import '@app/style/navbar.css';
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
 
     state = {
         isLogged: null
@@ -13,6 +14,7 @@ export default class Navbar extends React.Component {
     componentDidMount() {
         this.isUserLoggedIn();
     }
+    
     async isUserLoggedIn() {
         await AuthService.checkAuthToken()
         .then((res) => this.setState({ isLogged: res.valid }));
@@ -20,9 +22,11 @@ export default class Navbar extends React.Component {
 
     displayLogo = () => {
         return (
-            <div id="navbar-logo">
+            <div className="navbar-logo">
                 <Link to={"/homepage/"}>
-                    <img id="navbar-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/1920px-Flag_of_South_Korea.svg.png" />
+                    <div>
+                        <strong>1000</strong>Korean<strong>Words</strong> 
+                    </div>
                 </Link>
             </div>
         )
@@ -33,19 +37,13 @@ export default class Navbar extends React.Component {
             return (
                 <div className="navbar-links">
                     <div className="navbar-link">
-                        <Link to={"/homepage/"}> Home </Link>
-                    </div>
-                    <div className="navbar-link">
                         <Link to={"/learn/"}> Learn </Link>
                     </div>
                     <div className="navbar-link">
                         <Link to={"/mydecks/"}> My decks </Link>
                     </div>
                     <div className="navbar-link">
-                        <Link to={"/profile/"}> Profile </Link>
-                    </div>
-                    <div className="navbar-link">
-                        <Link to={"/logout/"}> Quit </Link>
+                        <Link to={"/logout/"}> Sign out </Link>
                     </div>
                 </div>
             )
@@ -54,37 +52,31 @@ export default class Navbar extends React.Component {
         {
             return (
                 <div className="navbar-links">
-                    <div className="navbar-link">
-                        <Link to={"/homepage/"}> Home </Link>
-                    </div>
-                    <div className="navbar-link">
-                        <Link to={"/login/"}> Login </Link>
-                    </div>
-                    <div className="navbar-link">
-                        <Link to={"/register/"}> Register </Link>
-                    </div>
+                    {!location.pathname.includes("/login") && (
+                        <div className="navbar-link">
+                            <Link to="/login">Login</Link>
+                        </div>
+                    )}
+
+                    {!location.pathname.includes("/register") && (
+                        <div className="navbar-link">
+                            <Link to="/register">Sign up</Link>
+                        </div>
+                    )}
                 </div>
             )
         }
     }
 
-    displayFeatures = () => {
-        return (
-            <div id="navbar-features">
-                <Link className="navbar-item" to={"/profile/"}> <i className="pi pi-user"></i> </Link>
-                <Link className="navbar-item" to={"/logout/"}> <i className="pi pi-power-off"></i></Link>
-            </div>)
-    }
-
-
     renderElement() {
+
         return (
             <>
-                <div className='empty'></div>
-                {/* { this.displayLogo() } */}
-                {this.displayLinks()}
+                {/* <div className='empty'></div> */}
+                { this.displayLogo() }
+                { this.displayLinks() }
                 {/* { this.displayFeatures() } */}
-                <div className='empty'></div>
+                {/* <div className='empty'></div> */}
             </>
         )
     }
@@ -96,3 +88,5 @@ export default class Navbar extends React.Component {
             )
     }
 }
+
+export default withRouter(Navbar);

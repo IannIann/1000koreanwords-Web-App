@@ -137,7 +137,8 @@ class Card extends React.Component {
             fade,
             fadeClass,
             openHideSingleCardModal, 
-            openFavoriteModal
+            openFavoriteModal,
+            displayButtons
         } = this.props;
 
         let cardClassName = "component-card flip-card";
@@ -162,14 +163,14 @@ class Card extends React.Component {
                 <div className={cardClassName}>
                     <div className="card-front">
                         <CardQuestion value={card.question} inPlay={true} />
-                        <FavoriteButton handleClick={openFavoriteModal} />
-                        <HideButton handleClick={openHideSingleCardModal} />
+                        <FavoriteButton handleClick={openFavoriteModal} displayButtons={displayButtons} />
+                        <HideButton handleClick={openHideSingleCardModal} displayButtons={displayButtons}  />
                     </div>
                     <div className="card-back">
                         <CardQuestion value={card.question} inPlay={true} />
                         <CardAnswer value={card.answer} inPlay={true} />
-                        <FavoriteButton handleClick={openFavoriteModal} />
-                        <HideButton handleClick={openHideSingleCardModal} />
+                        <FavoriteButton handleClick={openFavoriteModal} displayButtons={displayButtons} />
+                        <HideButton handleClick={openHideSingleCardModal} displayButtons={displayButtons} />
                     </div>
                 </div>
             </div>
@@ -188,7 +189,7 @@ class Card extends React.Component {
     }
 
     render() {
-        const { editable, inPlay, isDeletable } = this.props;
+        const { editable, inPlay, isDeletable, displayButtons } = this.props;
         const { card } = this.state;
 
         if (!card) {
@@ -197,7 +198,7 @@ class Card extends React.Component {
 
         return (
             <>
-                {this.renderCard(card, editable, inPlay, isDeletable)}
+                {this.renderCard(card, editable, inPlay, isDeletable, displayButtons)}
             </>
         );
     }

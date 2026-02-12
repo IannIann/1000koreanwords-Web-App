@@ -1,4 +1,19 @@
 
+:root {
+    --bg-cream: #F4F1EA;
+    --white: #ffffff;
+    --korean-green: #15803d; /* Richer, more professional green */
+    --korean-green-hover: #166534;
+    --text-dark: #1a1a1a;
+    --accent-blue: #3b82f6;
+    --border-dark: #2d2d2d;
+    --teal: #2A9D8F;
+    --ink: #1E2022;
+    --moss: #1B4332; 
+    --moss-light: #2D6A4F;
+}
+
+
 @font-face {
   font-family: 'NanumGothic';
   src: url(../assets/fonts/NanumGothic-Regular.ttf) format('truetype');
@@ -6,10 +21,22 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url(https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;800&display=swap) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap');
+
 html 
 {
-    color:#000000;
-    background: #f1eee6 ;
+    color:#1A1C1E;
+    /* background: #f1eee6 ; */
+    background-image: url("https://thumb.ac-illust.com/40/40e87f291815dc5cfcfef2af5a1d838a_t.jpeg");
 }
 
 body 
@@ -21,31 +48,27 @@ body
     width: 100vw;
     font-size: 1rem;
     overflow-x: hidden;
-    font-family: 'NanumGothic', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 input, textarea, button{
-    font-family: 'NanumGothic', sans-serif;
-}
-
-.component-tts 
-{
-    display: none;
+    font-family: 'Outfit', sans-serif;
 }
 
 .component-app {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 
 a {
     color: #000000;
     transition: 0.2s;
 }
-
+/* 
 a:hover {
     color: #1b86a9;
-}
+} */
 
 .error-message {
     color: #9B3200;

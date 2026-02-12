@@ -7,10 +7,11 @@ export default class HideButton extends React.Component {
     };
 
     render() {
-        return (
-            <button className="component-hide-button pi pi-eye-slash"
-                onClick={this.handleClick}>
-            </button>
-        );
+        if(this.props.displayButtons)
+            return (
+                <button className="component-hide-button pi pi-eye-slash"
+                    onClick={this.handleClick}>
+                </button>
+            );
     }
 };

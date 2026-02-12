@@ -7,10 +7,11 @@ export default class FavoriteButton extends React.Component {
     };
 
     render() {
-        return (
-            <button className="component-favorite-button pi pi-star-fill"
-                onClick={this.handleClick}>
-            </button>
-        );
+        if(this.props.displayButtons)
+            return (
+                <button className="component-favorite-button pi pi-star-fill"
+                    onClick={this.handleClick}>
+                </button>
+            );
     }
 };

@@ -1,8 +1,16 @@
 .component-quizz-button-panel {
     margin-bottom: 2%;
+    flex-direction: row;
 }
 
-.component-quizz-button-panel .button-pushable {
-    margin-left: 10px;
-    margin-right: 10px;
+.component-quizz-button-panel .button-ghost {
+    /* margin-left: 10px;
+    margin-right: 10px; */
+}
+
+.component-quizz-button-panel {
+    width: 100%;
+    margin-top: 30px;
+    height: 65px; /* Fixed height to prevent jumping */
+    position: relative;
 }

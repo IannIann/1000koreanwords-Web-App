@@ -1,4 +1,4 @@
-import ButtonPushable from "@app/component/Buttons/ButtonPushable";
+import ButtonGhost from "@app/component/Buttons/ButtonGhost";
 import React from "react";
 
 
@@ -16,17 +16,15 @@ export default class QuizzButtonPanel extends React.Component {
         if (isAnswered) {
             return (
                 <div className="component-quizz-button-panel">
-                    <ButtonPushable
+                    <ButtonGhost
                         label="Correct"
                         color="green"
-                        size="big"
                         onClick={() => this.handleCommandClick("Correct")}
                         disabled={isAnimating}
                     />
-                    <ButtonPushable
+                    <ButtonGhost
                         label="Wrong"
                         color="red"
-                        size="big"
                         onClick={() => this.handleCommandClick("Wrong")}
                         disabled={isAnimating}
                     />
@@ -35,10 +33,9 @@ export default class QuizzButtonPanel extends React.Component {
         } else {
             return (
                 <div className="component-quizz-button-panel">
-                    <ButtonPushable
+                    <ButtonGhost
                         label="Show answer"
                         color="blue"
-                        size="big"
                         onClick={() => this.handleCommandClick("Show")}
                     />
                 </div>

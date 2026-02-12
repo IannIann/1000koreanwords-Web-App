@@ -1,0 +1,26 @@
+.button-ghost {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.button-ghost .icon { width: 18px; transition: transform 0.3s; }
+
+.button-ghost:hover {
+    background: var(--ink);
+    color: white;
+}
+
+.button-ghost:hover .icon { transform: translateX(5px); }

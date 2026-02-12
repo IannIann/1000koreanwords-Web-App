@@ -1,6 +1,5 @@
 import React from "react";
 import Quizz from "./logic/Quizz.js";
-import TextToSpeech from "./TextToSpeech";
 import Card from "@app/component/Card/Card";
 import { withRouter } from '@app/tool/withRouter'
 import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
@@ -195,6 +194,7 @@ class QuizzApp extends React.Component {
                     fadeClass={fadeClass}
                     openHideSingleCardModal={this.openHideSingleCardModal}
                     openFavoriteModal={this.openFavoriteModal}
+                    displayButtons={true}
                 />
 
                 <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
