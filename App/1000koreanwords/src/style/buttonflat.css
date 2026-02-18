@@ -1,0 +1,44 @@
+.button-flat {
+    background: var(--teal);
+
+    padding: var(--padding-y) var(--padding-x);
+    font-size: var(--scale-font);
+
+
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 2px;
+    box-shadow: 8px 8px 0px rgba(27, 67, 50, 0.2);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border: none;
+}
+
+.button-flat:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 12px 12px 0px rgba(27, 67, 50, 0.1);
+    background: var(--teal-light);
+}
+
+.button-hero {
+    --padding-y: 22px;
+    --padding-x: 50px;
+    --scale-font: 1.2rem;
+}
+
+.button-form {
+    --padding-y: 22px;
+    --padding-x: 50px;
+    --scale-font: 1.2rem;
+    margin-top: 20px;
+    width: 100%;
+}
+
+@media (max-width: 1280px) {
+    .button-hero {
+        --padding-y: 16px;
+        --scale-font: 1rem;
+    }
+}

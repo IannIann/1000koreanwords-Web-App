@@ -7,3 +7,26 @@
     /* width: 50%; */
     margin: auto;
 }
+
+.component-quizz-demo
+{
+    /* align-items: center; */
+    /* width: 50%; */
+    transition : opacity 0.3s ease-in-out;
+}
+
+
+.quizz-wrapper{
+    transition : opacity 0.3s ease-in-out;
+}
+
+.quizz-wrapper.fade-out {
+    opacity: 0;
+}
+
+.quizz-wrapper.fade-in 
+{
+    opacity: 1;
+}
+
+

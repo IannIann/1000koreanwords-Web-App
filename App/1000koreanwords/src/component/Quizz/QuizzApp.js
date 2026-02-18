@@ -176,7 +176,6 @@ class QuizzApp extends React.Component {
             card,
             changeColor,
             color,
-            fade,
             fadeClass,
             isAnimating,
             maxIndex,
@@ -184,14 +183,12 @@ class QuizzApp extends React.Component {
         } = this.state;
 
         return (
-            <>
+            <div className={`quizz-wrapper ${fadeClass}`}>
                 <Card card={card}
                     inPlay={true}
                     isAnswered={isAnswered}
                     changeColor={changeColor}
                     color={color}
-                    fade={fade}
-                    fadeClass={fadeClass}
                     openHideSingleCardModal={this.openHideSingleCardModal}
                     openFavoriteModal={this.openFavoriteModal}
                     displayButtons={true}
@@ -199,7 +196,7 @@ class QuizzApp extends React.Component {
 
                 <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
                 <QuizzProgressBar scoreIndex={scoreIndex} maxIndex={maxIndex} />
-            </>
+            </div>
         );
     }
 

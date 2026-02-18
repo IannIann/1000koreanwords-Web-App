@@ -1,42 +1,97 @@
 
 :root {
     --bg-cream: #F4F1EA;
-    --white: #ffffff;
-    --korean-green: #15803d; /* Richer, more professional green */
-    --korean-green-hover: #166534;
-    --text-dark: #1a1a1a;
-    --accent-blue: #3b82f6;
     --border-dark: #2d2d2d;
-    --teal: #2A9D8F;
     --ink: #1E2022;
-    --moss: #1B4332; 
-    --moss-light: #2D6A4F;
-}
+    --grey: #555;
+    
+    --teal: #2A9D8F;
+    --teal-light: #35B5A5;
+    --teal-dark: #21867A;
 
+    --mint-glow : #ceffdd;
+    --evergreen: #0C8230;
+
+    --corail: #e76f51;
+    /* Lighter Tints (Perfect for backgrounds or accents) */
+        --corail-50: #fdf1ee;
+        --corail-100: #fbe4de;
+        --corail-200: #f6c9be;
+        --corail-300: #f1ad9d;
+        --corail-400: #ec917d;
+    
+        /* Darker Shades (Perfect for text, borders, or shadows) */
+        --corail-600: #d15639;
+        --corail-700: #b14228;
+        --corail-800: #91311b;
+        --corail-900: #712210;
+    
+        /* Complementary Muted Tone */
+        --corail-muted: #d1806d;
+
+/* sauge Green - Sage Palette */
+    --sauge: #8AB17D;
+    /* La couleur de base : douce mais distincte */
+
+    /* Lighter Tints (Fonds de messages de succès, badges) */
+    --sauge-50: #f4f7f2;
+    --sauge-100: #e9f0e6;
+    --sauge-200: #d2e1cd;
+    --sauge-300: #bbd2b4;
+    --sauge-400: #a3c298;
+
+    /* Darker Shades (Texte de succès lisible, bordures, icônes) */
+    --sauge-600: #719664;
+    --sauge-700: #587a4b;
+    --sauge-800: #405f34;
+    --sauge-900: #2a441f;
+
+    /* Muted Tone */
+    --sauge-muted: #9db893;
+
+    /* Vibrant Success Green */
+--vibrant: #48B05D; /* La couleur de base : lumineuse et joyeuse */
+
+/* Lighter Tints (Idéal pour des backgrounds de feedback ou hover légers) */
+--vibrant-50: #f1f9f2;
+--vibrant-100: #e3f3e6;
+--vibrant-200: #c6e7cd;
+--vibrant-300: #a9dbb4;
+--vibrant-400: #8ccf9a;
+
+/* Darker Shades (Pour le texte sur fond clair ou des boutons de validation) */
+--vibrant-600: #3a8e4b;
+--vibrant-700: #2d6d39;
+--vibrant-800: #1f4c28;
+--vibrant-900: #122a16;
+
+/* Muted Tone (Pour un état désactivé ou moins prioritaire) */
+--vibrant-muted: #6fb97f;
+}
 
 @font-face {
-  font-family: 'NanumGothic';
-  src: url(../assets/fonts/NanumGothic-Regular.ttf) format('truetype');
-  font-weight: normal;
+  font-family: 'Noto Serif KR';
+  src: url(../assets/fonts/NotoSerifKR.ttf) format('truetype-variations');
+  font-weight: 700 900; 
   font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url(https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;800&display=swap) format('truetype');
-  font-weight: normal;
+  font-family: 'Outfit';
+  src: url(../assets/fonts/Outfit.ttf) format('truetype-variations');
+  font-weight: 100 800;
   font-style: normal;
+  font-display: block;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap');
 
 html 
 {
-    color:#1A1C1E;
-    /* background: #f1eee6 ; */
-    background-image: url("https://thumb.ac-illust.com/40/40e87f291815dc5cfcfef2af5a1d838a_t.jpeg");
+    color: black;
+    /* background-image: url("https://thumb.ac-illust.com/40/40e87f291815dc5cfcfef2af5a1d838a_t.jpeg"); */
+
+   background-image: url(../assets/bg/background.webp);
 }
 
 body 
@@ -44,9 +99,8 @@ body
     margin: 0px;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     width: 100vw;
-    font-size: 1rem;
     overflow-x: hidden;
     font-family: 'Outfit', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -56,22 +110,23 @@ input, textarea, button{
     font-family: 'Outfit', sans-serif;
 }
 
-.component-app {
-    /* display: flex; */
-    /* flex-direction: column; */
+.component-app-wrapper {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1500px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 8%;
 }
 
 a {
     color: #000000;
     transition: 0.2s;
 }
-/* 
-a:hover {
-    color: #1b86a9;
-} */
 
 .error-message {
-    color: #9B3200;
+    color: var(--corail-700);
     white-space: pre-line;
 }   
 

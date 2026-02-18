@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
 import Loader from './Loader';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 import QuizzDemo from '@app/component/Quizz/QuizzDemo';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import '@app/style/homepage.css';
 
 export default class HomePage extends React.Component {
@@ -30,58 +30,61 @@ export default class HomePage extends React.Component {
         )
     }
 
-    displayGuestHomePage = () => {
+    displayHomePage = () => {
         return (
             <>
-                <header className="hero">
-                    <div className="hero-text">
-                        <h1>Learn. <span class="highlight">Remember.</span> Repeat.</h1>
-                        <p>Learn 1,000+ korean words through themed flashcard decks. Pick a theme, choose your level, and start learning.</p>
-                        {/* <Link to={"/register/"}> <ButtonPushable label="Join for Free" size="big" color="green" /> </Link> */}
-                    <a href="#" className="btn-cta">Start Your Journey — Free</a>
+                <div>   
+                    <header className="hero">
+                        <div className="hero-text">
+                            <h1>Learn. <span className="highlight">Remember.</span> Master.</h1>
+                            <p>
+                                Learn the 1,000 essential Korean words that cover up to 80% of everyday conversations.
+                                Choose a theme, select your level, and start building vocabulary.
+                            </p>
 
-                    
-                        <section className="features">
-                            <div className="feature-item">
-                                <span className="feature-icon pi pi-book"></span>
-                                <div className="feature-text">
-                                    <h3>Theme-Based</h3>
-                                    <p>From <b>Everyday Expressions</b> to <b>Business</b> vocabulary. Learn words you will actually use.</p>
+                            {this.state.isLogged === null ? <Loader /> : this.state.isLogged ? (
+                                <Link to={"/learn/"}> <ButtonFlat label="Start Learning" color="blue" customClass="button-hero"/> </Link>
+                            ) : (
+                                <Link to={"/register/"}> <ButtonFlat label="Start Your Journey — Free"  color="blue" customClass="button-hero" /> </Link>
+                            )}
+
+                            <section className="features">
+                                <div className="feature-item">
+                                    <span className="feature-icon pi pi-book"></span>
+                                    <div className="feature-text">
+                                        <h3>Theme-Based</h3>
+                                        <p>From <b>Everyday Expressions</b> to <b>Business</b> vocabulary. Learn words you will actually use in real life.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="feature-item">
-                                <span className="feature-icon pi pi-chart-line"></span>
-                                <div className="feature-text">
-                                    <h3>Difficulty Levels</h3>
-                                    <p>Progress naturally from <b>Beginner</b> to <b>Advanced</b> with pre-built decks.</p>
+                                <div className="feature-item">
+                                    <span className="feature-icon pi pi-chart-line"></span>
+                                    <div className="feature-text">
+                                        <h3>Difficulty Levels</h3>
+                                        <p>Progress naturally from <b>Beginner</b> to <b>Advanced</b> with structured decks.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="feature-item">
-                                <span className="feature-icon pi pi-cog"></span>
-                                <div className="feature-text">
-                                    <h3>Custom Decks</h3>
-                                    <p>Build your own personalized library. Add the words <b>you</b> want to master.</p>
+                                <div className="feature-item">
+                                    <span className="feature-icon pi pi-box"></span>
+                                    <div className="feature-text">
+                                        <h3>Custom Decks</h3>
+                                        <p>Build your own personalized library. Add the words <b>you</b> want to master.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    
-                    </div>
+                            </section>
+                        </div>
 
-                    <div className="hero-demo">
-                        <QuizzDemo />
-                    </div>
-                </header >
-
-
+                        <div className="hero-demo">
+                            <QuizzDemo />
+                        </div>
+                    </header >
+                </div>
             </>
         )
     }
 
-    displayHomePage = () => {
-        if (this.state.isLogged) {
-            return (this.displayUserHomePage())
-        } else if (this.state.isLogged === false) {
-            return (this.displayGuestHomePage())
+    renderElement = () => {
+        if (this.state.isLogged !== null) {
+            return (this.displayHomePage())
         } else {
             return (<Loader />)
         }
@@ -90,7 +93,7 @@ export default class HomePage extends React.Component {
     render() {
         return (
             <div className="component-homepage">
-                {this.displayHomePage()}
+                {this.renderElement()}
             </div>
         )
     }

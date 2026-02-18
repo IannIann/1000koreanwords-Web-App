@@ -115,8 +115,7 @@
 
 .button-pushable:hover .button-front {
   transform: translateY(-6px);
-  transition:
-    transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
 }
 
 .button-pushable:active .button-front {

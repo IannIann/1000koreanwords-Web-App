@@ -12,6 +12,7 @@ import ResetPassword from '@app/component/Main/Authentification/ResetPassword';
 import { AlreadyLogged, Private } from '@app/tool/customRoute'; //Private from '@app/tool/customRoute';
 import Navbar from '@app/component/Main/Navbar';
 import {Routes, Route} from 'react-router-dom'
+import Footer from '@app/component/Main/Footer';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -26,6 +27,7 @@ export default class App extends React.Component {
     renderElement() {
         return (
             <>
+            <div className="component-app-wrapper">
                 <Navbar />
                 <Routes>
                     <Route path="/*" element={<HomePage/>}/>
@@ -41,9 +43,9 @@ export default class App extends React.Component {
                     <Route path="/resetpassword/:token" element={<AlreadyLogged component={ResetPassword}/>}/>
                     <Route path="/test" element={<Private component={deck}/>}/>
                 </Routes>
-
+                <Footer />
+                </div>
                 <ToastContainer theme="dark" autoClose={2000} pauseOnFocusLoss={false} closeOnClick position='bottom-right'/>
-                
             </>
         )
     }

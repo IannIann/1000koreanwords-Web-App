@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from '../Input';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import Input from '@app/component/Main/Input';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
@@ -26,6 +26,12 @@ class ForgotPassword extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
 
+        const { email } = this.state;
+
+        if (!email || email.trim() === "") {
+            return toast.error("Please enter your email address.");
+        }
+
         AuthService.forgotPassword(
             this.state.email)
             .then((res) => {
@@ -44,21 +50,18 @@ class ForgotPassword extends React.Component {
         return (
             <>
                 {!successful && (
-                <div className='form'>
-                    <div className='form-title small'> Reset your password</div>
+                <>
+                    <div className='form-title small'> Forgot your password? </div>
                     <form onSubmit={this.handleSubmit}>
                         <Input id="email" placeholder="Email" type="email" value={email} handler={this.handleChange} />
-                        <ButtonPushable label="Send link" color="blue" size="small" />
+                        <ButtonFlat label="Send Reset Link" color="blue" customClass="button-form" />
                     </form>
-                </div>
+                </>
                 )}
 
                 {message && (
                     <div className='message-box'>
                         <div> {message} </div>
-                        <br />
-                        <br />
-                        <div className='message-link'>Back to <Link to="/login/"> Login </Link></div>
                     </div>
                 )}
             </>
@@ -67,7 +70,7 @@ class ForgotPassword extends React.Component {
 
     render() {
         return (
-            <div className="component-forgot-password">
+            <div className="component-forgot-password form">
                 {this.renderElement()}
             </div>
         );

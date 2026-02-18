@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import AuthService from '@app/service/auth.service'
 import { Link } from "react-router-dom";
 import tool from '@app/tool/tool'
@@ -56,13 +57,13 @@ class LoginForm extends React.Component {
         const { username, password, message } = this.state;
         return (
             <>
-                <div className='form-title'>Sign in</div>
+                <div className='form-title'>Login</div>
                 <form onSubmit={this.handleLogin}>
                     <Input id="username" placeholder="Username" type="text" value={username} handler={this.handleChange} />
                     <Input id="password" placeholder="Password" type="password" value={password} handler={this.handleChange} />
                     {message && (<div className="error-message"> {message} </div>)}
 
-                    <ButtonPushable label="Sign in" color="blue" size="small" />
+                    <ButtonFlat label="Sign in" color="blue" customClass="button-form" />
 
                 </form>
 

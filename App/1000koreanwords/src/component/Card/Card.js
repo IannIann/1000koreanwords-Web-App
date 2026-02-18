@@ -134,8 +134,6 @@ class Card extends React.Component {
         const { isAnswered, 
             changeColor,
             color,
-            fade,
-            fadeClass,
             openHideSingleCardModal, 
             openFavoriteModal,
             displayButtons
@@ -143,7 +141,7 @@ class Card extends React.Component {
 
         let cardClassName = "component-card flip-card";
         let shadowClassName = "component-shadow"; //has to trick the shadow box so it can be flipped
-        let wrapperClassName = "component-wrapper";
+        let wrapperClassName = "card-wrapper";
 
         if (isAnswered) {
             cardClassName += " flipped";
@@ -153,12 +151,9 @@ class Card extends React.Component {
             cardClassName += " " + color;
             shadowClassName += " " + color;
         }
-        if (fade) {
-            wrapperClassName += " " + fadeClass;
-        }
 
         return (
-            <div className={wrapperClassName} >
+            <div className="card-wrapper" >
             <div className={shadowClassName}></div>
                 <div className={cardClassName}>
                     <div className="card-front">

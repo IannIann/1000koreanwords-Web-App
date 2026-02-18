@@ -14,10 +14,10 @@ class Navbar extends React.Component {
     componentDidMount() {
         this.isUserLoggedIn();
     }
-    
+
     async isUserLoggedIn() {
         await AuthService.checkAuthToken()
-        .then((res) => this.setState({ isLogged: res.valid }));
+            .then((res) => this.setState({ isLogged: res.valid }));
     }
 
     displayLogo = () => {
@@ -25,7 +25,7 @@ class Navbar extends React.Component {
             <div className="navbar-logo">
                 <Link to={"/homepage/"}>
                     <div>
-                        <strong>1000</strong>Korean<strong>Words</strong> 
+                        <h1>1000<span style={{ color: "var(--teal)" }}>Korean</span>Words</h1>
                     </div>
                 </Link>
             </div>
@@ -48,8 +48,7 @@ class Navbar extends React.Component {
                 </div>
             )
         }
-        else
-        {
+        else if (!this.state.isLogged) {
             return (
                 <div className="navbar-links">
                     {!location.pathname.includes("/login") && (
@@ -58,7 +57,7 @@ class Navbar extends React.Component {
                         </div>
                     )}
 
-                    {!location.pathname.includes("/register") && (
+                    {location.pathname.includes("/login") && (
                         <div className="navbar-link">
                             <Link to="/register">Sign up</Link>
                         </div>
@@ -69,23 +68,21 @@ class Navbar extends React.Component {
     }
 
     renderElement() {
-
         return (
             <>
-                {/* <div className='empty'></div> */}
-                { this.displayLogo() }
-                { this.displayLinks() }
-                {/* { this.displayFeatures() } */}
-                {/* <div className='empty'></div> */}
+                {this.displayLogo()}
+                {this.displayLinks()}
             </>
         )
     }
     render() {
-            return (
+        return (
+            <div>
                 <nav className="component-navbar">
-                        {this.renderElement()}
+                    {this.renderElement()}
                 </nav>
-            )
+            </div>
+        )
     }
 }
 

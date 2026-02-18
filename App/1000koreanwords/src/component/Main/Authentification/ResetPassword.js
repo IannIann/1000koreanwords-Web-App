@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../Input';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import AuthService from '@app/service/auth.service'
@@ -50,7 +50,6 @@ class ResetPassword extends React.Component {
             this.setState({
                 passwordConfirm: e.target.value
             });
-
         }
     }
 
@@ -102,13 +101,15 @@ class ResetPassword extends React.Component {
 
         return (
             isValidToken && (
-                <div className="form-container">
+                <>
                     {!message && (
+                        <>
+                        <div className='form-title small'> Reset password</div>
                         <form onSubmit={this.checkFormValidityAndSubmit}>
                             <div className="form-input-container">
                                 <Input
                                     id="password"
-                                    placeholder="New password"
+                                    placeholder="Enter new password"
                                     name="password"
                                     type="password"
                                     value={password}
@@ -129,8 +130,9 @@ class ResetPassword extends React.Component {
                                 </div>
                             )}
 
-                            <ButtonPushable label="Save password" color="blue" size="small" />
+                            <ButtonFlat label="Save" color="blue" customClass="button-form" />
                         </form>
+                        </>
                     )}
 
                     {message && (
@@ -143,14 +145,14 @@ class ResetPassword extends React.Component {
                             </div>
                         </div>
                     )}
-                </div>
+                </>
             )
         )
     }
 
     render() {
         return (
-            <div className="component-reset-password">
+            <div className="component-reset-password form">
                 {this.renderElement()}
             </div>
         );

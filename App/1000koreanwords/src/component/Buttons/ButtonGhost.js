@@ -20,9 +20,9 @@ class ButtonGhost extends React.Component {
   }
 
   render() {
-    const { onClick, label, color, isIcon, size, disabled } = this.props;
+    const { onClick, label, color, isIcon, size, disabled, position } = this.props;
     return (
-        <button disabled={disabled} onClick={onClick} className={`button-ghost ${color}`} role="button">
+        <button disabled={disabled} onClick={onClick} className={`button-ghost ${position} ${color}`} role="button">
             {label}
         </button>
     );

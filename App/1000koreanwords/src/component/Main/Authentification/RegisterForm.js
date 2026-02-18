@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../Input';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import AuthService from '@app/service/auth.service'
 import customdecksData from '@app/data/customdecks.data';
 import tool from '@app/tool/tool'
@@ -125,7 +125,7 @@ class RegisterForm extends React.Component {
                             <Input id="password" placeholder="Password" name="password" type="password" value={password} handler={this.handleChange} />
                             <Input id="password-confirm" placeholder="Confirm password" type="password" value={passwordConfirm} handler={this.handleChange} />
                             {message && (<div className="error-message"> {message} </div>)}
-                            <ButtonPushable label="Register" color="blue" size="small" />
+                            <ButtonFlat label="Register" color="blue" customClass="button-form"/>
                         </div>
                     )}
                 </form>

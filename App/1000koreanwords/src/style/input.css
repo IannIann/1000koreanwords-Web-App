@@ -14,13 +14,18 @@
 .input-field {
   width: 100%;
   border: 0;
-  border-bottom: 2px solid #8899A6;
+  border-bottom: 2px solid;
   outline: 0;
   font-size: 1.2rem;
   color: #000000;
+  opacity: 0.6;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
+}
+.input-field:not(:placeholder-shown) {
+  opacity: 1;
+  font-weight: 500; 
 }
 
 .input-field::placeholder {
@@ -39,7 +44,8 @@
   display: block;
   transition: 0.2s;
   font-size: 0.8rem;
-  color: #5c6d7a;
+  color: #000000;
+  opacity: 0.6;
 }
 
 .input-field:focus ~ .input-field-label {
@@ -48,16 +54,17 @@
   display: block;
   transition: 0.2s;
   font-size: 0.8rem;
-  color: #7187C3;
+  color: var(--teal);
   font-weight: 700;    
+  opacity: 1;
 }
 
 .input-field:focus {
   padding-bottom: 6px;  
   font-weight: 700;
   border-width: 3px;
-  border-image: linear-gradient(to right, #5ab9d8, #7f3169);
-  border-image-slice: 1;
+  border-color : var(--teal);
+  opacity: 1;
 }   
 
 /* reset input */

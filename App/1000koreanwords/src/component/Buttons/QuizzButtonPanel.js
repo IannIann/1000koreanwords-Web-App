@@ -21,12 +21,14 @@ export default class QuizzButtonPanel extends React.Component {
                         color="green"
                         onClick={() => this.handleCommandClick("Correct")}
                         disabled={isAnimating}
+                        position="top"
                     />
                     <ButtonGhost
                         label="Wrong"
                         color="red"
                         onClick={() => this.handleCommandClick("Wrong")}
                         disabled={isAnimating}
+                        position="bottom"
                     />
                 </div>
             );
@@ -37,6 +39,7 @@ export default class QuizzButtonPanel extends React.Component {
                         label="Show answer"
                         color="blue"
                         onClick={() => this.handleCommandClick("Show")}
+                        position="center"
                     />
                 </div>
             );

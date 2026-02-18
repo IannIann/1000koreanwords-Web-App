@@ -1,34 +1,38 @@
+
 .form {
     display: flex;
-    position: absolute;
     flex-direction: column;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-}
-
-.form .button-pushable {
-    margin-top: 20px;
-    width: 100%;
+    min-width: 400px;
+    margin: 30px auto;
 }
 
 .form-title {
-    font-size: 2em;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 0.9;
     margin-bottom: 20px;
     text-align: center;
 }
 
 .form-title.small {
-    font-size: 1.7em;
+    font-size: 2em;
 }
 
 .form .error-message {
     margin-top: 5px;
 }
 
-.form .footer {    
+.form .footer {
     margin-top: 10px;
+    font-weight: 300;
+    color: var(--black);
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.form .footer a:hover {
+    color: var(--teal-dark);
+    opacity: 1;
 }
 
 .message-box {
@@ -44,4 +48,10 @@
 .message-box .message-link {
     font-size: 1.2rem;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .form {
+        min-width: 200px;
+    }
 }

@@ -123,41 +123,35 @@ export default class QuizzDemo extends React.Component {
             card,
             changeColor,
             color,
-            fade,
             fadeClass,
             isAnimating,
         } = this.state;
 
         return (
-            <>
+            <div className={`quizz-wrapper ${fadeClass}`}>
                 <Card card={card}
                     inPlay={true}
                     isAnswered={isAnswered}
                     changeColor={changeColor}
                     color={color}
-                    fade={fade}
-                    fadeClass={fadeClass}
                     displayButtons={false}
                 />
-
                 <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
-            </>
+            </div>
         );
     }
 
     renderElement() {
         return (
             <>
-                <div className="content">
-                    { this.renderCardQuizz()}
-                </div>
+                    {this.renderCardQuizz()}
             </>
         );
     }
 
     render() {
         return (
-            <div className="component-quizz-app">
+            <div className="component-quizz-demo">
                 {this.renderElement()}
             </div>
         )
