@@ -8,6 +8,11 @@
     margin-right: 3px;
 }
 
+.component-deck-button-group .button-ghost {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
 .component-deck-button-group .button-pushable .button-front {
     font-size: 1em;
     padding: 10px 15px;

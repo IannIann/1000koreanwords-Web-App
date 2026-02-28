@@ -1,5 +1,6 @@
 import React from 'react';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonGhost from '@app/component/Buttons/ButtonGhost';
 
 import '@app/style/deckbuttongroup.css';
 
@@ -20,33 +21,33 @@ class DeckButtonGroup extends React.Component {
     if(isCustomDeck && isEmptyDeck) {
       this.refreshColor = "gray";
       this.hideColor = "gray";
-      this.editColor = "green";
+      this.editColor = "teal";
       this.deleteColor = "red";
     } else
     {
-      this.refreshColor = "blue";
-      this.hideColor = "blue";
-      this.editColor = "blue";
+      this.refreshColor = "black";
+      this.hideColor = "black";
+      this.editColor = "black";
       this.deleteColor = "red";
     }
 
     return (
 
       <div className='component-deck-button-group'>
-      <ButtonPushable
+      <ButtonGhost
         onClick={() => openResetModal(deckState)}
         label="pi-refresh"
         isIcon={true}
         color={this.refreshColor}
       />
-      <ButtonPushable
+      <ButtonGhost
         onClick={() => openHiddenCardsModal(deck, deckState)}
         label="pi-eye-slash"
         isIcon={true}
         color={this.hideColor}
       />
       {isCustomDeck && (
-        <ButtonPushable
+        <ButtonGhost
           onClick={() => openEditPage(deck)}
           label="pi-pencil"
           isIcon={true}
@@ -54,7 +55,7 @@ class DeckButtonGroup extends React.Component {
         />
       )}
       {isCustomDeck && (
-        <ButtonPushable
+        <ButtonGhost
           onClick={() => openDeleteModal(deck)}
           label="pi-trash"
           isIcon={true}

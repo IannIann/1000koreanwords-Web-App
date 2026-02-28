@@ -89,12 +89,15 @@ export default class DecksManager extends React.Component {
                 }
 
                 <div className="content">
-                    <div className="page-title">Explore korean vocabulary</div>
-                    <div className="page-subtitle">Flashcards grouped by theme and level</div>
+                    {decks.length === 0 ? <Loader /> : (
+                        <>
+                            <div className="page-title">Explore korean vocabulary</div>
+                            <div className="page-subtitle">Flashcards grouped by theme and level</div>
+                        </>
+                    )}
 
-                    {decks.length === 0 && <Loader />}
-
-                    <DecksList decks={decks}
+                    <DecksList
+                        decks={decks}
                         userDeckStates={userDeckStates}
                         refreshDecks={this.refreshDecks}
                         openResetModal={this.openResetModal}

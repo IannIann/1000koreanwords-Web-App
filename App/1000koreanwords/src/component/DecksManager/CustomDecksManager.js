@@ -17,7 +17,8 @@ class CustomDecksManager extends React.Component {
         enableHiddenCardsModal: false,
         enableResetModal: false,
         enableDeleteModal: false,
-        maxCustomDecksLimit: 32
+        maxCustomDecksLimit: 32,
+        isLoading: true
     };
 
     componentDidMount() {
@@ -31,7 +32,7 @@ class CustomDecksManager extends React.Component {
             CustomDecksService.fetchMaxCustomDecksLimit(),
         ]);
 
-        this.setState({ decks, userDeckStates, maxCustomDecksLimit });
+        this.setState({ decks, userDeckStates, maxCustomDecksLimit, isLoading: false });
     };
 
     refreshDecks = () => {
@@ -125,23 +126,27 @@ class CustomDecksManager extends React.Component {
                 }
 
                 <div className="content">
-                    <div className="page-title">My decks</div>
-                    <div className="page-subtitle">Create, edit and learn with your own decks</div>
+                    {this.state.isLoading ? (
+                        <Loader />
+                    ) : (
+                        <>
+                            <div className="page-title">My decks</div>
+                            <div className="page-subtitle">Create, edit and learn with you own decks</div>
+                            <DecksList
+                                decks={decks}
+                                userDeckStates={userDeckStates}
+                                maxCustomDecksLimit={maxCustomDecksLimit}
+                                isCustomDeck={true}
+                                refreshDecks={this.refreshDecks}
+                                openResetModal={this.openResetModal}
+                                openHiddenCardsModal={this.openHiddenCardsModal}
+                                openEditPage={this.openEditPage}
+                                openDeleteModal={this.openDeleteModal}
+                                toast={toast}
+                            />
 
-                    {decks.length === 0 && <Loader />}
-
-                    <DecksList
-                        decks={decks}
-                        userDeckStates={userDeckStates}
-                        maxCustomDecksLimit={maxCustomDecksLimit}
-                        isCustomDeck={true}
-                        refreshDecks={this.refreshDecks}
-                        openResetModal={this.openResetModal}
-                        openHiddenCardsModal={this.openHiddenCardsModal}
-                        openEditPage={this.openEditPage}
-                        openDeleteModal={this.openDeleteModal}
-                        toast={toast}
-                    />
+                        </>
+                    )}
                 </div>
             </>
         )
@@ -150,7 +155,7 @@ class CustomDecksManager extends React.Component {
     render() {
         return (
             <>
-                <div className="component-custom-decks-manager">
+                <div className="component-custom-decks-manager fill-available-space">
                     {this.renderElement()}
                 </div>
             </>

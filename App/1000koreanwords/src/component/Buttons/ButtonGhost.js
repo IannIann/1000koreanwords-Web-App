@@ -3,16 +3,16 @@ import '@app/style/buttonghost.css';
 
 class ButtonGhost extends React.Component {
 
-  renderSpan(label, isIcon, size)
+  renderSpan(label, isIcon)
   {
     if (isIcon) {
       return (
-        <span className={`button-front pi ${label}`}/>
+        <span className={`pi ${label}`}/>
       );
     }
     else {
       return (
-        <span className={`button-front ${size ? size : ''}`}>
+        <span>
           {label}
         </span>
       )
@@ -20,10 +20,10 @@ class ButtonGhost extends React.Component {
   }
 
   render() {
-    const { onClick, label, color, isIcon, size, disabled, position } = this.props;
+    const { onClick, label, color, isIcon, disabled, position } = this.props;
     return (
-        <button disabled={disabled} onClick={onClick} className={`button-ghost ${position} ${color}`} role="button">
-            {label}
+        <button disabled={disabled} onClick={onClick} className={`button-ghost ${position ? position : ''} ${color} ${isIcon ? 'icon' : ''}`} role="button">
+            {this.renderSpan(label, isIcon)}
         </button>
     );
   }

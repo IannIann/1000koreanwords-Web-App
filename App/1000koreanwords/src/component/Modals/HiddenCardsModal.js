@@ -6,6 +6,7 @@ import customdecks from '@app/data/customdecks.data';
 import Card from '@app/component/Card/Card';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import '@app/style/modal.css';
 import '@app/style/hiddencardsmodal.css';
 
@@ -105,7 +106,7 @@ class HiddenCardsModal extends React.Component {
           <div className="close-button-container">
           <ModalCrossButton handleClick={onClose} />
           </div>
-          <h2>Remove cards from the hidden list</h2>
+          <h2>Remove cards from the hide list</h2>
           <hr />
         </div>
         <div className="modal-content">
@@ -114,10 +115,8 @@ class HiddenCardsModal extends React.Component {
         <div className="modal-footer">
           <hr />
           <div className="modal-buttons">
-
-            <ButtonPushable label="Cancel" onClick={onClose} color="red"/>
-            <ButtonPushable label="Confirm" onClick={this.onConfirm} color="green"/>
-            
+            <ButtonFlat label="Cancel" onClick={onClose} customClass={`button-start-deck button-modal red`} />
+            <ButtonFlat label="Confirm" onClick={this.onConfirm} customClass={`button-start-deck button-modal green`} />
           </div>
         </div>
       </>

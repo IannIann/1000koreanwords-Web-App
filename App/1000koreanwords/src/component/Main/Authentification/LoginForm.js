@@ -1,6 +1,5 @@
 import React from 'react';
 import Input from '../Input';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import AuthService from '@app/service/auth.service'
 import { Link } from "react-router-dom";
@@ -40,7 +39,7 @@ class LoginForm extends React.Component {
             username,
             password)
             .then(() => {
-                this.navigateToMainPage();
+                this.navigateToLearnPage();
             })
             .catch((error) => {
                 this.setState({
@@ -49,8 +48,8 @@ class LoginForm extends React.Component {
             })
     }
 
-    navigateToMainPage = () => {
-        window.location.reload();
+    navigateToLearnPage = () => {
+        this.props.router.navigate('/learn');
     }
 
     renderElement() {

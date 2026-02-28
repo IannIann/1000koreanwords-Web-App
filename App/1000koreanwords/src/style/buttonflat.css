@@ -1,10 +1,7 @@
 .button-flat {
     background: var(--teal);
-
     padding: var(--padding-y) var(--padding-x);
     font-size: var(--scale-font);
-
-
     font-weight: 800;
     color: white;
     text-decoration: none;
@@ -14,12 +11,13 @@
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
     border: none;
+    letter-spacing: 0.03em;
 }
 
-.button-flat:hover {
+.button-flat:not(:disabled):hover {
     transform: translate(-2px, -2px);
     box-shadow: 12px 12px 0px rgba(27, 67, 50, 0.1);
-    background: var(--teal-light);
+    filter: brightness(1.1);
 }
 
 .button-hero {
@@ -34,6 +32,43 @@
     --scale-font: 1.2rem;
     margin-top: 20px;
     width: 100%;
+}
+
+.button-start-deck {
+    --padding-y: 16px;
+    --padding-x: 60px;
+    --scale-font: 1.2rem;
+}
+
+.button-start-deck.gray {
+    background: var(--gray);
+    cursor: default;
+}
+
+.button-start-deck.Beginner {
+    background : var(--level-beginner);
+}
+
+.button-start-deck.Intermediate {
+    background : var(--level-intermediate);
+}
+
+.button-start-deck.Advanced {
+    background : var(--level-advanced);
+}
+
+.button-modal {
+    --padding-y: 16px;
+    --padding-x: 40px;
+    --scale-font: 1rem;
+}
+
+.button-modal.red {
+    background: var(--corail);
+}
+
+.button-modal.green {
+    background: var(--teal);
 }
 
 @media (max-width: 1280px) {

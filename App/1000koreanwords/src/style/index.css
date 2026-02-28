@@ -3,70 +3,50 @@
     --bg-cream: #F4F1EA;
     --border-dark: #2d2d2d;
     --ink: #1E2022;
-    --grey: #555;
-    
+    --gray: #555;
+
     --teal: #2A9D8F;
     --teal-light: #35B5A5;
     --teal-dark: #21867A;
 
-    --mint-glow : #ceffdd;
+    --mint-glow: #ceffdd;
     --evergreen: #0C8230;
 
+    --level-advanced: #A52A2A;
+    --level-intermediate: #304a6b;
+    --level-beginner: #FFB800;
     --corail: #e76f51;
-    /* Lighter Tints (Perfect for backgrounds or accents) */
-        --corail-50: #fdf1ee;
-        --corail-100: #fbe4de;
-        --corail-200: #f6c9be;
-        --corail-300: #f1ad9d;
-        --corail-400: #ec917d;
-    
-        /* Darker Shades (Perfect for text, borders, or shadows) */
-        --corail-600: #d15639;
-        --corail-700: #b14228;
-        --corail-800: #91311b;
-        --corail-900: #712210;
-    
-        /* Complementary Muted Tone */
-        --corail-muted: #d1806d;
+    --corail-50: #fdf1ee;
+    --corail-100: #fbe4de;
+    --corail-200: #f6c9be;
+    --corail-300: #f1ad9d;
+    --corail-400: #ec917d;
+    --corail-600: #d15639;
+    --corail-700: #b14228;
+    --corail-800: #91311b;
+    --corail-900: #712210;
 
-/* sauge Green - Sage Palette */
     --sauge: #8AB17D;
-    /* La couleur de base : douce mais distincte */
-
-    /* Lighter Tints (Fonds de messages de succès, badges) */
     --sauge-50: #f4f7f2;
     --sauge-100: #e9f0e6;
     --sauge-200: #d2e1cd;
     --sauge-300: #bbd2b4;
     --sauge-400: #a3c298;
-
-    /* Darker Shades (Texte de succès lisible, bordures, icônes) */
     --sauge-600: #719664;
     --sauge-700: #587a4b;
     --sauge-800: #405f34;
     --sauge-900: #2a441f;
 
-    /* Muted Tone */
-    --sauge-muted: #9db893;
-
-    /* Vibrant Success Green */
---vibrant: #48B05D; /* La couleur de base : lumineuse et joyeuse */
-
-/* Lighter Tints (Idéal pour des backgrounds de feedback ou hover légers) */
---vibrant-50: #f1f9f2;
---vibrant-100: #e3f3e6;
---vibrant-200: #c6e7cd;
---vibrant-300: #a9dbb4;
---vibrant-400: #8ccf9a;
-
-/* Darker Shades (Pour le texte sur fond clair ou des boutons de validation) */
---vibrant-600: #3a8e4b;
---vibrant-700: #2d6d39;
---vibrant-800: #1f4c28;
---vibrant-900: #122a16;
-
-/* Muted Tone (Pour un état désactivé ou moins prioritaire) */
---vibrant-muted: #6fb97f;
+    --vibrant: #48B05D;
+    --vibrant-50: #f1f9f2;
+    --vibrant-100: #e3f3e6;
+    --vibrant-200: #c6e7cd;
+    --vibrant-300: #a9dbb4;
+    --vibrant-400: #8ccf9a;
+    --vibrant-600: #3a8e4b;
+    --vibrant-700: #2d6d39;
+    --vibrant-800: #1f4c28;
+    --vibrant-900: #122a16;
 }
 
 @font-face {
@@ -85,13 +65,9 @@
   font-display: block;
 }
 
-
-html 
-{
+html {
     color: black;
-    /* background-image: url("https://thumb.ac-illust.com/40/40e87f291815dc5cfcfef2af5a1d838a_t.jpeg"); */
-
-   background-image: url(../assets/bg/background.webp);
+    background-image: url(../assets/bg/background.webp);
 }
 
 body 
@@ -106,7 +82,7 @@ body
     -webkit-font-smoothing: antialiased;
 }
 
-input, textarea, button{
+input, textarea, button, select{
     font-family: 'Outfit', sans-serif;
 }
 
@@ -131,13 +107,19 @@ a {
 }   
 
 .page-title {
+    font-size: 2.2rem;
+    font-weight: 600;
     text-align: center;
-    font-size: 2rem;
+    margin-top: 3%;
 }
 
 .page-subtitle {
-    font-style: italic;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 20px;
     text-align: center;
+    font-style: italic;
+    opacity: 0.8;
 }
 
 .loading {
@@ -145,4 +127,11 @@ a {
     filter: blur(2px);
     pointer-events: none;
     transition: opacity 150ms ease, filter 150ms ease;
+}
+
+.fill-available-space{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
 }

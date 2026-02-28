@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import Card from '@app/component/Card/Card'
 
 import '@app/style/modal.css';
@@ -39,10 +39,8 @@ class HideSingleCardModal extends React.Component {
         <div className="modal-footer">
           <hr />
           <div className="modal-buttons">
-
-            <ButtonPushable label="No" onClick={onClose} color="red" />
-            <ButtonPushable label="Yes" onClick={this.hideCard} color="green" />
-
+            <ButtonFlat label="No" onClick={onClose} customClass={`button-start-deck button-modal red`} />
+            <ButtonFlat label="Yes" onClick={this.hideCard} customClass={`button-start-deck button-modal green`} />
           </div>
         </div>
       </>

@@ -1,149 +1,187 @@
  .component-deck {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    position: absolute;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-around;
+     text-align: center;
+     position: absolute;
 
-    width: 250px;
-    height: 375px;
-    border-radius: 10px;
-    padding: 10px;
+     width: 250px;
+     height: 375px;
+     padding: 10px;
 
-    background: linear-gradient(to bottom right, #ffffff, #e8e8e8);
-    box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.6);
-    color:#333;
+     border-radius: 0px;
+     border: 2px solid var(--border-dark);
 
-    transition: transform 0.3s ease;
-}
+     background: white;
 
-.custom
-{
-    position: relative !important;
-    margin: 30px;
-}
+     color: var(--ink);
 
-.component-deck .start-button-container {
-    width: 80%;
-    margin: 0 auto;
-}
+     transition: transform 0.3s ease;
 
-.component-deck .start-button-container .button-pushable {
-    width: 100%;
-}
+     user-select: none;
+     -webkit-user-select: none;
+ }
 
-.grade p {
-    font-size: 1rem;
-    color: #ffffff;
-    margin : 0px;
-}
+ .component-deck.deck-3 {
+     box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
+ }
 
-.theme h2, .theme p {
-    margin: 0;
-    padding: 0;
-    line-height: 1.3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+ .component-deck.deck-2 {
+     box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
+ }
 
-.theme h2:only-child {
-    font-size: 1.5em; /* restore the original font size when there's only one line */
-}
+ .component-deck.deck-1 {
+     box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
+ }
 
-.theme h2 {
-    font-size: 1.5rem;
-    color: #333;
-    font-weight: bold;
-}
+ .component-deck.custom {
+     position: relative !important;
+     margin: 30px;
+     box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
+ }
 
-.theme p {
-    font-size: 1.1rem;
-    color: #666;
-    margin-top: 5px;
-} 
+ .component-deck .start-button-container {
+     width: 80%;
+     margin: 0 auto;
+ }
 
-/*Deck stacks*/
-.component-decks-list {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 0.5%;
-}
+ .component-deck .start-button-container .button-pushable {
+     width: 100%;
+ }
 
-.stacked-decks-grid, .custom-decks-grid {
-    gap: 10px;
-    width: 67%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-}
+ .grade p {
+     font-size: 0.9rem;
+     color: #ffffff;
+     margin: 0px;
+     font-weight: 600;
+     letter-spacing: 0.1em;
+ }
 
-/* For 2560px wide screens and larger (1440p and above) */
-@media (min-width: 2560px) {
-    .stacked-decks-grid, .custom-decks-grid {
-        width: 62%;
-    }
-}
+ .theme {
+     margin-top: 5%;
+ }
 
-.stacked-decks {
-    position: relative;
-    height: 375px;
-    width: 250px;
-    margin: 30px 40px 30px 40px;
-}
+ .theme h2,
+ .theme p {
+     margin: 0;
+     padding: 0;
+     line-height: 1.3;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
 
-.component-deck.Beginner {
-    background: 
-    linear-gradient(to bottom, #5ab9d8    14%, transparent 16%), 
-    linear-gradient(to bottom right, #ffffff, #e8e8e8);
-}
+ .theme h2 {
+     font-size: 1.5rem;
+     font-weight: bold;
+ }
 
-.component-deck.Intermediate {
-    background: 
-    linear-gradient(to bottom, #7187C3 14%, transparent 16%), 
-    linear-gradient(to bottom right, #ffffff, #e8e8e8);
-}
+ .theme p {
+     font-size: 1.1rem;
+     margin-top: 5px;
+     font-family: 'Noto Serif KR', serif;
+     opacity: 0.7;
+ }
 
-.component-deck.Advanced {
-    background: 
-    linear-gradient(to bottom, #7f3169   14%, transparent 16%), 
-    linear-gradient(to bottom right, #ffffff, #e8e8e8);
-}
+ .component-deck a {
+     text-decoration: none;
+ }
 
-/*Deck animations*/
-.component-deck.deck-1 {
-    z-index: 3;
-}
+ /*Deck stacks*/
+ .component-decks-list {
+     display: flex;
+     justify-content: center;
+     width: 100%;
+     margin-top: 0.5%;
+ }
 
-.component-deck.deck-2 {
-    z-index: 2;
-    transform: translateX(5px);
-}
+ .stacked-decks-grid,
+ .custom-decks-grid {
+     gap: 10px;
+     width: 100%;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+ }
 
-.component-deck.deck-3{
-    z-index: 1;
-    transform: translateX(10px);
-}
+ .stacked-decks {
+     position: relative;
+     height: 375px;
+     width: 250px;
+     margin: 30px 40px 30px 40px;
+ }
 
-.stacked-decks:hover .component-deck.deck-2 {
-    transform: translateX(25px);
-}
+ @media (max-width: 1024px) {
 
-.stacked-decks:hover .component-deck.deck-3 {
-    transform: translateX(50px);
-}
+     .stacked-decks-grid,
+     .custom-decks-grid {
+         width: unset;
+     }
+ }
 
-.component-deck.deck-2:hover {
-    cursor: pointer;
-}
 
-.component-deck.deck-3:hover{
-    cursor: pointer;
-}
+ /*Header et separateur*/
+ .component-deck.Beginner,
+ .component-deck.Intermediate,
+ .component-deck.Advanced {
+     background:
+         linear-gradient(to bottom,
+             var(--level-color) 16%,
+             black 16%,
+             black calc(16% + 2px),
+             white calc(16% + 2px));
+ }
 
-.component-deck.focused {
-    z-index: 5; 
-}
+ .component-deck.Beginner {
+     --level-color: var(--level-beginner);
+ }
 
-.in-between {
-    z-index:4 !important;
-}
+ .component-deck.Intermediate {
+     --level-color: var(--level-intermediate);
+ }
+
+ .component-deck.Advanced {
+     --level-color: var(--level-advanced);
+ }
+
+
+ /*Deck animations*/
+ .component-deck.deck-1 {
+     z-index: 3;
+ }
+
+ .component-deck.deck-2 {
+     z-index: 2;
+     transform: translate(5px, 5px);
+ }
+
+ .component-deck.deck-3 {
+     z-index: 1;
+     transform: translate(10px, 10px);
+ }
+
+ .stacked-decks:hover .component-deck.deck-1 {
+     transform: translate(-20px, -20px);
+ }
+
+ .stacked-decks:hover .component-deck.deck-2 {
+     transform: translate(0px, 0px);
+ }
+
+ .stacked-decks:hover .component-deck.deck-3 {
+     transform: translate(20px, 20px);
+ }
+
+ .component-deck.deck-2:hover {
+     cursor: pointer;
+ }
+
+ .component-deck.deck-3:hover {
+     cursor: pointer;
+ }
+
+ .component-deck.focused {
+     z-index: 5;
+ }
+
+ .in-between {
+     z-index: 4 !important;
+ }

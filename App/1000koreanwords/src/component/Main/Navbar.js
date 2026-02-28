@@ -15,6 +15,12 @@ class Navbar extends React.Component {
         this.isUserLoggedIn();
     }
 
+    componentDidUpdate(prevProps) {
+    if (this.props.router.location.pathname !== prevProps.router.location.pathname) {
+        this.isUserLoggedIn();
+    }
+}
+
     async isUserLoggedIn() {
         await AuthService.checkAuthToken()
             .then((res) => this.setState({ isLogged: res.valid }));
@@ -33,6 +39,10 @@ class Navbar extends React.Component {
     }
 
     displayLinks = () => {
+
+        if (this.state.isLogged === null) 
+            return null;
+
         if (this.state.isLogged) {
             return (
                 <div className="navbar-links">
@@ -64,7 +74,7 @@ class Navbar extends React.Component {
                     )}
                 </div>
             )
-        }
+        } 
     }
 
     renderElement() {

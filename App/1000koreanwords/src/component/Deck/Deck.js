@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DeckScoreDisplay from '@app/component/Deck/DeckScoreDisplay';
 import DeckButtonGroup from '@app/component/Buttons/DeckButtonGroup';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 
 import '@app/style/deck.css';
 
@@ -61,23 +61,23 @@ export default class Deck extends React.Component {
 
     if (this.isDeckEmpty()) {
       return (
-        <ButtonPushable label="Start" color="gray" />
+        <ButtonFlat disabled={true} label="Start" customClass="button-start-deck gray" />
       );
     }
     else if (this.isDeckCompleted()) {
       return (
-        <ButtonPushable label="Start" color="green" onClick={this.handleCompletedDeckClick} />
+        <ButtonFlat label="Start" onClick={this.handleCompletedDeckClick} customClass={`button-start-deck ${deck.grade}`} />
       );
     } else if (isCustomDeck) {
       return (
         <Link to={`/mydecks/quizz/${deck.id}`}>
-          <ButtonPushable label="Start" color="green" />
+          <ButtonFlat label="Start" customClass="button-start-deck"/>
         </Link>
       );
     } else {
       return (
         <Link to={`/learn/quizz/${deck.id}`}>
-          <ButtonPushable label="Start" color="green" onClick={() => this.saveUserThemesOrder(deck.theme)} />
+          <ButtonFlat label="Start" onClick={() => this.saveUserThemesOrder(deck.theme)} customClass={`button-start-deck ${deck.grade}`} />
         </Link>
       );
     }
@@ -176,6 +176,7 @@ export default class Deck extends React.Component {
           deckState={deckState}
           deckSize={deck.size}
           deckId={deck.id}
+          grade={deck.grade}
         />
 
         <div className="start-button-container">

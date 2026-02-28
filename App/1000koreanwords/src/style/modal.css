@@ -5,6 +5,7 @@
 html.modal-active, body.modal-active {
     overflow: hidden;
 }
+
 #modal-container {
     position: fixed;
     display: table;
@@ -14,9 +15,8 @@ html.modal-active, body.modal-active {
     left: 0;
     transform: scale(0);
     z-index: 1;
-    color: #000000
+    color: black;
 }
-
 
 #modal-container.display {
     transform: scale(1);
@@ -53,15 +53,17 @@ html.modal-active, body.modal-active {
 }
 
 #modal-container .modal-background .modal {
-    /* background: linear-gradient(to bottom right, #063665, #04192A); */
-    background: linear-gradient(to bottom right, #f1eee6, #d6d2c8);
+    background-image: url(../assets/bg/background.webp);
+    /* background-color: white; */
+        /* border : black 3px solid; */
     padding-right: 25px;
     padding-left: 25px;
     padding-bottom: 25px;
     padding-top: 25px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    border-radius: 3px;
+
     margin-left: 35%;
     margin-right: 35%;
     max-height: 75vh;
@@ -72,16 +74,15 @@ html.modal-active, body.modal-active {
     flex-direction: column;
     align-items: center;
     overflow: auto; 
-    margin-top: 10px;
-    margin-bottom: 10px;
-
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #modal-container .modal-background .modal h2 {
     font-size: 1.5rem;
     text-align: center;
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 2%;
 }
 
 #modal-container .modal-background .modal p {
@@ -97,7 +98,7 @@ html.modal-active, body.modal-active {
 
 #modal-container .modal-background .modal .modal-footer .modal-buttons {
     display: flex;
-    margin-top: 20px;
+    margin-top: 2%;
     margin-bottom: 5px;
     justify-content: right;
 }
@@ -108,11 +109,11 @@ html.modal-active, body.modal-active {
 } 
 
 hr {
-    width: 80%;
-    border: none; /* Removes the default border */
-    height: 2px; /* Specifies the thickness of the hr */
-    /*background-image: linear-gradient(to right, #674E00, #D3A200); *//* Gradient from pink to orange */
-    background-color: #8899A6;
+    width: 84%;
+    border: none; 
+    height: 2px; 
+    background-color: black;
+    opacity: 0.25;
 }
 
 @keyframes fadeIn {

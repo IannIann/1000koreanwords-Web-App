@@ -18,14 +18,14 @@ export default class QuizzButtonPanel extends React.Component {
                 <div className="component-quizz-button-panel">
                     <ButtonGhost
                         label="Correct"
-                        color="green"
+                        color="black"
                         onClick={() => this.handleCommandClick("Correct")}
                         disabled={isAnimating}
                         position="top"
                     />
                     <ButtonGhost
                         label="Wrong"
-                        color="red"
+                        color="black"
                         onClick={() => this.handleCommandClick("Wrong")}
                         disabled={isAnimating}
                         position="bottom"
@@ -37,9 +37,9 @@ export default class QuizzButtonPanel extends React.Component {
                 <div className="component-quizz-button-panel">
                     <ButtonGhost
                         label="Show answer"
-                        color="blue"
+                        color="black"
                         onClick={() => this.handleCommandClick("Show")}
-                        position="center"
+                        position="default"
                     />
                 </div>
             );

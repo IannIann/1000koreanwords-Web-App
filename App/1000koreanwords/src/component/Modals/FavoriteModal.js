@@ -2,7 +2,8 @@ import React from 'react';
 import customDecksData from '@app/data/customdecks.data';
 import customCardsData from '@app/data/customcards.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
+import ButtonGhost from '@app/component/Buttons/ButtonGhost';
 import { toast } from 'react-toastify';
 import tool from '@app/tool/tool'
 
@@ -15,7 +16,8 @@ class FavoriteModal extends React.Component {
     selectRef = React.createRef();
 
     state = {
-        deckList: []
+        deckList: [],
+        selectedDeckId: "" 
     }
 
     componentDidMount() {
@@ -27,6 +29,10 @@ class FavoriteModal extends React.Component {
             this.props.onClose();
         }
     }
+
+    handleSelectChange = (event) => {
+        this.setState({ selectedDeckId: event.target.value });
+    };
 
     copyCardToDeck = (deckId, card) => {
         customCardsData.createCustomCard(card)
@@ -46,11 +52,10 @@ class FavoriteModal extends React.Component {
     }
 
     renderDeckList() {
-        const { deckList } = this.state;
+        const { deckList, selectedDeckId } = this.state;
         const { card } = this.props;
 
         return (
-
             <>
                 <div className="modal-content-decklist">
 
@@ -58,23 +63,24 @@ class FavoriteModal extends React.Component {
                         <Card card={card} editable={false} inPlay={false} />
                     </div>
 
-                    <div className="dropdown">
-                        <select ref={this.selectRef}>
+                    <div className="dropdown-container">
+                        <select ref={this.selectRef} value={selectedDeckId} onChange={this.handleSelectChange}>
                             <option value="">Select a deck</option>
                             {deckList.map((deck, index) => (
                                 <option key={index} value={deck._id}>{deck.theme}</option>
                             ))}
                         </select>
-                        <ButtonPushable
+
+                        <ButtonGhost
+                            label="Add"
+                            color={selectedDeckId === "" ? "gray" : "black"}
+                            disabled={false}
+                            position="center"
                             onClick={() => {
-                                const selectedDeckId = this.selectRef.current.value;
                                 if (selectedDeckId) {
                                     this.copyCardToDeck(selectedDeckId, card);
                                 }
                             }}
-                            label="Add"
-                            color="blue"
-                            size="small"
                         />
                     </div>
                 </div>
@@ -96,14 +102,14 @@ class FavoriteModal extends React.Component {
                     <hr />
                 </div>
 
-                <div className="modal-content-favorite">
+                <div className="modal-content">
                     {deckList.length === 0 ? this.renderEmptyList() : this.renderDeckList()}
                 </div>
 
                 <div className="modal-footer">
                     <hr />
                     <div className="modal-buttons">
-                        <ButtonPushable label="Close" onClick={onClose} color="blue" />
+                        <ButtonFlat label="Close" onClick={onClose} customClass={`button-start-deck button-modal green`} />
                     </div>
                 </div>
             </>

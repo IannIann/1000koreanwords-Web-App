@@ -8,9 +8,21 @@ export default class DecksList extends React.Component {
         decks: []
     };
 
+
+    componentDidMount() {
+        this.syncDecks();
+    }
+
     componentDidUpdate(prevProps) {
+        if (prevProps.decks !== this.props.decks) {
+            this.syncDecks();
+        }
+    }
+
+    syncDecks()
+    {
         const { decks, userDeckStates } = this.props;
-        if (decks !== prevProps.decks && decks) {
+        if (!decks || !userDeckStates || !userDeckStates.decks) return;
 
             const deckStates = userDeckStates.decks;
             const updatedDecks = decks.map(deck => ({
@@ -24,7 +36,7 @@ export default class DecksList extends React.Component {
             }));
 
             this.setState({ decks: updatedDecks });
-        }
+        
 
         this.addFocusedToFirstDeck();
     }
@@ -195,7 +207,6 @@ export default class DecksList extends React.Component {
                         toast={toast}
                     />
                 )}
-
             </div>
         )
     };

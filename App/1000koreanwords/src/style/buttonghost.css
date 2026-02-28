@@ -2,8 +2,8 @@
     width: 100%;
     height: 50%;
     background: transparent;
-    border: 2px solid var(--ink);
-    color: var(--ink);
+    border: 2px solid var(--btn-ghost-color);
+    color: var(--btn-ghost-color);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -17,18 +17,48 @@
 }
 
 .button-ghost:hover {
-    background: var(--ink);
+    background: var(--btn-ghost-color);
     color: white;
 }
 
 .button-ghost.top {
-    border-bottom: 1px solid var(--ink);
+    border-bottom: 1px solid var(--btn-ghost-color);
 }
 
 .button-ghost.bottom {
-    border-top: 1px solid var(--ink);
+    border-top: 1px solid var(--btn-ghost-color);
 }
 
 .button-ghost:disabled {
     cursor: default;
+}
+
+.button-ghost.icon {
+    padding: 10px;
+    width: 25%;
+    height: 100%;
+    font-size: 1.2em;
+}
+
+.button-ghost.red {
+    --btn-ghost-color: var(--corail-600)
+}
+
+.button-ghost.center {
+    height: 100%;
+    width: 25%;
+}
+
+.button-ghost.gray {
+    --btn-ghost-color: var(--gray);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.button-ghost.teal {
+    --btn-ghost-color: var(--teal);
+}
+
+.button-ghost.black {
+    --btn-ghost-color: black;
 }

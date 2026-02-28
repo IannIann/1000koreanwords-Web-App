@@ -1,26 +1,27 @@
 .component-add-card-button {
     width: 250px;
     height: 375px;
-    background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(0, 213, 255, 0.2));
-    color: #009dff; /* Blue text color */   
-    border: 2px dashed #007bff; /* Dashed border for visual distinction */
+    background: linear-gradient(135deg, rgba(53, 181, 165, 0.15), rgba(42, 157, 143, 0.15));
+    color: var(--teal); /* Texte en couleur principale */
+    border: 2px dashed var(--teal); /* Bordure pointillée */
     border-radius: 5px;
     text-align: center;
     font-size: 1.4rem;
     font-weight: bold;
     margin: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .component-add-card-button:hover {
-    background: linear-gradient(135deg, rgba(0, 123, 255, 0.3), rgba(0, 213, 255, 0.3));
-    border: 2px solid #007bff;
+    background: linear-gradient(135deg, rgba(53, 181, 165, 0.25), rgba(42, 157, 143, 0.25));
+    border: 2px solid var(--teal-light); /* La bordure devient pleine et plus claire */
+    color: var(--teal-dark);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
 }
 
 .component-add-card-button:active {
-    background: linear-gradient(135deg, rgba(0, 123, 255, 0.5), rgba(0, 213, 255, 0.5));
-    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
+    background: linear-gradient(135deg, rgba(53, 181, 165, 0.4), rgba(42, 157, 143, 0.4));
+    box-shadow: 0 2px 8px rgba(33, 134, 122, 0.3);
     transform: translateY(2px);
 }

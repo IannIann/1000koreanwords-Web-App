@@ -37,7 +37,6 @@ and shadow are grouped together when it get flipped*/
     display: inline-block;
 }
 
-
 .component-shadow {
     position: absolute;
     top: 6px;
@@ -62,17 +61,6 @@ and shadow are grouped together when it get flipped*/
         height: 370px;
     }
 }
-
-/* @media (max-width: 1080px) {
-    .component-card.flip-card {
-        width: 250px;
-        height: 370px;
-    }
-    .component-shadow {
-        width: 250px;
-        height: 370px;
-    }
-} */
 
 .flip-card.flipped,
 .component-shadow.flipped {

@@ -21,7 +21,6 @@
   opacity: 0.6;
   padding: 7px 0;
   background: transparent;
-  transition: border-color 0.2s;
 }
 .input-field:not(:placeholder-shown) {
   opacity: 1;

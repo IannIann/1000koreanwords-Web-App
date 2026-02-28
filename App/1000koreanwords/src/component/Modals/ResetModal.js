@@ -1,8 +1,7 @@
 import React from 'react';
-import AuthService from '@app/service/auth.service'
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import '@app/style/modal.css';
 
 class ResetModal extends React.Component {
@@ -46,8 +45,8 @@ class ResetModal extends React.Component {
         <div className="modal-footer">
           <hr />
           <div className="modal-buttons">
-          <ButtonPushable label="No" onClick={onClose} color="red"/>
-          <ButtonPushable label="Yes" onClick={this.resetDeck} color="green"/>
+            <ButtonFlat label="No" onClick={onClose} customClass={`button-start-deck button-modal red`} />
+            <ButtonFlat label="Yes" onClick={this.resetDeck} customClass={`button-start-deck button-modal green`} />
           </div>
         </div>
       </>
