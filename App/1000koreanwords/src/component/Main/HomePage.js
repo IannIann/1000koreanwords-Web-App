@@ -43,11 +43,10 @@ export default class HomePage extends React.Component {
                             </p>
 
                             {this.state.isLogged === null ? <Loader /> : this.state.isLogged ? (
-                                <Link to={"/learn/"}> <ButtonFlat label="Start Learning" color="blue" customClass="button-hero"/> </Link>
+                                <Link to={"/learn/"}> <ButtonFlat label="Start Learning" customClass="button-hero"/> </Link>
                             ) : (
-                                <Link to={"/register/"}> <ButtonFlat label="Start Your Journey — Free"  color="blue" customClass="button-hero" /> </Link>
+                                <Link to={"/register/"}> <ButtonFlat label="Start Your Journey — Free" customClass="button-hero" /> </Link>
                             )}
-
                             <section className="features">
                                 <div className="feature-item">
                                     <span className="feature-icon pi pi-book"></span>

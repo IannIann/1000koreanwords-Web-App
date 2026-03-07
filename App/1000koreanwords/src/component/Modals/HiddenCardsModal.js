@@ -1,12 +1,11 @@
 import React from 'react';
-import AuthService from '@app/service/auth.service'
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import decksData from '@app/data/decks.data';
 import customdecks from '@app/data/customdecks.data';
 import Card from '@app/component/Card/Card';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
+import withModalLogic from '@app/component/Modals/withModalLogic';
 import '@app/style/modal.css';
 import '@app/style/hiddencardsmodal.css';
 
@@ -52,12 +51,6 @@ class HiddenCardsModal extends React.Component {
     this.setState(state => ({
       bannedCards: state.bannedCards.filter(card => card._id !== id),
     }));
-  }
-
-  handleBackgroundClick = (event) => {
-    if (event.target.className.includes('modal-background')) {
-      this.props.onClose();
-    }
   }
 
   onConfirm = () => {
@@ -143,4 +136,4 @@ class HiddenCardsModal extends React.Component {
   }
 }
 
-export default HiddenCardsModal
+export default withModalLogic(HiddenCardsModal)

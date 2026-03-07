@@ -125,7 +125,7 @@ class RegisterForm extends React.Component {
                             <Input id="password" placeholder="Password" name="password" type="password" value={password} handler={this.handleChange} />
                             <Input id="password-confirm" placeholder="Confirm password" type="password" value={passwordConfirm} handler={this.handleChange} />
                             {message && (<div className="error-message"> {message} </div>)}
-                            <ButtonFlat label="Register" color="blue" customClass="button-form"/>
+                            <ButtonFlat label="Register" customClass="button-form"/>
                         </div>
                     )}
                 </form>

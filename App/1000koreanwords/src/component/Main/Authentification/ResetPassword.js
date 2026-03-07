@@ -130,7 +130,7 @@ class ResetPassword extends React.Component {
                                 </div>
                             )}
 
-                            <ButtonFlat label="Save" color="blue" customClass="button-form" />
+                            <ButtonFlat label="Save" customClass="button-form" />
                         </form>
                         </>
                     )}

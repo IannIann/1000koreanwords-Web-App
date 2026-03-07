@@ -100,6 +100,9 @@
      width: 100%;
      display: grid;
      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+
+     justify-items: center;
+     align-items: center;
  }
 
  .stacked-decks {
@@ -109,7 +112,7 @@
      margin: 30px 40px 30px 40px;
  }
 
- @media (max-width: 1024px) {
+ @media (max-width: 1279px) {
 
      .stacked-decks-grid,
      .custom-decks-grid {

@@ -62,7 +62,7 @@ class LoginForm extends React.Component {
                     <Input id="password" placeholder="Password" type="password" value={password} handler={this.handleChange} />
                     {message && (<div className="error-message"> {message} </div>)}
 
-                    <ButtonFlat label="Sign in" color="blue" customClass="button-form" />
+                    <ButtonFlat label="Sign in" customClass="button-form" />
 
                 </form>
 

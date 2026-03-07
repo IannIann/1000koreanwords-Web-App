@@ -2,7 +2,7 @@ import React from "react";
 import Quizz from "./logic/Quizz.js";
 import Card from "@app/component/Card/Card";
 import { withRouter } from '@app/tool/withRouter'
-import QuizzProgressBar from "@app/component/Quizz/QuizzProgressBar";
+import QuizzProgress from "@app/component/Quizz/QuizzProgress.js";
 import QuizzButtonPanel from "@app/component/Buttons/QuizzButtonPanel.js";
 import QuizzResult from "@app/component/Quizz/QuizzResult.js";
 import QuizzTheme from "@app/component/Quizz/QuizzTheme.js";
@@ -183,6 +183,9 @@ class QuizzApp extends React.Component {
         } = this.state;
 
         return (
+
+            
+
             <div className={`quizz-wrapper ${fadeClass}`}>
                 <Card card={card}
                     inPlay={true}
@@ -195,37 +198,45 @@ class QuizzApp extends React.Component {
                 />
 
                 <QuizzButtonPanel isAnswered={isAnswered} isAnimating={isAnimating} commandHandler={this.handleCommandClick} />
-                <QuizzProgressBar scoreIndex={scoreIndex} maxIndex={maxIndex} />
+                
             </div>
         );
     }
 
     renderElement() {
-        const { isFinished, theme, krTheme, score, isDeckFullyCompleted } = this.state;
-
+        const { isFinished, theme, krTheme, score, isDeckFullyCompleted, maxIndex, scoreIndex } = this.state;
 
         return (
             <>
                 {this.renderModal()}
 
                 <div className="content">
-                    <QuizzTheme
-                        krTheme={krTheme}
-                        theme={theme}
-                    />
+                    <div className="page-title">{theme}</div>
+                    <div className="page-subtitle">{krTheme}</div>
 
-                    {!isFinished
-                        && this.renderCardQuizz()}
+                    {!isFinished && (
+                        <>
+                            {this.renderCardQuizz()}
+
+                        </>
+                    )}
 
                     {isFinished
-                        && <QuizzResult 
-                            correctCards={score.correctCards} 
-                            wrongCards={score.wrongCards} 
+                        && <QuizzResult
+                            correctCards={score.correctCards}
+                            wrongCards={score.wrongCards}
                             restartQuizz={this.startQuizz}
                             navigateToLearnPage={this.navigateToLearnPage}
                             isDeckFullyCompleted={isDeckFullyCompleted}
                         />}
 
+
+                    {!isFinished && (
+                            <QuizzProgress
+                                scoreIndex={scoreIndex}
+                                maxIndex={maxIndex}
+                            />
+                    )}
                 </div>
             </>
         );

@@ -146,14 +146,19 @@ and shadow are grouped together when it get flipped*/
 .card-field {
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #5c6d7a;
+    border-bottom: 2px solid;
     outline: 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #000000;
+    opacity: 0.6;
     padding: 7px 0;
     background: transparent;
-    transition: border-color 0.2s;
     text-overflow: ellipsis;
+
+}
+.card-field:not(:placeholder-shown) {
+  opacity: 1;
+  font-weight: 500; 
 }
 
 .answer-field {
@@ -169,9 +174,10 @@ and shadow are grouped together when it get flipped*/
 }
 
 .card-field:placeholder-shown~.card-label {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     cursor: text;
     top: 20px;
+    font-weight: 500;
 }
 
 .card-label {
@@ -180,7 +186,8 @@ and shadow are grouped together when it get flipped*/
     display: block;
     transition: 0.2s;
     font-size: 0.8rem;
-    color: #5c6d7a;
+    color: #000000;
+    opacity: 0.6;
 }
 
 .card-field:focus~.card-label {
@@ -189,14 +196,15 @@ and shadow are grouped together when it get flipped*/
     display: block;
     transition: 0.2s;
     font-size: 0.8rem;
-    color: #7187C3;
+    color: var(--teal);
     font-weight: 700;
+    opacity: 1;
 }
 
 .card-field:focus {
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
-    border-image: linear-gradient(to right, #5ab9d8, #7f3169);
-    border-image-slice: 1;
+    border-color : var(--teal);
+    opacity: 1;
 }

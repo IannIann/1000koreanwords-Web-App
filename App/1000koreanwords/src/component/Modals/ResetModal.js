@@ -2,15 +2,10 @@ import React from 'react';
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
+import withModalLogic from '@app/component/Modals/withModalLogic';
 import '@app/style/modal.css';
 
 class ResetModal extends React.Component {
-  handleBackgroundClick = (event) => {
-    if (event.target.className.includes('modal-background')) {
-      this.props.onClose();
-    }
-  }
-
   resetDeck = () => {
     const { deckState, refreshDecks, onClose } = this.props;
 
@@ -68,4 +63,4 @@ class ResetModal extends React.Component {
   }
 }
 
-export default ResetModal
+export default withModalLogic(ResetModal);

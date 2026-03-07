@@ -6,7 +6,7 @@ import Card from '@app/component/Card/Card';
 import Edition from '@app/component/DeckEdition/logic/Edition';
 import DeckName from '@app/component/DeckEdition/DeckName';
 import ButtonAddCard from '@app/component/Buttons/ButtonAddCard';
-import ButtonPushable from '@app/component/Buttons/ButtonPushable';
+import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import tool from '@app/tool/tool'
 
 import '@app/style/editpage.css';
@@ -118,22 +118,27 @@ class EditPage extends React.Component {
 
         return (
             <>
-                <div className="page-title">Edit deck</div>
-                <div className="page-subtitle">Add, delete and customize your flashcards</div>
-                <div className="cards-edit-header">
-                    <div className="left">
-                        <Link to={`/mydecks`}>
-                            <ButtonPushable label="↤ Back" color="blue" />
-                        </Link></div>
-                    <div className="center">
-                        <DeckName deck={deck} saveDeckTheme={this.saveDeckTheme} toast={toast} /></div>
-                    <div className="right"></div>
-                </div>
-                <div className="cards-edit-grid-container">
-                    <div className="cards-edit-grid">
-                        {this.renderCards()}
-                        {this.renderButtonAddCard()}
+                <div className="component-deck-edit fill-available-space">
+                    <div className="page-title">Edit deck</div>
+                    <div className="page-subtitle">Add, delete and customize your flashcards</div>
+                    <div className="cards-edit-header">
+                        <div className="left">
+                            <Link to={`/mydecks`}>
+                                <ButtonFlat label="Back" customClass="button-back" />
+                            </Link>
+                        </div>
+                        <div className="center">
+                            <DeckName deck={deck} saveDeckTheme={this.saveDeckTheme} toast={toast} /></div>
+                        <div className="right"></div>
                     </div>
+
+                    <div className="cards-edit-grid-container">
+                        <div className="cards-edit-grid">
+                            {this.renderCards()}
+                            {this.renderButtonAddCard()}
+                        </div>
+                    </div>
+                    
                 </div>
             </>
         );

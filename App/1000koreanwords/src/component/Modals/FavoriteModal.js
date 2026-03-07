@@ -4,6 +4,7 @@ import customCardsData from '@app/data/customcards.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import ButtonGhost from '@app/component/Buttons/ButtonGhost';
+import withModalLogic from '@app/component/Modals/withModalLogic';
 import { toast } from 'react-toastify';
 import tool from '@app/tool/tool'
 
@@ -22,12 +23,6 @@ class FavoriteModal extends React.Component {
 
     componentDidMount() {
         this.fetchCustomDecks();
-    }
-
-    handleBackgroundClick = (event) => {
-        if (event.target.className.includes('modal-background')) {
-            this.props.onClose();
-        }
     }
 
     handleSelectChange = (event) => {
@@ -122,7 +117,7 @@ class FavoriteModal extends React.Component {
         return (
             <div id="modal-container" className={modalClass}>
                 <div className="modal-background" onClick={this.handleBackgroundClick}>
-                    <div className="modal favorite-modal">
+                    <div className="modal">
                         {this.renderHtml()}
                     </div>
                 </div>
@@ -131,4 +126,4 @@ class FavoriteModal extends React.Component {
     }
 }
 
-export default FavoriteModal
+export default withModalLogic(FavoriteModal)

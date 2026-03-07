@@ -189,8 +189,8 @@ export default class DecksList extends React.Component {
 
         return (
             <div className="custom-decks-grid">
-                {decks.map((deck, index) => (
-                    <Deck key={index}
+                {decks.map((deck) => (
+                    <Deck key={deck.id}
                         deck={deck}
                         refreshDecks={refreshDecks}
                         className={'component-deck custom'}

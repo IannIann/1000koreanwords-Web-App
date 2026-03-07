@@ -54,7 +54,7 @@ class ForgotPassword extends React.Component {
                     <div className='form-title small'> Forgot your password? </div>
                     <form onSubmit={this.handleSubmit}>
                         <Input id="email" placeholder="Email" type="email" value={email} handler={this.handleChange} />
-                        <ButtonFlat label="Send Reset Link" color="blue" customClass="button-form" />
+                        <ButtonFlat label="Send Reset Link" customClass="button-form" />
                     </form>
                 </>
                 )}

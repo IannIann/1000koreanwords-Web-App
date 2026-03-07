@@ -19,8 +19,6 @@ import { ToastContainer } from 'react-toastify';
 import 'primeicons/primeicons.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-//test
-import deck from "../test/deck";
 
 export default class App extends React.Component {
 
@@ -41,7 +39,6 @@ export default class App extends React.Component {
                     <Route path="/logout" element={<Private component={Logout}/>}/>
                     <Route path="/forgotpassword" element={<AlreadyLogged component={ForgotPassword}/>}/>
                     <Route path="/resetpassword/:token" element={<AlreadyLogged component={ResetPassword}/>}/>
-                    <Route path="/test" element={<Private component={deck}/>}/>
                 </Routes>
                 <Footer />
                 </div>

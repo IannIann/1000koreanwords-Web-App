@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DeckScoreDisplay from '@app/component/Deck/DeckScoreDisplay';
+import DeckProgress from '@app/component/Deck/DeckProgress';
 import DeckButtonGroup from '@app/component/Buttons/DeckButtonGroup';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 
@@ -172,7 +172,7 @@ export default class Deck extends React.Component {
           <p>{deck.krTheme}</p>
         </div>
 
-        <DeckScoreDisplay
+        <DeckProgress
           deckState={deckState}
           deckSize={deck.size}
           deckId={deck.id}

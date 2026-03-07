@@ -1,28 +1,23 @@
 import React from 'react';
-import AuthService from '@app/service/auth.service'
-import userdeckstatesData from '@app/data/userdeckstates.data';
-import customdecksData from '@app/data/customdecks.data';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
+import withModalLogic from '@app/component/Modals/withModalLogic';
+import customdecksData from '@app/data/customdecks.data';
+import userdeckstatesData from '@app/data/userdeckstates.data';
 
 import '@app/style/modal.css';
 
 class DeleteModal extends React.Component {
-  handleBackgroundClick = (event) => {
-    if (event.target.className.includes('modal-background')) {
-      this.props.onClose();
-    }
-  }
 
   deleteDeck = () => {
-    const { deck, refreshDecks, onClose} = this.props;
-    
+    const { deck, refreshDecks, onClose } = this.props;
+
     Promise.all([
       customdecksData.deleteCustomDeck(deck.id),
       userdeckstatesData.deleteUserDeckState(deck.id)
     ])
       .then(refreshDecks)
-      .catch(() => {/*TODO: toast error*/  })
+      .catch(() => {/*TODO: toast error*/ })
       .finally(() => {
         onClose();
       });
@@ -32,7 +27,7 @@ class DeleteModal extends React.Component {
     const { onClose } = this.props;
 
     return (
-    <>  
+      <>
         <div className="modal-header">
           <div className="close-button-container">
             <ModalCrossButton handleClick={onClose} />
@@ -42,7 +37,7 @@ class DeleteModal extends React.Component {
         </div>
 
         <div className="modal-content">
-        <p>Do you want to delete this deck?</p>
+          <p>Do you want to delete this deck?</p>
         </div>
 
         <div className="modal-footer">
@@ -52,7 +47,7 @@ class DeleteModal extends React.Component {
             <ButtonFlat label="Yes" onClick={this.deleteDeck} customClass={`button-start-deck button-modal green`} />
           </div>
         </div>
-    </>
+      </>
     );
   }
 
@@ -71,4 +66,4 @@ class DeleteModal extends React.Component {
   }
 }
 
-export default DeleteModal
+export default withModalLogic(DeleteModal);

@@ -1,14 +1,24 @@
+.component-deck-edit {
+    margin-bottom: 2%;
+    gap : 10px;
+}
+
 .cards-edit-grid-container {
     display: flex;
     justify-content: center;
+    width: 100%;
+    margin-top: 0.5%;
 }
 
 .cards-edit-grid {
-    width: 65%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-} 
+    column-gap: 20px;
+    row-gap: 40px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
+    align-items: center;
+}
 
 .cards-edit-header {
     display: flex;
@@ -18,7 +28,7 @@
 }
 
 .cards-edit-header .center {
-    width: 33%;
+    width: 50%;
 }
 
 .cards-edit-header .left, .cards-edit-header .right {
@@ -27,9 +37,9 @@
 
 .cards-edit-header .left {
     display: flex;
-    justify-content: right;
+    justify-content: left;
 }
 
 .cards-edit-header .left a {
-    padding-right: 5%;
+    padding-right: 10%;
 }

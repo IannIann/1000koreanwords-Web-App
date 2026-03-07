@@ -2,16 +2,11 @@ import React from 'react';
 import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import Card from '@app/component/Card/Card'
+import withModalLogic from '@app/component/Modals/withModalLogic';
 
 import '@app/style/modal.css';
 
 class HideSingleCardModal extends React.Component {
-  handleBackgroundClick = (event) => {
-    if (event.target.className.includes('modal-background')) {
-      this.props.onClose();
-    }
-  }
-
   hideCard = () => {
 
     this.props.commandHandler("Hide");
@@ -62,4 +57,4 @@ class HideSingleCardModal extends React.Component {
   }
 }
 
-export default HideSingleCardModal
+export default withModalLogic(HideSingleCardModal)

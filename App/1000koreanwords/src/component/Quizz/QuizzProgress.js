@@ -1,19 +1,16 @@
 import React from "react";
+import ProgressBar from "@app/component/Main/ProgressBar";
 
-import '@app/style/progressbar.css';
+export default class QuizzProgress extends React.Component {
 
-export default class QuizzProgressBar extends React.Component {
-
-  
   state = {
     scoreIndex: 0,
     maxIndex: 0,
-    progressPercentage : 0
+    progressPercentage: 0
   }
 
   updateProgress = () => {
     const { scoreIndex, maxIndex } = this.props;
-
     const progressPercentage = this.calculateProgressPercentage(scoreIndex, maxIndex);
 
     this.setState({
@@ -30,7 +27,7 @@ export default class QuizzProgressBar extends React.Component {
       return Math.round((scoreIndex / maxIndex) * 100);
     }
   }
-
+  
   componentDidMount() {
     this.updateProgress();
   }
@@ -44,14 +41,12 @@ export default class QuizzProgressBar extends React.Component {
   }
 
   render() {
-    const { scoreIndex, maxIndex, progressPercentage } = this.state;
+    const { progressPercentage } = this.state;
 
     return (
-        <div className="progress-container quizz">
-          <div className="score quizz">{`${scoreIndex}/${maxIndex}`}</div>
-          <div className="progress-bar" style={{ width: `${progressPercentage}%` }} ></div>
-        </div>
-    );
+      <div className="component-quizz-progress">
+        <ProgressBar progressPercentage={progressPercentage}/>
+      </div>
+    )
   }
-
 }
