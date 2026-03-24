@@ -2,93 +2,94 @@ import React from 'react';
 
 class CardAnswer extends React.Component {
 
-    renderEditable(){
-        const { 
-            id, 
-            value, 
-            handleKeyPress, 
-            onChangeAnswer, 
-            handleBlur, 
-            handleFocus 
-        } = this.props;
-
-        return (
-            <>
-                <div className="card-textarea-group">
-                    <textarea
-                        cols="16"
-                        maxLength={150}
-                        id={id}
-                        className="card-field answer-field"
-                        placeholder="Answer"
-                        title={value}
-                        value={value}
-                        spellCheck="false"
-                        onKeyDown={(e) => handleKeyPress(e)}
-                        onChange={(e) => onChangeAnswer(e)}
-                        onBlur={(e) => handleBlur(e)}
-                        onFocus={handleFocus}
-                    />
-                    <label htmlFor={id} className="card-label">Answer</label>
-                </div>
-            </>
-        );
+    constructor(props) {
+        super(props);
+        this.answerRef = React.createRef();
     }
 
-    renderPlain(){
-        const { 
-            id, 
-            value
-        } = this.props;
-
-        return (
-            <>
-                <div className="card-textarea-group">
-                    <textarea
-                        cols="16"
-                        maxLength={85}
-                        id={id}
-                        className="card-field answer-field"
-                        placeholder="Answer"
-                        value={value}
-                        disabled
-                    />
-                    <label htmlFor={id} className="card-label">Answer</label>
-                </div>
-            </>
-        );
+    componentDidMount() {
+        this.shrinkToFit();
     }
 
-    renderInPlay(){
-        const {value} = this.props;
-        return (
-            <>
-                <div className='card-answer'>
-                    {value}
-                </div>
-            </>
-        )
-    }
-
-    renderAnswer()
-    {
-        const {inPlay, editable} = this.props;
-
-        if (inPlay) {
-            return this.renderInPlay();
-        } else if (editable) {    
-            return this.renderEditable();
-        } else {
-            return this.renderPlain();
+    componentDidUpdate(prevProps) {
+        if (prevProps.value !== this.props.value) {
+            this.shrinkToFit();
         }
     }
 
-    render() {
+    shrinkToFit() {
+        const el = this.answerRef.current;
+        if (!el) return;
+
+        el.style.fontSize = '';
+        const parent = el.parentElement;
+        let fontSize = parseFloat(getComputedStyle(el).fontSize);
+
+        while (el.scrollHeight > parent.clientHeight * 0.5 && fontSize > 12) {
+            fontSize -= 1;
+            el.style.fontSize = `${fontSize}px`;
+        }
+    }
+
+    renderEditable() {
+        const { id, value, handleKeyPress, onChangeAnswer, handleBlur, handleFocus } = this.props;
         return (
-            <>
-                {this.renderAnswer()}
-            </>
-        )
+            <div className="card-textarea-group">
+                <textarea
+                    cols="16"
+                    maxLength={150}
+                    id={id}
+                    className="card-field answer-field"
+                    placeholder="Answer"
+                    title={value}
+                    value={value}
+                    spellCheck="false"
+                    onKeyDown={(e) => handleKeyPress(e)}
+                    onChange={(e) => onChangeAnswer(e)}
+                    onBlur={(e) => handleBlur(e)}
+                    onFocus={handleFocus}
+                />
+                <label htmlFor={id} className="card-label">Answer</label>
+            </div>
+        );
+    }
+
+    renderPlain() {
+        const { id, value } = this.props;
+        return (
+            <div className="card-textarea-group">
+                <textarea
+                    cols="16"
+                    maxLength={85}
+                    id={id}
+                    className="card-field answer-field"
+                    placeholder="Answer"
+                    value={value}
+                    disabled
+                />
+                <label htmlFor={id} className="card-label">Answer</label>
+            </div>
+        );
+    }
+
+    renderInPlay() {
+        const { value } = this.props;
+        return (
+            <div className='card-answer' ref={this.answerRef}>
+                {value}
+            </div>
+        );
+    }
+
+    renderAnswer() {
+        const { inPlay, editable } = this.props;
+        if (inPlay) return this.renderInPlay();
+        if (editable) return this.renderEditable();
+        return this.renderPlain();
+    }
+
+    render() {
+        return this.renderAnswer();
     }
 }
 

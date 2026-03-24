@@ -2,6 +2,35 @@ import React from 'react';
 
 class CardQuestion extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.questionRef = React.createRef();
+    }
+
+    componentDidMount() {
+        this.shrinkToFit();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.value !== this.props.value) {
+            this.shrinkToFit();
+        }
+    }
+
+    shrinkToFit() {
+        const el = this.questionRef.current;
+        if (!el) return;
+
+        el.style.fontSize = '';
+        const parent = el.parentElement;
+        let fontSize = parseFloat(getComputedStyle(el).fontSize);
+
+        while (el.scrollHeight > parent.clientHeight * 0.2 && fontSize > 12) {
+            fontSize -= 1;
+            el.style.fontSize = `${fontSize}px`;
+        }
+    }
+
     renderEditable() {
         const { 
             id, 
@@ -57,11 +86,10 @@ class CardQuestion extends React.Component {
     }
 
     renderInPlay(){
-
         const {value} = this.props;
         return (
             <>
-                <div className='card-question'> 
+                <div className='card-question'  ref={this.questionRef}> 
                     <div> {value} </div>
                 </div>
             </>

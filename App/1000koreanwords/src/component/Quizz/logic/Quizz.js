@@ -15,7 +15,7 @@ var score = {
 }
 
 var cards;
-var maxCard = 100;
+var maxCard = 20;
 
 export default {
     updateQuizz(cardIndex, command) {

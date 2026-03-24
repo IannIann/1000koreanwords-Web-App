@@ -47,7 +47,7 @@ export default class DeckProgress extends React.Component {
 
     return (
       <div className={`component-deck-progress`}>
-        <ProgressBar progressPercentage={progressPercentage} grade={grade} />
+        <ProgressBar progressPercentage={progressPercentage} grade={grade} label="PROGRESS"/>
       </div>
     );
   }

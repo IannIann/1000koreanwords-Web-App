@@ -100,7 +100,6 @@ and shadow are grouped together when it get flipped*/
     50% { transform: scale(1.1) rotateY(180deg); }
 }
 
-.card-answer,
 .card-question {
     font-family: 'Noto Serif KR', serif;
     font-size: 1.8em;
@@ -112,10 +111,19 @@ and shadow are grouped together when it get flipped*/
 
 .card-answer {
     font-family: 'Outfit', sans-serif;
-    overflow: hidden;
-    font-size: 1.9rem;
+    text-align: center;
     font-weight: 300;
+    word-break: break-word;
+    overflow-wrap: break-word;
     color: var(--teal);
+    margin-top: 5%;
+    width: 100%;
+
+    /* Remove fixed font-size — shrinkToFit() controls it dynamically */
+    font-size: 1.9rem;
+
+    /* Prevent the div from overflowing the card */
+    overflow: hidden;
 }
 
 .card-front, .card-back  {
@@ -154,8 +162,8 @@ and shadow are grouped together when it get flipped*/
     padding: 7px 0;
     background: transparent;
     text-overflow: ellipsis;
-
 }
+
 .card-field:not(:placeholder-shown) {
   opacity: 1;
   font-weight: 500; 

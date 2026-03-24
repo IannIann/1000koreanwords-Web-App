@@ -6,26 +6,17 @@ export default class QuizzProgress extends React.Component {
   state = {
     scoreIndex: 0,
     maxIndex: 0,
-    progressPercentage: 0
+    label: ""
   }
 
   updateProgress = () => {
-    const { scoreIndex, maxIndex } = this.props;
-    const progressPercentage = this.calculateProgressPercentage(scoreIndex, maxIndex);
+    const { scoreIndex, maxIndex, label } = this.props;
 
     this.setState({
       scoreIndex: scoreIndex,
       maxIndex: maxIndex,
-      progressPercentage: progressPercentage
+      label: label
     });
-  }
-
-  calculateProgressPercentage(scoreIndex, maxIndex) {
-    if (maxIndex === 0) {
-      return 0;
-    } else {
-      return Math.round((scoreIndex / maxIndex) * 100);
-    }
   }
   
   componentDidMount() {
@@ -41,11 +32,11 @@ export default class QuizzProgress extends React.Component {
   }
 
   render() {
-    const { progressPercentage } = this.state;
+    const { scoreIndex, maxIndex } = this.state;
 
     return (
       <div className="component-quizz-progress">
-        <ProgressBar progressPercentage={progressPercentage}/>
+        <ProgressBar current={scoreIndex} total={maxIndex} grade={null} label="QUESTION" />
       </div>
     )
   }

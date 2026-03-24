@@ -217,7 +217,6 @@ class QuizzApp extends React.Component {
                     {!isFinished && (
                         <>
                             {this.renderCardQuizz()}
-
                         </>
                     )}
 
@@ -230,11 +229,11 @@ class QuizzApp extends React.Component {
                             isDeckFullyCompleted={isDeckFullyCompleted}
                         />}
 
-
                     {!isFinished && (
                             <QuizzProgress
                                 scoreIndex={scoreIndex}
                                 maxIndex={maxIndex}
+                                label="QUESTION"
                             />
                     )}
                 </div>
@@ -244,7 +243,7 @@ class QuizzApp extends React.Component {
 
     render() {
         return (
-            <div className="component-quizz-app">
+            <div className="component-quizz-app fill-available-space">
                 {this.renderElement()}
             </div>
         )

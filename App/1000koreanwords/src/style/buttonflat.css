@@ -77,13 +77,24 @@
     background: var(--teal);
 }
 
+.button-result-restart, .button-result-back{
+    --padding-y: 16px;
+    --padding-x: 40px;
+    --scale-font: 1rem;
+}
+
+.button-result-restart.gray {
+    background: var(--gray);
+    cursor: default;
+}
+
 @media (max-width: 1280px) {
     .button-hero {
         --padding-y: 16px;
         --scale-font: 1rem;
     }
 
-    .button-modal {
+    .button-modal{
         --padding-y: 12px;
         --padding-x: 30px;
         --scale-font: 0.8rem;
@@ -92,7 +103,7 @@
 
 @media (max-width: 619px) {
     .button-back {
-        --padding-y: 16px;
+        --padding-y: 14px;
         --padding-x: 30px;
         --scale-font: 0.8rem;
     }
