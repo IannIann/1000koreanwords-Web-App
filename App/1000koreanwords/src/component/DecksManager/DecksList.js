@@ -5,7 +5,8 @@ import ButtonAddDeck from "@app/component/Buttons/ButtonAddDeck";
 export default class DecksList extends React.Component {
 
     state = {
-        decks: []
+        decks: [],
+        stackOrders: JSON.parse(localStorage.getItem('stackedDecksOrder')) || {}
     };
 
     componentDidMount() {
@@ -34,7 +35,6 @@ export default class DecksList extends React.Component {
         }));
 
         this.setState({ decks: updatedDecks });
-        this.addFocusedToFirstDeck();
     }
 
     stackDecks = (decks) => {
@@ -45,41 +45,27 @@ export default class DecksList extends React.Component {
         }, {});
     };
 
-    addFocusedToFirstDeck() {
-        document.querySelectorAll(".stacked-decks").forEach(stack => {
-            const firstDeck = stack.querySelector(".deck-1");
-            if (firstDeck) firstDeck.classList.add("focused");
-        });
-    }
-
     orderDecksByGrade = (decks) => [
         ...decks.filter(deck => deck.grade === "Beginner"),
         ...decks.filter(deck => deck.grade === "Intermediate"),
         ...decks.filter(deck => deck.grade === "Advanced"),
     ];
 
-    saveStackedDecksOrder = (event) => {
-        const currentStack = event.currentTarget.closest(".stacked-decks");
-        const stackId = currentStack.getAttribute("id");
-        const decks = Array.from(currentStack.querySelectorAll(".component-deck"));
-        const savedOrder = JSON.parse(window.localStorage.getItem("stackedDecksOrder")) || [];
-        const stackIndex = savedOrder.findIndex(stack => stack.id === stackId);
-
-        if (stackIndex === -1) {
-            savedOrder.push({ id: stackId, decksClassName: decks.map(deck => deck.classList.value) });
-        } else {
-            savedOrder[stackIndex].decksClassName = decks.map(deck => deck.classList.value);
-        }
-
-        window.localStorage.setItem("stackedDecksOrder", JSON.stringify(savedOrder));
+    saveStackedDecksOrder = (stackId, focusedGrade) => {
+        const currentOrder = this.state.stackOrders[stackId] || ['Beginner', 'Intermediate', 'Advanced'];
+        const newOrder = [focusedGrade, ...currentOrder.filter(g => g !== focusedGrade)];
+        const updatedOrders = { ...this.state.stackOrders, [stackId]: newOrder };
+        this.setState({ stackOrders: updatedOrders });
+        localStorage.setItem('stackedDecksOrder', JSON.stringify(updatedOrders));
     };
 
     buildDeckClassNames = (decks, stackId) => {
-        const savedOrder = JSON.parse(window.localStorage.getItem("stackedDecksOrder")) || [];
-        const savedStack = savedOrder.find(sdo => sdo.id === stackId);
-
-        if (savedStack) return savedStack.decksClassName;
-        return decks.map((deck, index) => `component-deck ${deck.grade} deck-${index + 1}`);
+        const order = this.state.stackOrders[stackId];
+        return decks.map((deck, index) => {
+            const position = order ? order.indexOf(deck.grade) + 1 : index + 1;
+            const focused = position === 1 ? ' focused' : '';
+            return `component-deck ${deck.grade} deck-${position}${focused}`;
+        });
     };
 
     renderStackedDecks() {

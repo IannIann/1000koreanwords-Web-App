@@ -54,48 +54,10 @@ export default class Deck extends React.Component {
         localStorage.setItem('userThemesOrder', JSON.stringify(updated));
     };
 
-    addFocusedClass = (event) => {
-        const currentStack = event.currentTarget.closest('.stacked-decks');
-        const decks = currentStack.querySelectorAll('.component-deck');
-        decks.forEach((deck) => deck.classList.remove('focused'));
-        event.currentTarget.classList.add('focused');
-    };
-
-    reorderDeckOnFocus = (event) => {
-        const currentStack = event.currentTarget.closest('.stacked-decks');
-        const decks = Array.from(currentStack.querySelectorAll('.component-deck'));
-        const focusedDeck = event.currentTarget;
-        const [deck1, deck2, deck3] = decks;
-
-        // Remove all `deck-*` positional classes
-        decks.forEach((deck) => {
-            deck.classList.forEach((className) => {
-                if (/^deck-\d+$/.test(className)) deck.classList.remove(className);
-            });
-        });
-
-        // Re-assign classes based on which deck is focused
-        if (focusedDeck === deck1) {
-            deck1.classList.add('deck-1');
-            deck2.classList.add('deck-2');
-            deck3.classList.add('deck-3');
-        } else if (focusedDeck === deck2) {
-            deck2.classList.add('deck-1');
-            deck3.classList.add('deck-2');
-            deck1.classList.add('deck-3');
-        } else if (focusedDeck === deck3) {
-            deck3.classList.add('deck-1');
-            deck1.classList.add('deck-2');
-            deck2.classList.add('deck-3');
-        }
-    };
-
-    handleDeckClick = (e) => {
+    handleDeckClick = () => {
         const { deck, saveStackedDecksOrder } = this.props;
         if (!deck.isCustom) {
-            this.addFocusedClass(e);
-            this.reorderDeckOnFocus(e);
-            saveStackedDecksOrder(e);
+            saveStackedDecksOrder(deck.theme, deck.grade);
         }
     };
 
@@ -127,7 +89,7 @@ export default class Deck extends React.Component {
 
     render() {
         const { deckState } = this.state;
-        const { deck, refreshDecks, openResetModal, openHiddenCardsModal, openEditPage, openDeleteModal, className, saveStackedDecksOrder } = this.props;
+        const { deck, refreshDecks, openResetModal, openHiddenCardsModal, openEditPage, openDeleteModal, className } = this.props;
 
         return (
             <div className={className} onClick={this.handleDeckClick}>
