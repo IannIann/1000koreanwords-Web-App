@@ -11,7 +11,7 @@ export default class QuizzResult extends React.Component {
             <>
                 <div className="result-section-header">{cards.length > 1 ? `${type} answers` : `${type} answer`}</div>
                 <div className={`${type.toLowerCase()}-cards `}>
-                    <div className='quizz-result-grid'>
+                    <div className="quizz-result-grid">
                         {cards.map((card, index) => (
                             <Card
                                 card={card}

@@ -1,31 +1,25 @@
 .component-card {
     font-size: 1.5rem;
     font-weight: 800;
-    
     text-align: center;
     width: 250px;
     height: 375px;
-
     background: white;
-    border-radius: 0px;
+    border-radius: 0;
     padding: 10px;
     padding-top: 5px;
-    box-shadow: 12px 12px 0px rgba(0,0,0,0.1);
-
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--border-dark);
-
-    cursor : default;
+    cursor: default;
 }
 
-/*Section used for cards displayed in the quiz*/
-/*Added a wrapper and a shadow so that the card 
-and shadow are grouped together when it get flipped*/
+/* Cards displayed in the quiz: wrapper groups card + shadow for flip animation */
 
 .component-card.flip-card {
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
     width: 300px;
     height: 450px;
     transform-style: preserve-3d;
@@ -46,7 +40,7 @@ and shadow are grouped together when it get flipped*/
     padding: 10px;
     margin: 10px;
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 0px;
+    border-radius: 0;
     z-index: 0;
     transform-style: preserve-3d;
 }
@@ -56,6 +50,7 @@ and shadow are grouped together when it get flipped*/
         width: 250px;
         height: 370px;
     }
+
     .component-shadow {
         width: 250px;
         height: 370px;
@@ -65,7 +60,7 @@ and shadow are grouped together when it get flipped*/
 .flip-card.flipped,
 .component-shadow.flipped {
     transform: rotateY(180deg);
-    transition: transform 0.8s, background-color 0.2s ease-in-out, border 0.2s ease-in-out; 
+    transition: transform 0.8s, background-color 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
 .flip-card.flipped.red {
@@ -90,21 +85,21 @@ and shadow are grouped together when it get flipped*/
 
 @keyframes shake {
     0%, 100% { transform: translateX(0) rotateY(180deg); }
-    25% { transform: translateX(-5px) rotateY(180deg); }
-    50% { transform: translateX(5px) rotateY(180deg); }
-    75% { transform: translateX(-5px) rotateY(180deg); }
+    25%       { transform: translateX(-5px) rotateY(180deg); }
+    50%       { transform: translateX(5px) rotateY(180deg); }
+    75%       { transform: translateX(-5px) rotateY(180deg); }
 }
 
 @keyframes grow {
     0%, 100% { transform: scale(1) rotateY(180deg); }
-    50% { transform: scale(1.1) rotateY(180deg); }
+    50%       { transform: scale(1.1) rotateY(180deg); }
 }
 
 .card-question {
     font-family: 'Noto Serif KR', serif;
     font-size: 1.8em;
     text-overflow: ellipsis;
-    text-align: center; 
+    text-align: center;
     word-break: break-word;
     margin: 5% 0;
 }
@@ -118,21 +113,17 @@ and shadow are grouped together when it get flipped*/
     color: var(--teal);
     margin-top: 5%;
     width: 100%;
-
-    /* Remove fixed font-size — shrinkToFit() controls it dynamically */
     font-size: 1.9rem;
-
-    /* Prevent the div from overflowing the card */
     overflow: hidden;
 }
 
-.card-front, .card-back  {
-    display: flex; 
-    position: absolute; 
+.card-front, .card-back {
+    display: flex;
+    position: absolute;
     justify-content: center;
-    align-items: center; 
-    width: 100%; 
-    height: 100%; 
+    align-items: center;
+    width: 100%;
+    height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
@@ -142,7 +133,8 @@ and shadow are grouped together when it get flipped*/
     flex-direction: column;
 }
 
-/* Below the css is used in cards displayed outside of quiz */
+/* Cards displayed outside the quiz */
+
 .card-textarea-group,
 .card-input-group {
     position: relative;
@@ -165,8 +157,8 @@ and shadow are grouped together when it get flipped*/
 }
 
 .card-field:not(:placeholder-shown) {
-  opacity: 1;
-  font-weight: 500; 
+    opacity: 1;
+    font-weight: 500;
 }
 
 .answer-field {
@@ -181,7 +173,7 @@ and shadow are grouped together when it get flipped*/
     color: transparent;
 }
 
-.card-field:placeholder-shown~.card-label {
+.card-field:placeholder-shown ~ .card-label {
     font-size: 1.2rem;
     cursor: text;
     top: 20px;
@@ -198,12 +190,7 @@ and shadow are grouped together when it get flipped*/
     opacity: 0.6;
 }
 
-.card-field:focus~.card-label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 0.8rem;
+.card-field:focus ~ .card-label {
     color: var(--teal);
     font-weight: 700;
     opacity: 1;
@@ -213,6 +200,6 @@ and shadow are grouped together when it get flipped*/
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
-    border-color : var(--teal);
+    border-color: var(--teal);
     opacity: 1;
 }

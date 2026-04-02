@@ -41,7 +41,7 @@
 }
 
 .button-ghost.red {
-    --btn-ghost-color: var(--corail-600)
+    --btn-ghost-color: var(--corail-600);
 }
 
 .button-ghost.center {

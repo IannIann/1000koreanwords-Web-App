@@ -1,11 +1,11 @@
 const getErrorMessage = (error) => {
     try {
-        var errorJson = JSON.parse(error.message);
-        return errorJson.message
+        const errorJson = JSON.parse(error.message);
+        return errorJson.message;
     } catch {
-        return "An error happened."
+        return "An error happened.";
     }
-}
+};
 
 const checkPasswordSecurity = (password) => {
     const minPasswordLength = 8;
@@ -13,23 +13,23 @@ const checkPasswordSecurity = (password) => {
 
     const constraints = [
         {
-            test: password => /[A-Z]/.test(password),
+            test: value => /[A-Z]/.test(value),
             message: "Password must have at least one upper case letter",
         },
         {
-            test: password => /[a-z]/.test(password),
+            test: value => /[a-z]/.test(value),
             message: "Password must have at least one lower case letter",
         },
         {
-            test: password => /\d/.test(password),
+            test: value => /\d/.test(value),
             message: "Password must have at least one number",
         },
         {
-            test: password => password.length >= minPasswordLength,
+            test: value => value.length >= minPasswordLength,
             message: `Password must be at least ${minPasswordLength} characters long`,
         },
         {
-            test: password => password.length <= maxPasswordLength,
+            test: value => value.length <= maxPasswordLength,
             message: `Password must be at most ${maxPasswordLength} characters long`,
         },
     ];
@@ -57,27 +57,26 @@ const checkPasswordMatch = (password, passwordConfirm) => {
     return { success: true };
 };
 
-
 const checkEmailFormat = (email) => {
     const minEmailLength = 5;
-    const maxPasswordLength = 64;
+    const maxEmailLength = 64;
 
-    const emailConstraints = [
+    const constraints = [
         {
-            test: email => email.length <= maxPasswordLength,
-            message: "Email must be at most 64 characters long",
-        },
-        {
-            test: email => email.length >= minEmailLength,
+            test: value => value.length >= minEmailLength,
             message: "Email must be at least 5 characters long",
         },
         {
-            test: email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(email),
+            test: value => value.length <= maxEmailLength,
+            message: "Email must be at most 64 characters long",
+        },
+        {
+            test: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(value),
             message: "Email is not valid",
         },
     ];
 
-    const errors = emailConstraints.filter(constraint => !constraint.test(email));
+    const errors = constraints.filter(constraint => !constraint.test(email));
 
     if (errors.length > 0) {
         return {
@@ -93,22 +92,22 @@ const checkUsernameFormat = (username) => {
     const minUsernameLength = 3;
     const maxUsernameLength = 64;
 
-    const usernameConstraints = [
+    const constraints = [
         {
-            test: username => username.length <= maxUsernameLength,
-            message: `Username must be at most ${maxUsernameLength} characters long`,
-        },
-        {
-            test: username => username.length >= minUsernameLength,
+            test: value => value.length >= minUsernameLength,
             message: `Username must be at least ${minUsernameLength} characters long`,
         },
         {
-            test: username => /^[a-zA-Z0-9]+$/i.test(username),
+            test: value => value.length <= maxUsernameLength,
+            message: `Username must be at most ${maxUsernameLength} characters long`,
+        },
+        {
+            test: value => /^[a-zA-Z0-9]+$/i.test(value),
             message: "Username cannot contains special characters or be empty",
         },
     ];
 
-    const errors = usernameConstraints.filter(constraint => !constraint.test(username));
+    const errors = constraints.filter(constraint => !constraint.test(username));
 
     if (errors.length > 0) {
         return {
@@ -125,5 +124,5 @@ export default {
     checkPasswordSecurity,
     checkPasswordMatch,
     checkEmailFormat,
-    checkUsernameFormat
-}
+    checkUsernameFormat,
+};

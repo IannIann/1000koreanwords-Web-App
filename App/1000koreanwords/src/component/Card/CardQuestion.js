@@ -25,6 +25,7 @@ class CardQuestion extends React.Component {
         const parent = el.parentElement;
         let fontSize = parseFloat(getComputedStyle(el).fontSize);
 
+        // Shrink until the question fits within 20% of the card height, down to 12px minimum.
         while (el.scrollHeight > parent.clientHeight * 0.2 && fontSize > 12) {
             fontSize -= 1;
             el.style.fontSize = `${fontSize}px`;
@@ -32,89 +33,61 @@ class CardQuestion extends React.Component {
     }
 
     renderEditable() {
-        const { 
-            id, 
-            value, 
-            handleKeyPress, 
-            onChangeQuestion, 
-            handleBlur, 
-            handleFocus 
-        } = this.props;
+        const { id, value, handleKeyPress, onChangeQuestion, handleBlur, handleFocus } = this.props;
 
         return (
-            <>
-                <div className="card-input-group">
-                    <input
-                        id={id}
-                        className="card-field"
-                        placeholder="Question"
-                        title={value || ""}
-                        value={value || ""} 
-                        maxLength={30}
-                        spellCheck="false"
-                        onKeyDown={(e) => handleKeyPress(e)}
-                        onChange={(e) => onChangeQuestion(e)}
-                        onBlur={(e) => handleBlur(e)}
-                        onFocus={handleFocus}
-                    />
-                    <label htmlFor={id} className="card-label">Question</label>
-                </div>
-            </>
+            <div className="card-input-group">
+                <input
+                    id={id}
+                    className="card-field"
+                    placeholder="Question"
+                    title={value || ''}
+                    value={value || ''}
+                    maxLength={30}
+                    spellCheck="false"
+                    onKeyDown={handleKeyPress}
+                    onChange={onChangeQuestion}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
+                />
+                <label htmlFor={id} className="card-label">Question</label>
+            </div>
         );
     }
 
-    renderPlain(){
-        const { 
-            id, 
-            value
-        } = this.props;
+    renderPlain() {
+        const { id, value } = this.props;
 
         return (
-            <>
-                <div className="card-input-group">
-                    <input
-                        id={id}
-                        className="card-field"
-                        placeholder="Question"
-                        value={value || ""} 
-                        disabled="disabled"
-                    />
-                    <label htmlFor={id} className="card-label">Question</label>
-                </div>
-            </>
+            <div className="card-input-group">
+                <input
+                    id={id}
+                    className="card-field"
+                    placeholder="Question"
+                    value={value || ''}
+                    disabled
+                />
+                <label htmlFor={id} className="card-label">Question</label>
+            </div>
         );
     }
 
-    renderInPlay(){
-        const {value} = this.props;
-        return (
-            <>
-                <div className='card-question'  ref={this.questionRef}> 
-                    <div> {value} </div>
-                </div>
-            </>
-        )
-    }
-    
-    renderQuestion()
-    {
-        const {inPlay, editable} = this.props;
+    renderInPlay() {
+        const { value } = this.props;
 
-        if (inPlay) {
-            return this.renderInPlay();
-        } else if (editable) {    
-            return this.renderEditable();
-        } else {
-            return this.renderPlain();
-        }
+        return (
+            <div className="card-question" ref={this.questionRef}>
+                <div>{value}</div>
+            </div>
+        );
     }
 
     render() {
-        return (
-            <>
-                {this.renderQuestion()}
-            </>
-        )
+        const { inPlay, editable } = this.props;
+
+        if (inPlay) return this.renderInPlay();
+        if (editable) return this.renderEditable();
+        return this.renderPlain();
     }
 }
 

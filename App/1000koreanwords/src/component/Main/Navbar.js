@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { withRouter } from '@app/tool/withRouter'
-import AuthService from '@app/service/auth.service'
+import { Link } from 'react-router-dom';
+import { withRouter } from '@app/tool/withRouter';
+import AuthService from '@app/service/auth.service';
 
 import '@app/style/navbar.css';
 
@@ -12,87 +12,68 @@ class Navbar extends React.Component {
     };
 
     componentDidMount() {
-        this.isUserLoggedIn();
+        this.checkLoginStatus();
     }
 
     componentDidUpdate(prevProps) {
-    if (this.props.router.location.pathname !== prevProps.router.location.pathname) {
-        this.isUserLoggedIn();
-    }
-}
-
-    async isUserLoggedIn() {
-        await AuthService.checkAuthToken()
-            .then((res) => this.setState({ isLogged: res.valid }));
+        if (this.props.router.location.pathname !== prevProps.router.location.pathname) {
+            this.checkLoginStatus();
+        }
     }
 
-    displayLogo = () => {
+    async checkLoginStatus() {
+        const res = await AuthService.checkAuthToken();
+        this.setState({ isLogged: res.valid });
+    }
+
+    renderLogo() {
         return (
             <div className="navbar-logo">
-                <Link to={"/homepage/"}>
-                    <div>
-                        <h1>1000<span style={{ color: "var(--teal)" }}>Korean</span>Words</h1>
-                    </div>
+                <Link to="/homepage/">
+                    <h1>1000<span style={{ color: 'var(--teal)' }}>Korean</span>Words</h1>
                 </Link>
             </div>
-        )
+        );
     }
 
-    displayLinks = () => {
+    renderLinks() {
+        const { isLogged } = this.state;
 
-        if (this.state.isLogged === null) 
-            return null;
+        if (isLogged === null) return null;
 
-        if (this.state.isLogged) {
+        if (isLogged) {
             return (
                 <div className="navbar-links">
-                    <div className="navbar-link">
-                        <Link to={"/learn/"}> Learn </Link>
-                    </div>
-                    <div className="navbar-link">
-                        <Link to={"/mydecks/"}> My decks </Link>
-                    </div>
-                    <div className="navbar-link">
-                        <Link to={"/logout/"}> Sign out </Link>
-                    </div>
+                    <div className="navbar-link"><Link to="/learn/"> Learn </Link></div>
+                    <div className="navbar-link"><Link to="/mydecks/"> My decks </Link></div>
+                    <div className="navbar-link"><Link to="/hangeul/"> 한글 </Link></div>
+                    <div className="navbar-link"><Link to="/logout/"> Sign out </Link></div>
                 </div>
-            )
+            );
         }
-        else if (!this.state.isLogged) {
-            return (
-                <div className="navbar-links">
-                    {!location.pathname.includes("/login") && (
-                        <div className="navbar-link">
-                            <Link to="/login">Login</Link>
-                        </div>
-                    )}
 
-                    {location.pathname.includes("/login") && (
-                        <div className="navbar-link">
-                            <Link to="/register">Sign up</Link>
-                        </div>
-                    )}
-                </div>
-            )
-        } 
-    }
-
-    renderElement() {
+        const { pathname } = this.props.router.location;
         return (
-            <>
-                {this.displayLogo()}
-                {this.displayLinks()}
-            </>
-        )
+            <div className="navbar-links">
+                {!pathname.includes('/login') && (
+                    <div className="navbar-link"><Link to="/login">Login</Link></div>
+                )}
+                {pathname.includes('/login') && (
+                    <div className="navbar-link"><Link to="/register">Sign up</Link></div>
+                )}
+            </div>
+        );
     }
+
     render() {
         return (
             <div>
                 <nav className="component-navbar">
-                    {this.renderElement()}
+                    {this.renderLogo()}
+                    {this.renderLinks()}
                 </nav>
             </div>
-        )
+        );
     }
 }
 

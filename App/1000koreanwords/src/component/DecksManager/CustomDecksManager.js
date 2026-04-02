@@ -5,7 +5,7 @@ import CustomDecksService from '@app/component/DecksManager/logic/CustomDecksSer
 import ResetModal from '@app/component/Modals/ResetModal';
 import HiddenCardsModal from '@app/component/Modals/HiddenCardsModal';
 import DeleteModal from '@app/component/Modals/DeleteModal';
-import { withRouter } from '@app/tool/withRouter'
+import { withRouter } from '@app/tool/withRouter';
 import Loader from '@app/component/Main/Loader';
 
 
@@ -36,7 +36,7 @@ class CustomDecksManager extends React.Component {
     };
 
     refreshDecks = () => {
-        this.fetchDecksList()
+        this.fetchDecksList();
     }
 
     openResetModal = (deckState) => {
@@ -144,23 +144,20 @@ class CustomDecksManager extends React.Component {
                                 openDeleteModal={this.openDeleteModal}
                                 toast={toast}
                             />
-
                         </>
                     )}
                 </div>
             </>
-        )
+        );
     }
 
     render() {
         return (
-            <>
-                <div className="component-custom-decks-manager fill-available-space">
-                    {this.renderElement()}
-                </div>
-            </>
-        )
+            <div className="component-custom-decks-manager fill-available-space">
+                {this.renderElement()}
+            </div>
+        );
     }
 }
 
-export default withRouter(CustomDecksManager)
+export default withRouter(CustomDecksManager);

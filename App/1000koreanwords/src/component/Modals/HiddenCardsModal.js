@@ -1,20 +1,28 @@
 import React from 'react';
 import userdeckstatesData from '@app/data/userdeckstates.data';
 import decksData from '@app/data/decks.data';
-import customdecks from '@app/data/customdecks.data';
+import customDecksData from '@app/data/customdecks.data';
 import Card from '@app/component/Card/Card';
-import ModalCrossButton from '@app/component/Buttons/ModalCrossButton';
+import Loader from '@app/component/Main/Loader';
+import ModalButtonClose from '@app/component/Buttons/ModalButtonClose';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import withModalLogic from '@app/component/Modals/withModalLogic';
 import '@app/style/modal.css';
 import '@app/style/hiddencardsmodal.css';
 
-
 class HiddenCardsModal extends React.Component {
 
   state = {
     bannedCards: [],
-    modalType: ""
+    isLoading: true,
+    prevModalClass: null
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.modalClass === 'display' && state.prevModalClass !== 'display') {
+      return { bannedCards: [], isLoading: true, prevModalClass: props.modalClass };
+    }
+    return { prevModalClass: props.modalClass };
   }
 
   componentDidMount() {
@@ -23,8 +31,7 @@ class HiddenCardsModal extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { modalClass } = this.props
-
-    if (prevProps.modalClass !== modalClass) {
+    if (prevProps.modalClass !== modalClass && modalClass === 'display') {
       this.fetchBannedCardsList();
     }
   }
@@ -33,18 +40,21 @@ class HiddenCardsModal extends React.Component {
     const { deckState, deck } = this.props;
 
     const fetchDeck = deck.isCustom
-      ? customdecks.getCustomDeck
-      : decksData.getDeck
+      ? customDecksData.getCustomDeck
+      : decksData.getDeck;
 
-    if (deckState) {
-      fetchDeck(deck.id).then((res) => {
-        const cards = res.deck[0].cards;
-        const bannedCards = deckState.bannedCards;
-        const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
-
-        this.setState({ bannedCards: bannedCardsList });
-      });
+    if (!deckState) {
+      this.setState({ isLoading: false });
+      return;
     }
+
+    fetchDeck(deck.id).then((res) => {
+      const cards = res.deck.cards;
+      const bannedCards = deckState.bannedCards;
+      const bannedCardsList = cards.filter(card => bannedCards.includes(card._id));
+
+      this.setState({ bannedCards: bannedCardsList, isLoading: false });
+    });
   }
 
   restoreCard = (id) => {
@@ -62,6 +72,7 @@ class HiddenCardsModal extends React.Component {
 
     userdeckstatesData.updateDeckState(updatedDeckState)
       .then(refreshDecks)
+      .catch(() => {toast.error('Oops! Something went wrong...');})
       .finally(onClose)
   }
 
@@ -69,7 +80,7 @@ class HiddenCardsModal extends React.Component {
     const { bannedCards } = this.state;
 
     if (hasNoHiddenCards) {
-      return <div> <p>You don't have any hidden cards.</p></div>
+      return <p>You don't have any hidden cards.</p>;
     }
 
     return (
@@ -81,7 +92,7 @@ class HiddenCardsModal extends React.Component {
               key={index}
               card={card}
               restoreCard={this.restoreCard}
-              isDeletable={true }
+              isDeletable={true}
             />
           ))}
 
@@ -92,24 +103,27 @@ class HiddenCardsModal extends React.Component {
 
   renderHtml(hasNoHiddenCards) {
     const { onClose } = this.props;
+    const { isLoading } = this.state;
 
     return (
       <>
         <div className="modal-header">
           <div className="close-button-container">
-          <ModalCrossButton handleClick={onClose} />
+            <ModalButtonClose handleClick={onClose} />
           </div>
           <h2>Remove cards from the hide list</h2>
           <hr />
         </div>
         <div className="modal-content">
-          {this.renderHiddenCards(hasNoHiddenCards)}
+          {isLoading ? <Loader /> : 
+            this.renderHiddenCards(hasNoHiddenCards)
+          }
         </div>
         <div className="modal-footer">
           <hr />
           <div className="modal-buttons">
-            <ButtonFlat label="Cancel" onClick={onClose} customClass={`button-start-deck button-modal red`} />
-            <ButtonFlat label="Confirm" onClick={this.onConfirm} customClass={`button-start-deck button-modal green`} />
+            <ButtonFlat label="Cancel" onClick={onClose} customClass="button-start-deck button-modal red" />
+            <ButtonFlat label="Confirm" onClick={this.onConfirm} customClass="button-start-deck button-modal green" />
           </div>
         </div>
       </>
@@ -124,7 +138,7 @@ class HiddenCardsModal extends React.Component {
 
     return (
       <div id="modal-container" className={modalClass}>
-        <div className="modal-background" onClick={this.handleBackgroundClick}>
+        <div className="modal-background" onClick={this.props.handleBackgroundClick}>
           <div className={modalType}>
 
             {this.renderHtml(hasNoHiddenCards)}
@@ -136,4 +150,4 @@ class HiddenCardsModal extends React.Component {
   }
 }
 
-export default withModalLogic(HiddenCardsModal)
+export default withModalLogic(HiddenCardsModal);

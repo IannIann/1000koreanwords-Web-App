@@ -1,12 +1,12 @@
-.component-hide-button {
+.component-button-favorite {
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
 
     position: absolute;
-    top: 3.2%;
-    right: 13%;
+    top: 3%;
+    right: 2%;
 
     background: none;
     border: none;
@@ -16,6 +16,6 @@
     transition: color 0.3s, transform 0.05s;
 }
 
-.component-hide-button:hover {
-    color: #e72b05
+.component-button-favorite:hover {
+    color: #e4bd0d;
 }

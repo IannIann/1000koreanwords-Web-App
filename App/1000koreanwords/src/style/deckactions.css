@@ -1,0 +1,14 @@
+.component-deck-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.component-deck-actions .button-pushable,
+.component-deck-actions .button-ghost {
+    margin: 0 3px;
+}
+
+.component-deck-actions .button-pushable .button-front {
+    font-size: 1em;
+    padding: 10px 15px;
+}

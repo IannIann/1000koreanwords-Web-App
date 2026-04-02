@@ -1,5 +1,5 @@
 import React from 'react';
-import DecksList from '@app/component/DecksManager/DecksList'
+import DecksList from '@app/component/DecksManager/DecksList';
 import DecksService from '@app/component/DecksManager/logic/DecksService';
 import ResetModal from '@app/component/Modals/ResetModal';
 import HiddenCardsModal from '@app/component/Modals/HiddenCardsModal';
@@ -27,7 +27,7 @@ export default class DecksManager extends React.Component {
     }
 
     refreshDecks = () => {
-        this.fetchDecksList()
+        this.fetchDecksList();
     }
 
     openResetModal = (deckState) => {
@@ -60,28 +60,31 @@ export default class DecksManager extends React.Component {
         document.body.classList.remove('modal-active');
     }
 
-    renderElement() {
-        const { decks,
+    render() {
+        const {
+            decks,
             deck,
             userDeckStates,
             deckState,
             resetModalClass,
             hiddenCardsModalClass,
             enableHiddenCardsModal,
-            enableResetModal
+            enableResetModal,
         } = this.state;
 
         return (
             <>
                 {enableResetModal &&
-                    <ResetModal modalClass={resetModalClass}
+                    <ResetModal
+                        modalClass={resetModalClass}
                         deckState={deckState}
                         refreshDecks={this.refreshDecks}
                         onClose={this.closeModal} />
                 }
 
                 {enableHiddenCardsModal &&
-                    <HiddenCardsModal modalClass={hiddenCardsModalClass}
+                    <HiddenCardsModal
+                        modalClass={hiddenCardsModalClass}
                         deckState={deckState}
                         deck={deck}
                         refreshDecks={this.refreshDecks}
@@ -104,14 +107,6 @@ export default class DecksManager extends React.Component {
                         openHiddenCardsModal={this.openHiddenCardsModal} />
                 </div>
             </>
-        )
-    }
-
-    render() {
-        return (
-            <>
-                {this.renderElement()}
-            </>
-        )
+        );
     }
 }

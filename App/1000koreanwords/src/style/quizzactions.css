@@ -1,0 +1,23 @@
+.component-quizz-actions {
+    width: 100%;
+    height: 130px;
+    margin-top: 30px;
+    margin-bottom: 2%;
+    position: relative;
+    flex-direction: row;
+}
+
+@media (max-height: 800px) {
+    .component-quizz-actions {
+        height: 50px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .component-quizz-actions .button-ghost {
+        height: 100%;
+        border: 1px solid var(--btn-ghost-color);
+    }
+}

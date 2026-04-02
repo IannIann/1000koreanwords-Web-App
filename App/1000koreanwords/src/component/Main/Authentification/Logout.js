@@ -6,21 +6,12 @@ class Logout extends React.Component {
 
     logout = () => {
         AuthService.logout().then(() => {
-            this.refreshPage();
+            window.location.reload();
         });
     }
 
-    refreshPage = () => {
-        window.location.reload();
-    }
-
-    handleLogoutClick = () => {
-        this.logout();
-    }
     renderElement() {
-        return (
-            this.handleLogoutClick()
-        )
+        return this.logout();
     }
 
     render() {

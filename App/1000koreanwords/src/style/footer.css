@@ -1,7 +1,7 @@
 .component-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer-links {
@@ -12,7 +12,7 @@
     gap: 15px;
 }
 
-.footer-link a{
+.footer-link a {
     font-weight: 400;
     font-size: 0.75rem;
     text-decoration: none;
@@ -21,7 +21,10 @@
     text-transform: uppercase;
 }
 
-.footer-link:hover a{ text-decoration: none; opacity: 1; }
+.footer-link:hover a {
+    text-decoration: none;
+    opacity: 1;
+}
 
 @media (max-width: 960px) {
     .component-footer {
@@ -32,7 +35,7 @@
         gap: 10px;
     }
 
-    .footer-link a{
+    .footer-link a {
         font-size: 0.6rem;
     }
 }

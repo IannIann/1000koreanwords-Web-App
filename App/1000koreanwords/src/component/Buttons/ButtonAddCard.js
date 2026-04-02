@@ -1,17 +1,9 @@
-import React from "react";
-import '@app/style/buttonaddcard.css'
-export default class ButtonAddCard extends React.Component {
+import '@app/style/buttonaddcard.css';
 
-  handleAddCardClick = () => {
-    this.props.addCard();
-  };
-
-  render() {
+export default function ButtonAddCard({ addCard }) {
     return (
-      <button className="component-add-card-button"
-        onClick={this.handleAddCardClick}>
-        + Add New Card
-      </button>
+        <button className="component-add-card-button" onClick={addCard}>
+            + Add New Card
+        </button>
     );
-  }
-};
+}

@@ -7,7 +7,8 @@ import Edition from '@app/component/DeckEdition/logic/Edition';
 import DeckName from '@app/component/DeckEdition/DeckName';
 import ButtonAddCard from '@app/component/Buttons/ButtonAddCard';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
-import tool from '@app/tool/tool'
+import Loader from '@app/component/Main/Loader';
+import tool from '@app/tool/tool';
 
 import '@app/style/editpage.css';
 
@@ -15,7 +16,8 @@ class EditPage extends React.Component {
     state = {
         deck: {},
         cards: [],
-        maxCardsLimit: 0
+        maxCardsLimit: 0,
+        isLoading: true
     };
 
     componentDidMount() {
@@ -26,13 +28,13 @@ class EditPage extends React.Component {
         const { deckId } = this.props.router.params;
 
         Edition.fetchDeck(deckId)
-            .then((deck) => this.setState({ deck, cards: deck.cards }))
+            .then((deck) => this.setState({ deck, cards: deck.cards, isLoading: false }))
             .catch(() => {
                 this.navigateToMyDecksPage();
                 toast.error('Oops! Something went wrong...');
             });
 
-        if (this.state.maxCardsLimit === undefined || this.state.maxCardsLimit === 0) {
+        if (!this.state.maxCardsLimit) {
             Edition.getDeckCardsLimit()
                 .then((maxCardsLimit) => this.setState({ maxCardsLimit }))
         }
@@ -48,7 +50,7 @@ class EditPage extends React.Component {
             .then(() => toast.success('Deck theme successfully updated'))
             .catch(() => {
                 this.setState({ deck: { ...deck, theme: savedTheme } });
-                toast.error('Failed to change deck theme');
+                toast.error('Failed to update deck theme');
             });
     };
 
@@ -76,11 +78,7 @@ class EditPage extends React.Component {
         Edition.createCustomCard()
             .then((res) => Edition.pushToDeck(deck._id, res.cardId))
             .then(() => this.loadDeck())
-            .catch((error) => {
-                if (error) {
-                    toast.error(tool.getErrorMessage(error));
-                }
-            });
+            .catch((error) => toast.error(tool.getErrorMessage(error)));
     };
 
     deleteCard = (card) => {
@@ -114,33 +112,33 @@ class EditPage extends React.Component {
     };
 
     render() {
-        const { deck } = this.state;
+        const { deck, isLoading } = this.state;
+
+        if (isLoading) return <Loader />;
 
         return (
-            <>
                 <div className="component-deck-edit fill-available-space">
-                    <div className="page-title">Edit deck</div>
-                    <div className="page-subtitle">Add, delete and customize your flashcards</div>
-                    <div className="cards-edit-header">
-                        <div className="left">
-                            <Link to={`/mydecks`}>
-                                <ButtonFlat label="Back" customClass="button-back" />
-                            </Link>
-                        </div>
-                        <div className="center">
-                            <DeckName deck={deck} saveDeckTheme={this.saveDeckTheme} toast={toast} /></div>
-                        <div className="right"></div>
+                <div className="page-title">Edit deck</div>
+                <div className="page-subtitle">Add, delete and customize your flashcards</div>
+                <div className="cards-edit-header">
+                    <div className="left">
+                        <Link to="/mydecks">
+                            <ButtonFlat label="Back" customClass="button-back" />
+                        </Link>
                     </div>
-
-                    <div className="cards-edit-grid-container">
-                        <div className="cards-edit-grid">
-                            {this.renderCards()}
-                            {this.renderButtonAddCard()}
-                        </div>
+                    <div className="center">
+                        <DeckName deck={deck} saveDeckTheme={this.saveDeckTheme} />
                     </div>
-                    
+                    <div className="right" />
                 </div>
-            </>
+
+                <div className="cards-edit-grid-container">
+                    <div className="cards-edit-grid">
+                        {this.renderCards()}
+                        {this.renderButtonAddCard()}
+                    </div>
+                </div>
+            </div>
         );
     }
 }

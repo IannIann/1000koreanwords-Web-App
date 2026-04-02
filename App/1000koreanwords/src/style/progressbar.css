@@ -1,85 +1,87 @@
-.component-deck-progress, .component-quizz-progress {
-  width: 100%;
+.component-deck-progress,
+.component-quizz-progress {
+    width: 100%;
 }
 
 .component-quizz-progress {
-  margin-top: auto;
+    margin-top: auto;
 }
 
 .progress-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
 }
 
 .progress-label {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.6;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
 }
 
 .progress-pct {
-  font-size: 1rem;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    font-weight: 600;
 }
 
 .progress-segments {
-  display: flex;
-  gap: 3px;
-  height: 8px;
-  width: 100%;
+    display: flex;
+    gap: 3px;
+    height: 8px;
+    width: 100%;
 }
 
 .progress-seg {
-  flex: 1;
-  height: 100%;
-  border: 1.5px solid black;
-  border-radius: 1px;
-  background: transparent;
-  position: relative;
-  overflow: hidden;
+    flex: 1;
+    height: 100%;
+    border: 1.5px solid black;
+    border-radius: 1px;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
 }
 
 .progress-seg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  background: currentColor;
-  transition: width 0.10s ease;
-
-  transition-delay: var(--delay-reverse, 0s);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    background: currentColor;
+    transition: width 0.1s ease;
+    transition-delay: var(--delay-reverse, 0s);
 }
 
 .progress-seg.filled::after,
 .progress-seg.partial::after {
-  width: 100%; 
-  transition-delay: var(--delay, 0s);
+    width: 100%;
+    transition-delay: var(--delay, 0s);
 }
 
 .progress-seg.partial::after {
-  width: var(--partial, 0%);
+    width: var(--partial, 0%);
 }
 
-.progress-seg { color : var(--teal) } 
-.level-Beginner     .progress-seg { color: var(--level-beginner) }
+.progress-seg                   { color: var(--teal); }
+.level-Beginner .progress-seg   { color: var(--level-beginner); }
 .level-Intermediate .progress-seg { color: var(--level-intermediate); }
-.level-Advanced     .progress-seg { color: var(--level-advanced); }
+.level-Advanced .progress-seg   { color: var(--level-advanced); }
 
-/* ── Legacy quizz wrapper (kept for backward compat) ─── */
+/* Legacy quizz wrapper */
 .component-deck-score.quizz .progress-meta {
-  margin-bottom: 6px;
+    margin-bottom: 6px;
 }
+
 .component-deck-score.quizz .progress-pct {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
+
 .component-deck-score.quizz .progress-label {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }

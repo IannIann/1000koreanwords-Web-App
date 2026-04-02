@@ -1,190 +1,182 @@
- .component-deck {
-     display: flex;
-     flex-direction: column;
-     justify-content: space-around;
-     text-align: center;
-     position: absolute;
+.component-deck {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    position: absolute;
 
-     width: 250px;
-     height: 375px;
-     padding: 10px;
+    width: 250px;
+    height: 375px;
+    padding: 10px;
 
-     border-radius: 0px;
-     border: 2px solid var(--border-dark);
+    border-radius: 0;
+    border: 2px solid var(--border-dark);
 
-     background: white;
+    background: white;
+    color: var(--ink);
 
-     color: var(--ink);
+    transition: transform 0.3s ease;
 
-     transition: transform 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
 
-     user-select: none;
-     -webkit-user-select: none;
- }
+.component-deck.deck-3 {
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
+}
 
- .component-deck.deck-3 {
-     box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
- }
+.component-deck.deck-2 {
+    box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
+}
 
- .component-deck.deck-2 {
-     box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
- }
+.component-deck.deck-1 {
+    box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
+}
 
- .component-deck.deck-1 {
-     box-shadow: 12px 12px 3px rgba(0, 0, 0, 0.08);
- }
+.component-deck.custom {
+    position: relative !important;
+    margin: 30px;
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
+}
 
- .component-deck.custom {
-     position: relative !important;
-     margin: 30px;
-     box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.1);
- }
+.component-deck .start-button-container {
+    width: 80%;
+    margin: 0 auto;
+}
 
- .component-deck .start-button-container {
-     width: 80%;
-     margin: 0 auto;
- }
+.component-deck .start-button-container .button-pushable {
+    width: 100%;
+}
 
- .component-deck .start-button-container .button-pushable {
-     width: 100%;
- }
+.grade p {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
 
- .grade p {
-     font-size: 0.9rem;
-     color: #ffffff;
-     margin: 0px;
-     font-weight: 600;
-     letter-spacing: 0.1em;
- }
+.theme {
+    margin-top: 5%;
+}
 
- .theme {
-     margin-top: 5%;
- }
+.theme h2,
+.theme p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
- .theme h2,
- .theme p {
-     margin: 0;
-     padding: 0;
-     line-height: 1.3;
-     overflow: hidden;
-     text-overflow: ellipsis;
- }
+.theme h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 
- .theme h2 {
-     font-size: 1.5rem;
-     font-weight: bold;
- }
+.theme p {
+    font-size: 1.1rem;
+    margin-top: 5px;
+    font-family: 'Noto Serif KR', serif;
+    opacity: 0.7;
+}
 
- .theme p {
-     font-size: 1.1rem;
-     margin-top: 5px;
-     font-family: 'Noto Serif KR', serif;
-     opacity: 0.7;
- }
+.component-deck a {
+    text-decoration: none;
+}
 
- .component-deck a {
-     text-decoration: none;
- }
+/* Deck stacks */
+.component-decks-list {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5%;
+}
 
- /*Deck stacks*/
- .component-decks-list {
-     display: flex;
-     justify-content: center;
-     width: 100%;
-     margin-top: 0.5%;
- }
+.stacked-decks-grid,
+.custom-decks-grid {
+    gap: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    justify-items: center;
+    align-items: center;
+}
 
- .stacked-decks-grid,
- .custom-decks-grid {
-     gap: 10px;
-     width: 100%;
-     display: grid;
-     grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+.stacked-decks {
+    position: relative;
+    height: 375px;
+    width: 250px;
+    margin: 30px 40px;
+}
 
-     justify-items: center;
-     align-items: center;
- }
+@media (max-width: 1279px) {
+    .stacked-decks-grid,
+    .custom-decks-grid {
+        width: unset;
+    }
+}
 
- .stacked-decks {
-     position: relative;
-     height: 375px;
-     width: 250px;
-     margin: 30px 40px 30px 40px;
- }
+/* Header & level separator */
+.component-deck.Beginner,
+.component-deck.Intermediate,
+.component-deck.Advanced {
+    background:
+        linear-gradient(to bottom,
+            var(--level-color) 16%,
+            black 16%,
+            black calc(16% + 2px),
+            white calc(16% + 2px));
+}
 
- @media (max-width: 1279px) {
+.component-deck.Beginner {
+    --level-color: var(--level-beginner);
+}
 
-     .stacked-decks-grid,
-     .custom-decks-grid {
-         width: unset;
-     }
- }
+.component-deck.Intermediate {
+    --level-color: var(--level-intermediate);
+}
 
+.component-deck.Advanced {
+    --level-color: var(--level-advanced);
+}
 
- /*Header et separateur*/
- .component-deck.Beginner,
- .component-deck.Intermediate,
- .component-deck.Advanced {
-     background:
-         linear-gradient(to bottom,
-             var(--level-color) 16%,
-             black 16%,
-             black calc(16% + 2px),
-             white calc(16% + 2px));
- }
+/* Deck animations */
+.component-deck.deck-1 {
+    z-index: 3;
+}
 
- .component-deck.Beginner {
-     --level-color: var(--level-beginner);
- }
+.component-deck.deck-2 {
+    z-index: 2;
+    transform: translate(5px, 5px);
+}
 
- .component-deck.Intermediate {
-     --level-color: var(--level-intermediate);
- }
+.component-deck.deck-3 {
+    z-index: 1;
+    transform: translate(10px, 10px);
+}
 
- .component-deck.Advanced {
-     --level-color: var(--level-advanced);
- }
+.stacked-decks:hover .component-deck.deck-1 {
+    transform: translate(-20px, -20px);
+}
 
+.stacked-decks:hover .component-deck.deck-2 {
+    transform: translate(0px, 0px);
+}
 
- /*Deck animations*/
- .component-deck.deck-1 {
-     z-index: 3;
- }
+.stacked-decks:hover .component-deck.deck-3 {
+    transform: translate(20px, 20px);
+}
 
- .component-deck.deck-2 {
-     z-index: 2;
-     transform: translate(5px, 5px);
- }
+.component-deck.deck-2:hover,
+.component-deck.deck-3:hover {
+    cursor: pointer;
+}
 
- .component-deck.deck-3 {
-     z-index: 1;
-     transform: translate(10px, 10px);
- }
+.component-deck.focused {
+    z-index: 5;
+}
 
- .stacked-decks:hover .component-deck.deck-1 {
-     transform: translate(-20px, -20px);
- }
-
- .stacked-decks:hover .component-deck.deck-2 {
-     transform: translate(0px, 0px);
- }
-
- .stacked-decks:hover .component-deck.deck-3 {
-     transform: translate(20px, 20px);
- }
-
- .component-deck.deck-2:hover {
-     cursor: pointer;
- }
-
- .component-deck.deck-3:hover {
-     cursor: pointer;
- }
-
- .component-deck.focused {
-     z-index: 5;
- }
-
- .in-between {
-     z-index: 4 !important;
- }
+.in-between {
+    z-index: 4 !important;
+}

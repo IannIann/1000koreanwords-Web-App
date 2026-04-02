@@ -1,13 +1,11 @@
-import AuthService from '@app/service/auth.service'
 import customdecksData from '@app/data/customdecks.data';
 import customcardsData from '@app/data/customcards.data';
-import userdeckstatesData from '@app/data/userdeckstates.data'
+import userdeckstatesData from '@app/data/userdeckstates.data';
 
 export default {
     async fetchDeck(deckId) {
-        const res = await customdecksData.getCustomDeck(deckId)
-        const deck = res.deck[0];
-        return deck;
+        const res = await customdecksData.getCustomDeck(deckId);
+        return res.deck;
     },
 
     async getDeckCardsLimit() {
@@ -16,8 +14,7 @@ export default {
     },
 
     async updateDeck(deck) {
-        deck = this.formatDeckForUpdate(deck);
-        await customdecksData.updateCustomDeck(deck);
+        await customdecksData.updateCustomDeck(this.formatDeckForUpdate(deck));
     },
 
     async updateCard(card) {
@@ -25,12 +22,8 @@ export default {
     },
 
     async createCustomCard(deckId) {
-        const card = {
-            question: "",
-            answer: ""
-        }
-        const res = await customcardsData.createCustomCard(card, deckId);
-        return res;
+        const card = { question: '', answer: '' };
+        return await customcardsData.createCustomCard(card, deckId);
     },
 
     async pushToDeck(deckId, cardId) {
@@ -44,10 +37,6 @@ export default {
     },
 
     formatDeckForUpdate(deck) {
-        const cardsId = deck.cards.map(card => card._id);
-        const deckWithCardsId = {...deck, cards: cardsId};
-    
-        return deckWithCardsId;
-    }
-}
-    
+        return { ...deck, cards: deck.cards.map((card) => card._id) };
+    },
+};

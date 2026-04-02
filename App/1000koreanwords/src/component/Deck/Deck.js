@@ -1,200 +1,168 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import DeckProgress from '@app/component/Deck/DeckProgress';
-import DeckButtonGroup from '@app/component/Buttons/DeckButtonGroup';
+import DeckActions from '@app/component/DecksManager/DeckActions';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 
 import '@app/style/deck.css';
 
 export default class Deck extends React.Component {
-  state = {
-    deckState: this.props.deck.deckState,
-    isCustomDeck: this.props.deck.isCustom
-  }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.deck !== prevProps.deck) {
-      this.updateDeckState(this.props.deck.deckState);
+    state = {
+        deckState: this.props.deck.deckState,
+    };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.deck !== prevProps.deck) {
+            this.setState({ deckState: this.props.deck.deckState });
+        }
     }
-  }
+    
+    handleCompletedDeckClick = () => {
+        this.props.openResetModal(this.props.deck.deckState);
+    };
 
-  updateDeckState = (deckState) => {
-    this.setState({ deckState });
-  }
+    isDeckCompleted = () => {
+        const { deckState } = this.state;
+        if (!deckState) return false;
 
-  handleCompletedDeckClick = () => {
-    this.props.openResetModal(this.props.deck.deckState);
-  }
+        const correctCardsNb = deckState.correctCards.length;
+        const bannedCardsNb = deckState.bannedCards.length;
+        const size = this.props.deck.size - bannedCardsNb;
 
-  isDeckCompleted = () => {
-    if (this.state.deckState) {
+        return correctCardsNb === size;
+    };
 
-      const correctCardsNb = this.state.deckState.correctCards.length;
-      const bannedCardsNb = this.state.deckState.bannedCards.length
-      const size = this.props.deck.size - bannedCardsNb
+    isDeckEmpty = () => {
+        let size = this.props.deck.size;
 
-      if (correctCardsNb == size)
-        return true
-    }
+        if (this.state.deckState) {
+            const bannedCardsNb = this.state.deckState.bannedCards.length;
+            size -= bannedCardsNb;
+        }
 
-    return false;
-  }
+        return size <= 0;
+    };
 
-  isDeckEmpty = () => {
+    hasHiddenCards = () => {
+        return this.state.deckState && this.state.deckState.bannedCards.length > 0;
+    };
 
-    let size = this.props.deck.size;
+    saveUserThemesOrder = (theme) => {
+        const userThemesOrder = JSON.parse(localStorage.getItem('userThemesOrder')) || [];
+        const updated = [...userThemesOrder.filter((t) => t !== theme), theme];
+        localStorage.setItem('userThemesOrder', JSON.stringify(updated));
+    };
 
-    if (this.state.deckState) {
-      const bannedCardsNb = this.state.deckState.bannedCards.length
-      size = size - bannedCardsNb
-    }
+    addFocusedClass = (event) => {
+        const currentStack = event.currentTarget.closest('.stacked-decks');
+        const decks = currentStack.querySelectorAll('.component-deck');
+        decks.forEach((deck) => deck.classList.remove('focused'));
+        event.currentTarget.classList.add('focused');
+    };
 
-    if (size <= 0) {
-      return true;
-    }
-    return false;
-  }
+    reorderDeckOnFocus = (event) => {
+        const currentStack = event.currentTarget.closest('.stacked-decks');
+        const decks = Array.from(currentStack.querySelectorAll('.component-deck'));
+        const focusedDeck = event.currentTarget;
+        const [deck1, deck2, deck3] = decks;
 
-  renderStartButton = () => {
-    const { deck } = this.props;
-    const { isCustomDeck } = this.state;
+        // Remove all `deck-*` positional classes
+        decks.forEach((deck) => {
+            deck.classList.forEach((className) => {
+                if (/^deck-\d+$/.test(className)) deck.classList.remove(className);
+            });
+        });
 
-    if (this.isDeckEmpty()) {
-      return (
-        <ButtonFlat disabled={true} label="Start" customClass="button-start-deck gray" />
-      );
-    }
-    else if (this.isDeckCompleted()) {
-      return (
-        <ButtonFlat label="Start" onClick={this.handleCompletedDeckClick} customClass={`button-start-deck ${deck.grade}`} />
-      );
-    } else if (isCustomDeck) {
-      return (
-        <Link to={`/mydecks/quizz/${deck.id}`}>
-          <ButtonFlat label="Start" customClass="button-start-deck"/>
-        </Link>
-      );
-    } else {
-      return (
-        <Link to={`/learn/quizz/${deck.id}`}>
-          <ButtonFlat label="Start" onClick={() => this.saveUserThemesOrder(deck.theme)} customClass={`button-start-deck ${deck.grade}`} />
-        </Link>
-      );
-    }
-  }
+        // Re-assign classes based on which deck is focused
+        if (focusedDeck === deck1) {
+            deck1.classList.add('deck-1');
+            deck2.classList.add('deck-2');
+            deck3.classList.add('deck-3');
+        } else if (focusedDeck === deck2) {
+            deck2.classList.add('deck-1');
+            deck3.classList.add('deck-2');
+            deck1.classList.add('deck-3');
+        } else if (focusedDeck === deck3) {
+            deck3.classList.add('deck-1');
+            deck1.classList.add('deck-2');
+            deck2.classList.add('deck-3');
+        }
+    };
 
-  saveUserThemesOrder = (theme) => {
-    let userThemesOrder = JSON.parse(window.localStorage.getItem('userThemesOrder'));
-
-    if (!userThemesOrder) {
-      userThemesOrder = [];
-      userThemesOrder.push(theme);
-    } else {
-      userThemesOrder = userThemesOrder.filter((t) => t !== theme);
-      userThemesOrder.push(theme);
-    }
-
-    localStorage.setItem('userThemesOrder', JSON.stringify(userThemesOrder));
-  }
-
-  addFocusedClass = (event) => {
-    const currentStack = event.currentTarget.closest('.stacked-decks');
-    const decks = currentStack.querySelectorAll('.component-deck');
-    decks.forEach(deck => deck.classList.remove('focused'));
-    event.currentTarget.classList.add('focused');
-  }
-
-  reorderDeckOnFocus = (event) => {
-    const currentStack = event.currentTarget.closest('.stacked-decks');
-    const decks = Array.from(currentStack.querySelectorAll('.component-deck'));
-    const focusedDeck = event.currentTarget;
-    const deck1 = decks[0];
-    const deck2 = decks[1];
-    const deck3 = decks[2];
-
-    // Remove all `deck-*` classes
-    decks.forEach((deck) => {
-      deck.classList.forEach((className) => {
-        if (/^deck-\d+$/.test(className)) deck.classList.remove(className);
-      });
-    });
-
-    // Add classes based on new order
-    if (focusedDeck === deck1) {
-      deck1.classList.add('deck-1');
-      deck2.classList.add('deck-2');
-      deck3.classList.add('deck-3');
-    } else if (focusedDeck === deck2) {
-      deck2.classList.add('deck-1');
-      deck3.classList.add('deck-2');
-      deck1.classList.add('deck-3');
-    } else if (focusedDeck === deck3) {
-      deck3.classList.add('deck-1');
-      deck1.classList.add('deck-2');
-      deck2.classList.add('deck-3');
-    }
-  }
-
-
-  render() {
-    const {
-      deckState,
-      isCustomDeck
-    } = this.state;
-
-    const {
-      deck,
-      refreshDecks,
-      openResetModal,
-      openHiddenCardsModal,
-      openEditPage,
-      openDeleteModal,
-      className,
-      saveStackedDecksOrder
-    } = this.props;
-
-    return (
-
-      <div className={className}
-        onClick={(e) => {
-          if (!isCustomDeck) {
+    handleDeckClick = (e) => {
+        const { deck, saveStackedDecksOrder } = this.props;
+        if (!deck.isCustom) {
             this.addFocusedClass(e);
             this.reorderDeckOnFocus(e);
             saveStackedDecksOrder(e);
-          }
-        }} >
+        }
+    };
 
-        <div className="grade">
-          <p>{deck.grade}</p>
-        </div>
-        <div className="theme">
-          <h2>{deck.theme}</h2>
-          <p>{deck.krTheme}</p>
-        </div>
+    renderStartButton = () => {
+        const { deck } = this.props;
 
-        <DeckProgress
-          deckState={deckState}
-          deckSize={deck.size}
-          deckId={deck.id}
-          grade={deck.grade}
-        />
+        if (this.isDeckEmpty()) {
+            return <ButtonFlat disabled label="Start" customClass="button-start-deck gray" />;
+        }
 
-        <div className="start-button-container">
-          {this.renderStartButton()}
-        </div>
+        if (this.isDeckCompleted()) {
+            return <ButtonFlat label="Start" onClick={this.handleCompletedDeckClick} customClass={`button-start-deck ${deck.grade}`} />;
+        }
 
-        <DeckButtonGroup
-          deck={deck}
-          deckState={deckState}
-          refreshDecks={refreshDecks}
-          isCustomDeck={isCustomDeck}
-          isEmptyDeck={this.isDeckEmpty()}
-          openResetModal={openResetModal}
-          openHiddenCardsModal={openHiddenCardsModal}
-          openEditPage={openEditPage}
-          openDeleteModal={openDeleteModal}
-        />
-      </div>
-    );
-  }
+        if (deck.isCustom) {
+            return (
+                <Link to={`/mydecks/quizz/${deck.id}`}>
+                    <ButtonFlat label="Start" customClass="button-start-deck" />
+                </Link>
+            );
+        }
+
+        return (
+            <Link to={`/learn/quizz/${deck.id}`}>
+                <ButtonFlat label="Start" onClick={() => this.saveUserThemesOrder(deck.theme)} customClass={`button-start-deck ${deck.grade}`} />
+            </Link>
+        );
+    };
+
+    render() {
+        const { deckState } = this.state;
+        const { deck, refreshDecks, openResetModal, openHiddenCardsModal, openEditPage, openDeleteModal, className, saveStackedDecksOrder } = this.props;
+
+        return (
+            <div className={className} onClick={this.handleDeckClick}>
+                <div className="grade">
+                    <p>{deck.grade}</p>
+                </div>
+                <div className="theme">
+                    <h2>{deck.theme}</h2>
+                    <p>{deck.krTheme}</p>
+                </div>
+
+                <DeckProgress
+                    deckState={deckState}
+                    deckSize={deck.size}
+                    deckId={deck.id}
+                    grade={deck.grade}
+                />
+
+                <div className="start-button-container">
+                    {this.renderStartButton()}
+                </div>
+
+                <DeckActions
+                    deck={deck}
+                    deckState={deckState}
+                    refreshDecks={refreshDecks}
+                    isCustomDeck={deck.isCustom}
+                    isEmptyDeck={this.isDeckEmpty()}
+                    hasHiddenCards={this.hasHiddenCards()}
+                    openResetModal={openResetModal}
+                    openHiddenCardsModal={openHiddenCardsModal}
+                    openEditPage={openEditPage}
+                    openDeleteModal={openDeleteModal}
+                />
+            </div>
+        );
+    }
 }

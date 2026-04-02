@@ -1,5 +1,7 @@
 chrome/
 build/
 node_modules/
+cmd.txt
+mongo help.txt
 
 

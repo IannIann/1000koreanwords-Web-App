@@ -1,4 +1,4 @@
-.component-cross-button {
+.component-button-cross {
     position: relative;
     bottom: 0.5%;
     left: 3%;
@@ -13,13 +13,12 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
-    cursor: pointer;
 }
 
-.component-cross-button::before {
-    content: '\2716'; /* Unicode for multiplication (×) symbol */
+.component-button-cross::before {
+    content: '\2716';
 }
 
-.component-cross-button:hover {
-    color: #D34400
+.component-button-cross:hover {
+    color: #D34400;
 }

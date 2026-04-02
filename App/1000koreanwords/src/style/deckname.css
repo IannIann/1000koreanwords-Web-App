@@ -1,76 +1,70 @@
-/*For the editable deck page*/
+/* Editable deck name field */
 
 .component-deck-name {
-  width: 100%;
-  text-align: center;
-  padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
 .deck-name-group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 100%;
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
 }
 
 .deck-name-field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid;
-  outline: 0;
-  font-size: 1.3rem;
-  color: #000000;
-  opacity: 0.6;
-  padding: 7px 0;
-  background: transparent;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #000000;
+    opacity: 0.6;
+    padding: 7px 0;
+    background: transparent;
 }
 
 .deck-name-field:not(:placeholder-shown) {
-  opacity: 1;
-  font-weight: 500;
+    opacity: 1;
+    font-weight: 500;
 }
 
 .deck-name-field::placeholder {
-  color: transparent;
+    color: transparent;
 }
 
-.deck-name-field:placeholder-shown~.deck-name-label {
-  font-size: 1.3rem;
-  cursor: text;
-  top: 20px;
+.deck-name-field:placeholder-shown ~ .deck-name-label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
 }
 
 .deck-name-label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 0.8rem;
-  color: #000000;
-  opacity: 0.6;
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.8rem;
+    color: #000000;
+    opacity: 0.6;
 }
 
-.deck-name-field:focus~.deck-name-label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 0.8rem;
-  color: var(--teal);
-  font-weight: 700;
-  opacity: 1;
+.deck-name-field:focus ~ .deck-name-label {
+    color: var(--teal);
+    font-weight: 700;
+    opacity: 1;
 }
 
 .deck-name-field:focus {
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-  border-color: var(--teal);
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-color: var(--teal);
 }
 
-/* reset input */
 .deck-name-field:required,
 .deck-name-field:invalid {
-  box-shadow: none;
+    box-shadow: none;
 }

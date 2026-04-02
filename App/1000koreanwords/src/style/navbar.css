@@ -1,20 +1,19 @@
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar-logo h1 {
-  justify-content: left;
-  font-weight: 800;
-  font-size: 1.4rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 .navbar-logo a {
-  color: black !important;
-  text-decoration: none;
+    color: black !important;
+    text-decoration: none;
 }
 
 .navbar-links {
@@ -25,7 +24,7 @@ nav {
     gap: 25px;
 }
 
-.navbar-link a{
+.navbar-link a {
     font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
@@ -34,19 +33,12 @@ nav {
     text-transform: uppercase;
 }
 
-.navbar-link:hover a{ text-decoration: none; opacity: 1; }
-
-@media (max-width: 1720px) {
-    .navbar-logo h1 {
-        font-size: 1rem;
-    }
-
-    .navbar-link a {
-        font-size: 0.8rem;
-    }
+.navbar-link:hover a {
+    text-decoration: none;
+    opacity: 1;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1720px) {
     .navbar-logo h1 {
         font-size: 1rem;
     }
@@ -59,11 +51,21 @@ nav {
 @media (max-width: 1024px) {
     .navbar-logo h1 {
         font-size: 1rem;
-        gap: 5px;
-      }
+    }
 
     .navbar-links {
         gap: 15px;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar-logo h1 {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .navbar-links {
+        gap: 5px;
     }
 }
 
@@ -74,20 +76,10 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 5px;
-      }
+    }
 
     .navbar-links {
         flex-direction: column;
-    }
-}
-
-@media (max-width: 900px) {
-    .navbar-logo h1 {
-        font-size: 1rem;
-        letter-spacing: 1px;
-    }
-    .navbar-links {
-        gap: 5px;
     }
 }
 
@@ -96,9 +88,11 @@ nav {
         font-size: 0.8rem;
         letter-spacing: 0.5px;
     }
+
     .navbar-links {
         gap: 5px;
     }
+
     .navbar-link a {
         font-size: 0.8rem;
     }

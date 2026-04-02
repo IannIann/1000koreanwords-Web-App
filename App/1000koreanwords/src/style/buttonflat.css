@@ -46,15 +46,15 @@
 }
 
 .button-start-deck.Beginner {
-    background : var(--level-beginner);
+    background: var(--level-beginner);
 }
 
 .button-start-deck.Intermediate {
-    background : var(--level-intermediate);
+    background: var(--level-intermediate);
 }
 
 .button-start-deck.Advanced {
-    background : var(--level-advanced);
+    background: var(--level-advanced);
 }
 
 .button-back {
@@ -77,7 +77,8 @@
     background: var(--teal);
 }
 
-.button-result-restart, .button-result-back{
+.button-result-restart,
+.button-result-back {
     --padding-y: 16px;
     --padding-x: 40px;
     --scale-font: 1rem;
@@ -94,7 +95,7 @@
         --scale-font: 1rem;
     }
 
-    .button-modal{
+    .button-modal {
         --padding-y: 12px;
         --padding-x: 30px;
         --scale-font: 0.8rem;
@@ -108,7 +109,6 @@
         --scale-font: 0.8rem;
     }
 }
-
 
 @media (max-width: 500px) {
     .button-back {

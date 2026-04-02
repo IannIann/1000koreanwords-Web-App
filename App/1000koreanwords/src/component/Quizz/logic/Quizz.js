@@ -1,104 +1,72 @@
 import decksData from '@app/data/decks.data';
 import customdecksData from '@app/data/customdecks.data';
 import userdeckstatesData from '@app/data/userdeckstates.data';
-import AuthService from '@app/service/auth.service'
 
-var deckState = {
+const MAX_CARDS = 20;
+
+let deckState = {
     deckId: 0,
     correctCards: [],
     bannedCards: []
-}
+};
 
-var score = {
+let score = {
     wrongCards: [],
     correctCards: []
-}
+};
 
-var cards;
-var maxCard = 20;
+let cards;
+let totalDeckCards = 0;
 
 export default {
     updateQuizz(cardIndex, command) {
+        if (command === 'Show')
+            return { isAnswered: true };
 
-        if (command === "Show")
-            return {
-                isAnswered: true,
-            };
-
-        if (command === "Wrong"
-            || command === "Correct"
-            || command === "Hide") {
-
-            let currentCard = getCardAtIndex(cardIndex);
+        if (command === 'Wrong' || command === 'Correct' || command === 'Hide') {
+            const currentCard = getCardAtIndex(cardIndex);
             updateScore(command, currentCard);
             updateLocalDeckState(command, currentCard);
 
-            let nextCardIndex = cardIndex + 1;
-            let nextCard = getCardAtIndex(nextCardIndex);
-            let isFinished = isQuizzFinished(nextCardIndex);
-
+            const nextCardIndex = cardIndex + 1;
+            const isFinished = isQuizzFinished(nextCardIndex);
 
             if (isFinished) {
+                const isDeckFullyCompleted = deckState.correctCards.length + deckState.bannedCards.length >= totalDeckCards;
                 return {
-                    isFinished: isFinished,
+                    isFinished,
                     cardIndex: nextCardIndex,
-                    score : score
-                }
+                    score,
+                    isDeckFullyCompleted
+                };
             }
 
             return {
                 isAnswered: false,
                 cardIndex: nextCardIndex,
-                isFinished: isFinished,
-                card: nextCard
-            }
+                isFinished,
+                card: getCardAtIndex(nextCardIndex)
+            };
         }
     },
 
     async instantiateQuizzDeck(deckId, isCustomDeck) {
-
-        //Getting deck state from user
         const userDeckState = await userdeckstatesData.getSingleDeckState(deckId);
-
         deckState = userDeckState.length > 0 ? userDeckState[0] : createDeckState(deckId);
 
         const res = isCustomDeck
             ? await customdecksData.getCustomDeck(deckId)
             : await decksData.getDeck(deckId);
 
-        cards = filterCardsToPlay(deckState, res.deck[0].cards);
-        cards = shuffleCards(cards);
-        cards = cards.slice(0, Math.min(maxCard, cards.length));
+        const { theme, krTheme, cards: deckCards } = res.deck;
 
-        let theme = res.deck[0].theme;
-        let krTheme = res.deck[0].krTheme;
+        totalDeckCards = deckCards.length;
+        cards = shuffleCards(filterCardsToPlay(deckState, deckCards))
+            .slice(0, Math.min(MAX_CARDS, deckCards.length));
 
-        //Reseting the score
-        score = {
-            wrongCards: [],
-            correctCards: []
-          }
+        score = { wrongCards: [], correctCards: [] };
 
-        return {
-            maxIndex: cards.length,
-            card: cards[0],
-            theme : theme,
-            krTheme : krTheme
-        }
-    },
-    
-    async checkDeckFullCompletion(deckId, isCustomDeck) {
-        const userDeckState = await userdeckstatesData.getSingleDeckState(deckId);
-
-        const res = isCustomDeck
-            ? await customdecksData.getCustomDeck(deckId)
-            : await decksData.getDeck(deckId);
-
-        const deckSize = res.deck[0].cards.length;
-        const correctCardsLength = userDeckState[0].correctCards.length;
-        const bannedCardsLength = userDeckState[0].bannedCards.length;
-
-        return correctCardsLength + bannedCardsLength >= deckSize;
+        return { maxIndex: cards.length, card: cards[0], theme, krTheme };
     },
 
     async updateDeckState() {
@@ -106,51 +74,35 @@ export default {
     }
 };
 
-function filterCardsToPlay(deckState, allCards) {
-  const { correctCards, bannedCards } = deckState;
-  const cardsToRemove = new Set([...correctCards, ...bannedCards]);
-  const playableCards = allCards.filter(card => !cardsToRemove.has(card._id));
-
-  return playableCards;
+function filterCardsToPlay(state, allCards) {
+    const cardsToRemove = new Set([...state.correctCards, ...state.bannedCards]);
+    return allCards.filter(card => !cardsToRemove.has(card._id));
 }
 
-//Shuffles an array of cards in-place using the Fisher-Yates algorithm.
-function shuffleCards(cards) {
-  for (let i = cards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [cards[i], cards[j]] = [cards[j], cards[i]];
-  }
-  return cards;
+function shuffleCards(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
 }
 
 function createDeckState(deckId) {
-  return {
-    deckId,
-    bannedCards: [],
-    correctCards: []
-  };
+    return { deckId, bannedCards: [], correctCards: [] };
 }
 
 function updateLocalDeckState(command, card) {
-    if (command === "Correct") {
-        deckState.correctCards.push(card._id);
-    } else if (command === "Hide") {
-        deckState.bannedCards.push(card._id);
-    }
+    if (command === 'Correct') deckState.correctCards.push(card._id);
+    else if (command === 'Hide') deckState.bannedCards.push(card._id);
 }
 
 function updateScore(command, card) {
-    if(command === "Wrong")
-        score.wrongCards.push(card);
-    else if (command === "Correct")
-        score.correctCards.push(card);
+    if (command === 'Wrong') score.wrongCards.push(card);
+    else if (command === 'Correct') score.correctCards.push(card);
 }
 
 function getCardAtIndex(index) {
-  if (!isQuizzFinished(index)) {
-    const card = cards[index];
-    return card;
-  }
+    if (!isQuizzFinished(index)) return cards[index];
 }
 
 function isQuizzFinished(cardIndex) {

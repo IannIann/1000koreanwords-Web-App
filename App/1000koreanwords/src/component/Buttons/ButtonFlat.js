@@ -1,15 +1,9 @@
-import React from 'react';
 import '@app/style/buttonflat.css';
 
-class ButtonFlat extends React.Component {
-  render() {
-    const { onClick, label, disabled, customClass} = this.props;
+export default function ButtonFlat({ onClick, label, disabled, customClass }) {
     return (
-        <button disabled={disabled} onClick={onClick} className={`button-flat ${customClass}`} role="button">
+        <button disabled={disabled} onClick={onClick} className={`button-flat ${customClass}`}>
             {label}
         </button>
     );
-  }
 }
-
-export default ButtonFlat;

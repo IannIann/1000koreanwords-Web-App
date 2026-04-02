@@ -35,6 +35,17 @@
     display: block;
 }
 
+.hero-hangeul-link {
+    color: var(--teal) !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.hero-hangeul-link:hover {
+    color: var(--teal-dark) !important;
+}
+
 .hero-text p {
     font-size: 1.3rem;
     font-weight: 300;
@@ -59,9 +70,7 @@
 .feature-icon {
     font-size: 1.5rem;
     padding-top: 4px;
-
-    /* Force une taille carrée pour éviter le saut au chargement */
-    width: 1.5rem; 
+    width: 1.5rem;
     height: 1.5rem;
 }
 
@@ -105,16 +114,11 @@
 
     .feature-item {
         margin-bottom: 2%;
-        display: flex;
         gap: 15px;
     }
 }
 
 @media (max-width: 1280px) {
-    .hero-demo {
-        min-width: 270px;
-    }
-
     .hero-demo {
         min-width: 250px;
     }
@@ -142,10 +146,9 @@
     }
 
     .hero {
-        justify-content: center;
+        flex-direction: column;
         flex-wrap: nowrap;
         justify-content: space-between;
-        flex-direction: column;
         align-items: center;
     }
 

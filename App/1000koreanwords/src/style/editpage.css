@@ -1,6 +1,6 @@
 .component-deck-edit {
     margin-bottom: 2%;
-    gap : 10px;
+    gap: 10px;
 }
 
 .cards-edit-grid-container {
@@ -31,13 +31,14 @@
     width: 50%;
 }
 
-.cards-edit-header .left, .cards-edit-header .right {
+.cards-edit-header .left,
+.cards-edit-header .right {
     flex: 1;
 }
 
 .cards-edit-header .left {
     display: flex;
-    justify-content: left;
+    justify-content: flex-start;
 }
 
 .cards-edit-header .left a {

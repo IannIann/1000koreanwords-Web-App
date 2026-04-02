@@ -1,52 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import AuthService from '@app/service/auth.service'
+import AuthService from '@app/service/auth.service';
 import Loader from '@app/component/Main/Loader';
 
-const AlreadyLogged = ({ component: Component, ...rest }) => {
-  const [isLogged, setIsLogged] = useState(null);
 
-  useEffect(() => {
-      AuthService.checkAuthToken().then((res) => {
-          setIsLogged(res.valid);
-      })
-          .catch(() => {
-              setIsLogged(false);
-          });
-  }, []);
+function useAuthCheck() {
+    const [isLogged, setIsLogged] = useState(null);
 
-  if (isLogged === null) {
-    return <Loader/>;
-  }
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await AuthService.checkAuthToken();
+                setIsLogged(res.valid);
+            } catch {
+                setIsLogged(false);
+            }
+        };
 
-    if (!isLogged) {
+        checkAuth();
+    }, []);
+
+    return isLogged;
+}
+
+
+const AlreadyLogged = ({ component: Component }) => {
+    const isLogged = useAuthCheck();
+
+    if (isLogged === null) return <Loader />;
+    if (isLogged) return <Navigate to="/" />;
+
     return <Component />;
-  } else {
-    return <Navigate to="/" />;
-  }
 };
 
-const Private = ({ component: Component, ...rest }) => {
-  const [isLogged, setIsLogged] = useState(null);
 
-  useEffect(() => {
-      AuthService.checkAuthToken().then((res) => {
-          setIsLogged(res.valid);
-      })
-          .catch(() => {
-              setIsLogged(false);
-          });
-  }, []);
+const Private = ({ component: Component }) => {
+    const isLogged = useAuthCheck();
 
-  if (isLogged === null) {
-    return <Loader/>;
-  }
+    if (isLogged === null) return <Loader />;
+    if (!isLogged) return <Navigate to="/" />;
 
-  if (isLogged) {
     return <Component />;
-  } else {
-    return <Navigate to="/" />;
-  }
 };
+
 
 export { Private, AlreadyLogged };

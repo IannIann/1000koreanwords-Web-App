@@ -25,6 +25,7 @@ class CardAnswer extends React.Component {
         const parent = el.parentElement;
         let fontSize = parseFloat(getComputedStyle(el).fontSize);
 
+        // Shrink until the answer fits within 50% of the card height, down to 12px minimum.
         while (el.scrollHeight > parent.clientHeight * 0.5 && fontSize > 12) {
             fontSize -= 1;
             el.style.fontSize = `${fontSize}px`;
@@ -33,6 +34,7 @@ class CardAnswer extends React.Component {
 
     renderEditable() {
         const { id, value, handleKeyPress, onChangeAnswer, handleBlur, handleFocus } = this.props;
+
         return (
             <div className="card-textarea-group">
                 <textarea
@@ -44,9 +46,9 @@ class CardAnswer extends React.Component {
                     title={value}
                     value={value}
                     spellCheck="false"
-                    onKeyDown={(e) => handleKeyPress(e)}
-                    onChange={(e) => onChangeAnswer(e)}
-                    onBlur={(e) => handleBlur(e)}
+                    onKeyDown={handleKeyPress}
+                    onChange={onChangeAnswer}
+                    onBlur={handleBlur}
                     onFocus={handleFocus}
                 />
                 <label htmlFor={id} className="card-label">Answer</label>
@@ -56,6 +58,7 @@ class CardAnswer extends React.Component {
 
     renderPlain() {
         const { id, value } = this.props;
+
         return (
             <div className="card-textarea-group">
                 <textarea
@@ -74,22 +77,20 @@ class CardAnswer extends React.Component {
 
     renderInPlay() {
         const { value } = this.props;
+
         return (
-            <div className='card-answer' ref={this.answerRef}>
+            <div className="card-answer" ref={this.answerRef}>
                 {value}
             </div>
         );
     }
 
-    renderAnswer() {
+    render() {
         const { inPlay, editable } = this.props;
+
         if (inPlay) return this.renderInPlay();
         if (editable) return this.renderEditable();
         return this.renderPlain();
-    }
-
-    render() {
-        return this.renderAnswer();
     }
 }
 

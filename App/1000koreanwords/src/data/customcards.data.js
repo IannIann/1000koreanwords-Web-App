@@ -11,5 +11,5 @@ export default {
 
     deleteCustomCard(cardId) {
         return apiAccess.DeleteJson('/customcards/delete', { cardId });
-    }
-}
+    },
+};
