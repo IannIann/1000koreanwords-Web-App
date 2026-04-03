@@ -48,12 +48,6 @@ export default class Deck extends React.Component {
         return this.state.deckState && this.state.deckState.bannedCards.length > 0;
     };
 
-    saveUserThemesOrder = (theme) => {
-        const userThemesOrder = JSON.parse(localStorage.getItem('userThemesOrder')) || [];
-        const updated = [...userThemesOrder.filter((t) => t !== theme), theme];
-        localStorage.setItem('userThemesOrder', JSON.stringify(updated));
-    };
-
     handleDeckClick = () => {
         const { deck, saveStackedDecksOrder } = this.props;
         if (!deck.isCustom) {
@@ -82,7 +76,7 @@ export default class Deck extends React.Component {
 
         return (
             <Link to={`/learn/quizz/${deck.id}`}>
-                <ButtonFlat label="Start" onClick={() => this.saveUserThemesOrder(deck.theme)} customClass={`button-start-deck ${deck.grade}`} />
+                <ButtonFlat label="Start" onClick={(e) => { e.stopPropagation(); this.props.saveUserThemesOrder(deck.theme); }} customClass={`button-start-deck ${deck.grade}`} />
             </Link>
         );
     };

@@ -24,4 +24,7 @@ export default {
     deleteUserDeckState(deckId) {
         return apiAccess.DeleteJson('/userdeckstates/deleteUserDeckState', { deckId });
     },
+    updateDecksOrder(stackedDecksOrder, userThemesOrder) {
+        return apiAccess.PostJson('/userdeckstates/updateDecksOrder', { stackedDecksOrder, userThemesOrder });
+    },
 };

@@ -1,7 +1,9 @@
 chrome/
 build/
 node_modules/
-cmd.txt
-mongo help.txt
 
-
+.env
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/settings.json

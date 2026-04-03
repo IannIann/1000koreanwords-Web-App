@@ -1,12 +1,14 @@
 import React from "react";
 import Deck from "@app/component/Deck/Deck";
 import ButtonAddDeck from "@app/component/Buttons/ButtonAddDeck";
+import userdeckstatesData from "@app/data/userdeckstates.data";
 
 export default class DecksList extends React.Component {
 
     state = {
         decks: [],
-        stackOrders: JSON.parse(localStorage.getItem('stackedDecksOrder')) || {}
+        stackOrders: {},
+        userThemesOrder: []
     };
 
     componentDidMount() {
@@ -34,7 +36,11 @@ export default class DecksList extends React.Component {
             deckState: deckStates.find(ds => ds.deckId === deck._id)
         }));
 
-        this.setState({ decks: updatedDecks });
+        this.setState({
+            decks: updatedDecks,
+            stackOrders: userDeckStates.stackedDecksOrder || {},
+            userThemesOrder: userDeckStates.userThemesOrder || []
+        });
     }
 
     stackDecks = (decks) => {
@@ -56,7 +62,12 @@ export default class DecksList extends React.Component {
         const newOrder = [focusedGrade, ...currentOrder.filter(g => g !== focusedGrade)];
         const updatedOrders = { ...this.state.stackOrders, [stackId]: newOrder };
         this.setState({ stackOrders: updatedOrders });
-        localStorage.setItem('stackedDecksOrder', JSON.stringify(updatedOrders));
+        userdeckstatesData.updateDecksOrder(updatedOrders, this.state.userThemesOrder);
+    };
+
+    saveUserThemesOrder = (theme) => {
+        const updated = [...this.state.userThemesOrder.filter(t => t !== theme), theme];
+        userdeckstatesData.updateDecksOrder(this.state.stackOrders, updated);
     };
 
     buildDeckClassNames = (decks, stackId) => {
@@ -72,9 +83,9 @@ export default class DecksList extends React.Component {
         const { decks } = this.state;
         const stackedDecks = this.stackDecks(decks);
         const themesOrder = Object.keys(stackedDecks);
-        const userThemesOrder = JSON.parse(window.localStorage.getItem("userThemesOrder"));
+        const { userThemesOrder } = this.state;
 
-        if (userThemesOrder) {
+        if (userThemesOrder.length > 0) {
             userThemesOrder.forEach(theme => {
                 if (themesOrder.includes(theme)) {
                     themesOrder.splice(themesOrder.indexOf(theme), 1);
@@ -112,6 +123,7 @@ export default class DecksList extends React.Component {
                 className={classNames[index]}
                 refreshDecks={refreshDecks}
                 saveStackedDecksOrder={this.saveStackedDecksOrder}
+                saveUserThemesOrder={this.saveUserThemesOrder}
                 openResetModal={openResetModal}
                 openHiddenCardsModal={openHiddenCardsModal}
                 openDeleteModal={openDeleteModal}
