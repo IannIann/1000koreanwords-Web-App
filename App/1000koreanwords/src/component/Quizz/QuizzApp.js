@@ -62,8 +62,7 @@ class QuizzApp extends React.Component {
 
                 this.setState({ card, theme, krTheme, cardIndex: 0, scoreIndex: 0, maxIndex, isFinished: false, isAnswered: false, isLoading: false });
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
                 toast.error('Failed to load deck');
                 this.navigateToLearnPage();
             });
