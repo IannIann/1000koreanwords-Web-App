@@ -4,7 +4,7 @@ const Dotenv = require('dotenv-webpack');
 require('dotenv').config();
 const common = require("./webpack.common.js");
 
-const API_URL = `http://${process.env.API_HOST}:${process.env.API_PORT}`;
+const API_URL = process.env.API_URL;
 const API_PREFIX = `/api/${process.env.API_VERSION}`;
 
 module.exports = merge(common, {
