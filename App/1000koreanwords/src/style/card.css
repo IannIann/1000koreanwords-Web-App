@@ -203,6 +203,8 @@
 }
 
 .card-field:focus ~ .card-label {
+    top: 0;
+    font-size: 0.8rem;
     color: var(--teal);
     font-weight: 700;
     opacity: 1;

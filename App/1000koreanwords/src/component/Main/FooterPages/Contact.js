@@ -15,9 +15,6 @@ export default function Contact() {
                     You can contact us at:{' '}
                     <a href="mailto:[YOUR EMAIL]" className="footerpage-placeholder">[YOUR EMAIL]</a>
                 </p>
-                <p>
-                    We aim to respond within 3 to 5 business days.
-                </p>
             </div>
 
             <div className="footerpage-section">

@@ -28,7 +28,10 @@ class EditPage extends React.Component {
         const { deckId } = this.props.router.params;
 
         Edition.fetchDeck(deckId)
-            .then((deck) => this.setState({ deck, cards: deck.cards, isLoading: false }))
+            .then((deck) => {
+                const cards = deck.cards.sort((a, b) => a._id.localeCompare(b._id));
+                this.setState({ deck, cards, isLoading: false });
+            })
             .catch(() => {
                 this.navigateToMyDecksPage();
                 toast.error('Oops! Something went wrong...');
@@ -95,9 +98,9 @@ class EditPage extends React.Component {
 
     renderCards = () => {
         const { cards } = this.state;
-        return cards.map((card, index) => (
+        return cards.map(card => (
             <Card
-                key={index}
+                key={card._id}
                 card={card}
                 editable
                 saveCard={this.saveCard}
