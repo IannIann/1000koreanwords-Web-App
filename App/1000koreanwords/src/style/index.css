@@ -3,6 +3,8 @@
     --ink: #1E2022;
     --gray: #555;
 
+    --blue-gray: #8899A6;
+
     --teal: #2A9D8F;
     --teal-light: #35B5A5;
     --teal-dark: #21867A;
@@ -13,6 +15,9 @@
     --level-advanced: #A52A2A;
     --level-intermediate: #304a6b;
     --level-beginner: #FFB800;
+
+    --gold: #e4bd0d;
+
     --corail: #e76f51;
     --corail-50: #fdf1ee;
     --corail-100: #fbe4de;

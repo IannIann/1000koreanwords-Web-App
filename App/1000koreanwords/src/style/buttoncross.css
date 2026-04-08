@@ -5,7 +5,7 @@
     float: right;
     background: none;
     border: none;
-    color: #8899A6;
+    color: var(--blue-gray);
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s, transform 0.05s;
@@ -20,5 +20,5 @@
 }
 
 .component-button-cross:hover {
-    color: #D34400;
+    color: var(--corail-600);
 }

@@ -1,7 +1,7 @@
 .component-modal-button-close {
     background: none;
     border: none;
-    color: #8899A6;
+    color: var(--blue-gray);
     font-size: 20px;
     transition: color 0.3s, transform 0.05s;
     display: flex;
@@ -15,5 +15,5 @@
 }
 
 .component-modal-button-close:hover {
-    color: #D34400;
+    color: var(--corail-600);
 }
