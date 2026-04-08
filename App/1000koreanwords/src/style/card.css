@@ -133,6 +133,18 @@
     flex-direction: column;
 }
 
+.flipped .card-front {
+    pointer-events: none;
+}
+
+.card-back {
+    pointer-events: none;
+}
+
+.flipped .card-back {
+    pointer-events: auto;
+}
+
 /* Cards displayed outside the quiz */
 
 .card-textarea-group,
