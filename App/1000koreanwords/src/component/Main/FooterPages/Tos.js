@@ -25,8 +25,14 @@ export default function Tos() {
             <div className="footerpage-section">
                 <h2>3. User Accounts</h2>
                 <p>
+                    You must be at least 15 years old to create an account.
+                    If you are under 15, you may not use this service without verified parental consent.
+                </p>
+                <p>
                     You are responsible for maintaining the confidentiality of your account credentials
-                    and for all activity that occurs under your account. Each user may hold only one account.
+                    and for all activity carried out under your account. We reserve the right to limit,
+                    remove duplicate accounts, and suspend or terminate any account
+                    that violates these Terms, without prior notice.
                 </p>
             </div>
 
@@ -44,10 +50,12 @@ export default function Tos() {
             <div className="footerpage-section">
                 <h2>5. Intellectual Property</h2>
                 <p>
-                    All content provided by the service — including the built-in Korean word lists,
-                    design, and code — is owned by or licensed to the site operator and may not be
+                    All content provided by the service, including the built-in Korean word lists,
+                    design, and code, is owned by or licensed to the site operator and may not be
                     reproduced without prior written consent. Flashcard decks created by users remain
-                    the property of their respective creators.
+                    the property of their respective creators. By submitting content to the service,
+                    you grant us a limited, non-exclusive license to store and display it solely for
+                    the purpose of operating the service.
                 </p>
             </div>
 
@@ -56,7 +64,8 @@ export default function Tos() {
                 <p>
                     The service is provided "as is" without warranties of any kind. We do not guarantee
                     the accuracy, completeness, or suitability of the vocabulary content for any particular
-                    purpose.
+                    purpose. We shall not be liable for any loss of data, interruption of service, 
+                    or any indirect damages arising from the use of the service.
                 </p>
             </div>
 

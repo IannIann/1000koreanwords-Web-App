@@ -19,9 +19,11 @@ export default function Privacy() {
                 <p>We collect the following personal data:</p>
                 <ul>
                     <li><strong>Account information:</strong> username, email address, and hashed password</li>
-                    <li><strong>Usage data:</strong> deck progress, quiz results, and custom decks you create</li>
+                    <li><strong>Usage data:</strong> deck progress, quiz results, and custom decks/cards you create</li>
+                    <li><strong>Technical data:</strong> IP address and server logs used for security and debugging purposes</li>
                 </ul>
                 <p>We do not collect payment data, location data, or any sensitive personal information.</p>
+                <p>Providing this data is required to create and use an account. Without it, access to the service is not possible.</p>
             </div>
 
             <div className="footerpage-section">
@@ -32,14 +34,17 @@ export default function Privacy() {
                     <li>Track and display your learning progress</li>
                     <li>Send password reset emails when requested</li>
                 </ul>
-                <p>We do not sell, rent, or share your personal data with third parties.</p>
+                <p>
+                    Data may be processed by our hosting provider solely for infrastructure and security purposes.<br/>
+                    We do not sell, rent, or share your personal data with third parties.
+                </p>
             </div>
 
             <div className="footerpage-section">
                 <h2>4. Legal Basis (GDPR Art. 6)</h2>
                 <p>
-                    Processing is based on <strong>contract performance</strong> (Art. 6(1)(b)) for providing
-                    the service you signed up for, and <strong>legitimate interest</strong> (Art. 6(1)(f))
+                    Processing is based on <strong>contract performance</strong> (Art. 6.1.b)) for providing
+                    the service you signed up for, and <strong>legitimate interest</strong> (Art. 6.1.f)
                     for maintaining service security and integrity.
                 </p>
             </div>

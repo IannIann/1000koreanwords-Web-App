@@ -8,13 +8,10 @@ export default function Legal() {
             <div className="footerpage-section">
                 <h2>1. Site Publisher</h2>
                 <p>
-                    This site is published on a personal basis by{' '}
+                    Publication director and site publisher:{' '}
                     <span className="footerpage-placeholder">[YOUR NAME]</span>.
                     <br />
                     Contact: <span className="footerpage-placeholder">[YOUR EMAIL]</span>
-                </p>
-                <p>
-                    Published for personal, non-commercial purposes.
                 </p>
             </div>
 
@@ -24,14 +21,16 @@ export default function Legal() {
                     This site is hosted by{' '}
                     <span className="footerpage-placeholder">[HOSTING PROVIDER NAME]</span>,
                     located at{' '}
-                    <span className="footerpage-placeholder">[HOSTING PROVIDER ADDRESS]</span>.
+                    <span className="footerpage-placeholder">[HOSTING PROVIDER ADDRESS]</span>,
+                    reachable at{' '}
+                    <span className="footerpage-placeholder">[HOSTING PROVIDER PHONE]</span>.
                 </p>
             </div>
 
             <div className="footerpage-section">
                 <h2>3. Intellectual Property</h2>
                 <p>
-                    All content on this site — including vocabulary lists, design, and source code — is protected
+                    All content on this site, including vocabulary lists, design, and source code, is protected
                     by copyright law. Any reproduction, representation, or distribution, in whole or in part,
                     without prior written authorization from the publisher, is prohibited and may constitute
                     an infringement under the French Intellectual Property Code.
