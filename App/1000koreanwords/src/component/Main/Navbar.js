@@ -46,7 +46,7 @@ class Navbar extends React.Component {
                 <div className="navbar-links">
                     <div className="navbar-link"><Link to="/learn/"> Learn </Link></div>
                     <div className="navbar-link"><Link to="/mydecks/"> My decks </Link></div>
-                    <div className="navbar-link"><Link to="/hangeul/"> 한글 </Link></div>
+                    <div className="navbar-link"><Link to="/hangul/"> 한글 </Link></div>
                     <div className="navbar-link"><Link to="/logout/"> Sign out </Link></div>
                 </div>
             );

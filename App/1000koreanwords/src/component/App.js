@@ -35,7 +35,7 @@ export default function App() {
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/legal" element={<Legal />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/hangeul" element={<Hangeul />} />
+                    <Route path="/hangul" element={<Hangeul />} />
                     <Route path="/*" element={<HomePage />} />
                     <Route path="/learn" element={<Private component={DecksManager} />} />
                     <Route path="/mydecks" element={<Private component={CustomDecksManager} />} />
