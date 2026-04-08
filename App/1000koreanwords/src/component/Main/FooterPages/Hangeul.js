@@ -1,4 +1,14 @@
+import React from 'react';
 import '@app/style/hangeul.css';
+import tool from '@app/tool/tool';
+
+function KoreanWord({ text }) {
+    return (
+        <span className="korean-word" onClick={() => tool.speakText(text)}>
+            {text}<i className="pi pi-volume-up korean-word-icon" />
+        </span>
+    );
+}
 
 export default function Hangeul() {
     return (
@@ -65,11 +75,11 @@ export default function Hangeul() {
             {/* ── SECTION 2 ── */}
             <section className="hangeul-section" id="consonants">
                 <h2>2. Consonants (자음)</h2>
-                <p className="hangeul-section-subtitle">Three families, 19 consonants total</p>
+                <p className="hangeul-section-subtitle">Three families, 19 consonants total.</p>
 
                 <p>
                     In Section 1 we said there are 14 basic consonants. That count groups plain and
-                    aspirated sounds together (10 + 4 = 14). Add the 5 tense consonants on top and
+                    aspirated sounds together. But actually we can add the 5 tense consonants on top and
                     the total is 19.
                 </p>
                 <p>
@@ -127,70 +137,70 @@ export default function Hangeul() {
                             <td className="name">기역 giyeok</td>
                             <td>"g" as in <em>go</em> (softer than English)</td>
                             <td>unreleased "k"</td>
-                            <td>가방 — bag</td>
+                            <td>     — bag</td>
                         </tr>
                         <tr>
                             <td className="char">ㄴ</td>
                             <td className="name">니은 nieun</td>
                             <td>"n" as in <em>no</em></td>
                             <td>"n"</td>
-                            <td>나무 — tree</td>
+                            <td><KoreanWord text="나무" /> — tree</td>
                         </tr>
                         <tr>
                             <td className="char">ㄷ</td>
                             <td className="name">디귿 digeut</td>
                             <td>"d" as in <em>do</em> (softer)</td>
                             <td>unreleased "t"</td>
-                            <td>돈 — money</td>
+                            <td><KoreanWord text="돈" /> — money</td>
                         </tr>
                         <tr>
                             <td className="char">ㄹ</td>
                             <td className="name">리을 rieul</td>
                             <td>flap — like "tt" in American <em>butter</em></td>
                             <td>"l" as in <em>feel</em></td>
-                            <td>라면 — ramen</td>
+                            <td><KoreanWord text="라면" /> — ramen</td>
                         </tr>
                         <tr>
                             <td className="char">ㅁ</td>
                             <td className="name">미음 mieum</td>
                             <td>"m" as in <em>mom</em></td>
                             <td>"m"</td>
-                            <td>물 — water</td>
+                            <td><KoreanWord text="물" /> — water</td>
                         </tr>
                         <tr>
                             <td className="char">ㅂ</td>
                             <td className="name">비읍 bieup</td>
                             <td>"b" as in <em>be</em> (softer)</td>
                             <td>unreleased "p"</td>
-                            <td>바다 — sea</td>
+                            <td><KoreanWord text="바다" /> — sea</td>
                         </tr>
                         <tr>
                             <td className="char">ㅅ</td>
                             <td className="name">시옷 siot</td>
                             <td>"s" (or "sh" before ㅣ ㅑ ㅕ ㅛ ㅠ)</td>
                             <td>unreleased "t"</td>
-                            <td>사람 — person</td>
+                            <td><KoreanWord text="사람" /> — person</td>
                         </tr>
                         <tr>
                             <td className="char">ㅇ</td>
                             <td className="name">이응 ieung</td>
                             <td>silent (placeholder)</td>
                             <td>"ng" as in <em>song</em></td>
-                            <td>우산 — umbrella</td>
+                            <td><KoreanWord text="우산" /> — umbrella</td>
                         </tr>
                         <tr>
                             <td className="char">ㅈ</td>
                             <td className="name">지읒 jieut</td>
                             <td>between "j" and "ch"</td>
                             <td>unreleased "t"</td>
-                            <td>집 — house</td>
+                            <td><KoreanWord text="집" /> — house</td>
                         </tr>
                         <tr>
                             <td className="char">ㅎ</td>
                             <td className="name">히읗 hieut</td>
                             <td>breathy "h"</td>
                             <td>absorbed or silent</td>
-                            <td>하나 — one</td>
+                            <td><KoreanWord text="하나" /> — one</td>
                         </tr>
                     </tbody>
                 </table>
@@ -212,28 +222,28 @@ export default function Hangeul() {
                             <td className="name">키읔 kieuk</td>
                             <td>"k" with a puff of air</td>
                             <td>ㄱ + stroke</td>
-                            <td>코 — nose</td>
+                            <td><KoreanWord text="코" /> — nose</td>
                         </tr>
                         <tr>
                             <td className="char">ㅌ</td>
                             <td className="name">티읕 tieut</td>
                             <td>"t" with a puff of air</td>
                             <td>ㄷ + stroke</td>
-                            <td>토끼 — rabbit</td>
+                            <td><KoreanWord text="토끼" /> — rabbit</td>
                         </tr>
                         <tr>
                             <td className="char">ㅍ</td>
                             <td className="name">피읖 pieup</td>
                             <td>"p" with a puff of air</td>
                             <td>ㅂ + stroke</td>
-                            <td>포도 — grape</td>
+                            <td><KoreanWord text="포도" /> — grape</td>
                         </tr>
                         <tr>
                             <td className="char">ㅊ</td>
                             <td className="name">치읓 chieut</td>
                             <td>"ch" with a puff of air</td>
                             <td>ㅈ + stroke</td>
-                            <td>친구 — friend</td>
+                            <td><KoreanWord text="친구" /> — friend</td>
                         </tr>
                     </tbody>
                 </table>
@@ -255,35 +265,35 @@ export default function Hangeul() {
                             <td className="name">쌍기역</td>
                             <td>hard "k" — tense, no air</td>
                             <td>ㄱ doubled</td>
-                            <td>꿈 — dream</td>
+                            <td><KoreanWord text="꿈" /> — dream</td>
                         </tr>
                         <tr>
                             <td className="char">ㄸ</td>
                             <td className="name">쌍디귿</td>
                             <td>hard "t" — tense, no air</td>
                             <td>ㄷ doubled</td>
-                            <td>땅 — ground</td>
+                            <td><KoreanWord text="땅" /> — ground</td>
                         </tr>
                         <tr>
                             <td className="char">ㅃ</td>
                             <td className="name">쌍비읍</td>
                             <td>hard "p" — tense, no air</td>
                             <td>ㅂ doubled</td>
-                            <td>빵 — bread</td>
+                            <td><KoreanWord text="빵" /> — bread</td>
                         </tr>
                         <tr>
                             <td className="char">ㅆ</td>
                             <td className="name">쌍시옷</td>
                             <td>hard "ss" — tense, no air</td>
                             <td>ㅅ doubled</td>
-                            <td>쌀 — rice (uncooked)</td>
+                            <td><KoreanWord text="쌀" /> — rice (uncooked)</td>
                         </tr>
                         <tr>
                             <td className="char">ㅉ</td>
                             <td className="name">쌍지읒</td>
                             <td>hard "ch" — tense, no air</td>
                             <td>ㅈ doubled</td>
-                            <td>찌개 — stew</td>
+                            <td><KoreanWord text="찌개" /> — stew</td>
                         </tr>
                     </tbody>
                 </table>
@@ -298,37 +308,37 @@ export default function Hangeul() {
                 <div className="hangeul-minimal-pairs">
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">달</div>
+                            <div className="pair-char"><KoreanWord text="달" /></div>
                             <div className="pair-info">dal<br /><span className="pair-meaning">moon</span></div>
                         </div>
                     </div>
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">탈</div>
+                            <div className="pair-char"><KoreanWord text="탈" /></div>
                             <div className="pair-info">tal<br /><span className="pair-meaning">mask</span></div>
                         </div>
                     </div>
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">딸</div>
+                            <div className="pair-char"><KoreanWord text="딸" /></div>
                             <div className="pair-info">ttal<br /><span className="pair-meaning">daughter</span></div>
                         </div>
                     </div>
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">발</div>
+                            <div className="pair-char"><KoreanWord text="발" /></div>
                             <div className="pair-info">bal<br /><span className="pair-meaning">foot / leg</span></div>
                         </div>
                     </div>
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">팔</div>
+                            <div className="pair-char"><KoreanWord text="팔" /></div>
                             <div className="pair-info">pal<br /><span className="pair-meaning">arm</span></div>
                         </div>
                     </div>
                     <div className="hangeul-pair">
                         <div>
-                            <div className="pair-char">빨</div>
+                            <div className="pair-char"><KoreanWord text="빨" /></div>
                             <div className="pair-info">ppal<br /><span className="pair-meaning">red</span></div>
                         </div>
                     </div>
@@ -336,8 +346,8 @@ export default function Hangeul() {
 
                 <div className="hangeul-tip">
                     <strong>ㅅ becomes "sh" before certain vowels</strong>
-                    Before ㅣ, ㅑ, ㅕ, ㅛ, or ㅠ, ㅅ sounds like "sh" not "s". The word 시간
-                    (time) is "shi-gan", not "si-gan". This catches many beginners off guard
+                    Before ㅣ, ㅑ, ㅕ, ㅛ, or ㅠ, ㅅ sounds like "sh" not "s". 
+                    The word <KoreanWord text="시간" /> (time) is "shi-gan", not "si-gan". This catches many beginners off guard
                     because the letter doesn't change, only the sound does.
                 </div>
                 <div className="hangeul-tip">
@@ -350,14 +360,14 @@ export default function Hangeul() {
                     <strong>ㅇ has two roles</strong>
                     At the <em>start</em> of a syllable it is completely silent. It gives vowels a
                     place to sit (아 = "a", 이 = "i"). At the <em>end</em> of a syllable it is a
-                    full /ng/ sound as in "song" (강 = "gang", 방 = "bang"). Never skip the final ㅇ.
+                    full /ng/ sound as in "song" (<KoreanWord text="방" /> = "bang", <KoreanWord text="강" /> = "gang"). Never skip the final ㅇ.
                 </div>
             </section>
 
             {/* ── SECTION 3 ── */}
             <section className="hangeul-section" id="vowels">
                 <h2>3. Vowels (모음)</h2>
-                <p className="hangeul-section-subtitle">10 basic + 11 compound = 21 vowels total</p>
+                <p className="hangeul-section-subtitle">10 basic + 11 compound = 21 vowels total.</p>
 
                 <p>
                     Vowels come in two shapes. <strong>Vertical vowels</strong> have a tall line and
@@ -383,70 +393,70 @@ export default function Hangeul() {
                             <td>Vertical</td>
                             <td className="sound">"a" as in <em>father</em></td>
                             <td>Mouth wide open</td>
-                            <td>산 — mountain</td>
+                            <td><KoreanWord text="산" /> — mountain</td>
                         </tr>
                         <tr>
                             <td className="char">ㅓ</td>
                             <td>Vertical</td>
                             <td className="sound">"uh" — open, not rounded</td>
                             <td>Like British "fur" without the R.</td>
-                            <td>버스 — bus</td>
+                            <td><KoreanWord text="버스" /> — bus</td>
                         </tr>
                         <tr>
                             <td className="char">ㅣ</td>
                             <td>Vertical</td>
                             <td className="sound">"ee" as in <em>see</em></td>
                             <td>Pure — don't let it drift</td>
-                            <td>비 — rain</td>
+                            <td><KoreanWord text="비" /> — rain</td>
                         </tr>
                         <tr>
                             <td className="char">ㅑ</td>
                             <td>Vertical</td>
                             <td className="sound">"ya" as in <em>yard</em></td>
                             <td>ㅏ with a Y onset</td>
-                            <td>야구 — baseball</td>
+                            <td><KoreanWord text="야구" /> — baseball</td>
                         </tr>
                         <tr>
                             <td className="char">ㅕ</td>
                             <td>Vertical</td>
                             <td className="sound">"yuh"</td>
                             <td>ㅓ with a Y onset</td>
-                            <td>겨울 — winter</td>
+                            <td><KoreanWord text="겨울" /> — winter</td>
                         </tr>
                         <tr>
                             <td className="char">ㅗ</td>
                             <td>Horizontal</td>
                             <td className="sound">"o" — pure, no glide</td>
                             <td>Like Spanish or Italian "o". Not English "oh"</td>
-                            <td>모자 — hat</td>
+                            <td><KoreanWord text="모자" /> — hat</td>
                         </tr>
                         <tr>
                             <td className="char">ㅜ</td>
                             <td>Horizontal</td>
                             <td className="sound">"oo" as in <em>food</em> — pure</td>
                             <td>Hold the sound steady</td>
-                            <td>우리 — we</td>
+                            <td><KoreanWord text="우리" /> — we</td>
                         </tr>
                         <tr>
                             <td className="char">ㅡ</td>
                             <td>Horizontal</td>
                             <td className="sound">"eu" — no English equivalent</td>
                             <td>Spread lips flat (no rounding), say "ugh". This is the hardest vowel for English speakers.</td>
-                            <td>음악 — music</td>
+                            <td><KoreanWord text="음악" /> — music</td>
                         </tr>
                         <tr>
                             <td className="char">ㅛ</td>
                             <td>Horizontal</td>
                             <td className="sound">"yo" as in <em>yoga</em></td>
                             <td>ㅗ with a Y onset</td>
-                            <td>요리 — cooking</td>
+                            <td><KoreanWord text="요리" /> — cooking</td>
                         </tr>
                         <tr>
                             <td className="char">ㅠ</td>
                             <td>Horizontal</td>
                             <td className="sound">"yoo"</td>
                             <td>ㅜ with a Y onset</td>
-                            <td>우유 — milk</td>
+                            <td><KoreanWord text="우유" /> — milk</td>
                         </tr>
                     </tbody>
                 </table>
@@ -467,17 +477,17 @@ export default function Hangeul() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td className="char">ㅘ</td><td>ㅗ + ㅏ</td><td className="sound">"wa"</td><td>봐요 — (I) see</td></tr>
-                        <tr><td className="char">ㅚ</td><td>ㅗ + ㅣ</td><td className="sound">"weh"</td><td>외국 — foreign country</td></tr>
-                        <tr><td className="char">ㅙ</td><td>ㅗ + ㅐ</td><td className="sound">"weh" (same as ㅚ)</td><td>돼지 — pig</td></tr>
-                        <tr><td className="char">ㅝ</td><td>ㅜ + ㅓ</td><td className="sound">"wuh" as in <em>wonder</em></td><td>뭐 — what</td></tr>
-                        <tr><td className="char">ㅞ</td><td>ㅜ + ㅔ</td><td className="sound">"weh"</td><td>웨이터 — waiter</td></tr>
-                        <tr><td className="char">ㅟ</td><td>ㅜ + ㅣ</td><td className="sound">"wi"</td><td>쥐 — mouse</td></tr>
-                        <tr><td className="char">ㅢ</td><td>ㅡ + ㅣ</td><td className="sound">"eui" (context-dependent)</td><td>의사 — doctor</td></tr>
-                        <tr><td className="char">ㅐ</td><td>ㅏ + ㅣ</td><td className="sound">"eh" as in <em>bed</em></td><td>개 — dog</td></tr>
-                        <tr><td className="char">ㅔ</td><td>ㅓ + ㅣ</td><td className="sound">"eh" (identical to ㅐ in modern Korean)</td><td>네 — yes</td></tr>
-                        <tr><td className="char">ㅒ</td><td>ㅑ + ㅣ</td><td className="sound">"yeh"</td><td>얘 — kid</td></tr>
-                        <tr><td className="char">ㅖ</td><td>ㅕ + ㅣ</td><td className="sound">"yeh" (same as ㅒ)</td><td>예 — yes / example</td></tr>
+                        <tr><td className="char">ㅘ</td><td>ㅗ + ㅏ</td><td className="sound">"wa"</td><td><KoreanWord text="봐요" /> — (I) see</td></tr>
+                        <tr><td className="char">ㅚ</td><td>ㅗ + ㅣ</td><td className="sound">"weh"</td><td><KoreanWord text="외국" /> — foreign country</td></tr>
+                        <tr><td className="char">ㅙ</td><td>ㅗ + ㅐ</td><td className="sound">"weh" (same as ㅚ)</td><td><KoreanWord text="돼지" /> — pig</td></tr>
+                        <tr><td className="char">ㅝ</td><td>ㅜ + ㅓ</td><td className="sound">"wuh" as in <em>wonder</em></td><td><KoreanWord text="뭐" /> — what</td></tr>
+                        <tr><td className="char">ㅞ</td><td>ㅜ + ㅔ</td><td className="sound">"weh"</td><td><KoreanWord text="웨이터" /> — waiter</td></tr>
+                        <tr><td className="char">ㅟ</td><td>ㅜ + ㅣ</td><td className="sound">"wi"</td><td><KoreanWord text="쥐" /> — mouse</td></tr>
+                        <tr><td className="char">ㅢ</td><td>ㅡ + ㅣ</td><td className="sound">"eui" (context-dependent)</td><td><KoreanWord text="의사" /> — doctor</td></tr>
+                        <tr><td className="char">ㅐ</td><td>ㅏ + ㅣ</td><td className="sound">"eh" as in <em>bed</em></td><td><KoreanWord text="개" /> — dog</td></tr>
+                        <tr><td className="char">ㅔ</td><td>ㅓ + ㅣ</td><td className="sound">"eh" (identical to ㅐ in modern Korean)</td><td><KoreanWord text="네" /> — yes</td></tr>
+                        <tr><td className="char">ㅒ</td><td>ㅑ + ㅣ</td><td className="sound">"yeh"</td><td><KoreanWord text="얘" /> — kid</td></tr>
+                        <tr><td className="char">ㅖ</td><td>ㅕ + ㅣ</td><td className="sound">"yeh" (same as ㅒ)</td><td><KoreanWord text="예" /> — yes / example</td></tr>
                     </tbody>
                 </table>
 
@@ -499,9 +509,9 @@ export default function Hangeul() {
                     <strong>Note on ㅢ</strong>
                     Its pronunciation shifts with context:
                     <ul>
-                        <li>Word-initial: "eui" (both sounds blended) — 의사 (doctor) → "eui-sa"</li>
-                        <li>After a consonant: sounds like ㅣ "ee" — 희망 (hope) → "hee-mang"</li>
-                        <li>As the possessive particle 의: sounds like "e" — 나의 (my) → "na-e"</li>
+                        <li>Word-initial: "eui" (both sounds blended) — <KoreanWord text="의사" /> (doctor) → "eui-sa"</li>
+                        <li>After a consonant: sounds like ㅣ "ee" — <KoreanWord text="희망" /> (hope) → "hee-mang"</li>
+                        <li>As the possessive particle 의: sounds like "e" — <KoreanWord text="나의" /> (my) → "na-e"</li>
                     </ul>
                 </div>
             </section>
@@ -615,57 +625,43 @@ export default function Hangeul() {
                             <td className="char">ㄱ</td>
                             <td>ㄱ ㅋ ㄲ</td>
                             <td>Unreleased "k" — mouth closes at the back</td>
-                            <td>
-                                국 — country
-                            </td>
+                            <td><KoreanWord text="국" /> — country</td>
                         </tr>
                         <tr>
                             <td className="char">ㄴ</td>
                             <td>ㄴ</td>
                             <td>"n" — tongue stays on gum ridge</td>
-                            <td>
-                                눈 — eye/snow
-                            </td>
+                            <td><KoreanWord text="눈" /> — eye/snow</td>
                         </tr>
                         <tr>
                             <td className="char">ㄷ</td>
                             <td>ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ</td>
                             <td>Unreleased "t" — tongue on gum ridge, no release</td>
-                            <td>
-                                맛 — taste
-                            </td>
+                            <td><KoreanWord text="맛" /> — taste</td>
                         </tr>
                         <tr>
                             <td className="char">ㄹ</td>
                             <td>ㄹ</td>
                             <td>"l" as in <em>feel</em></td>
-                            <td>
-                                불 — fire
-                            </td>
+                            <td><KoreanWord text="불" /> — fire</td>
                         </tr>
                         <tr>
                             <td className="char">ㅁ</td>
                             <td>ㅁ</td>
                             <td>"m" — lips close</td>
-                            <td>
-                                이름 — name
-                            </td>
+                            <td><KoreanWord text="이름" /> — name</td>
                         </tr>
                         <tr>
                             <td className="char">ㅂ</td>
                             <td>ㅂ ㅍ</td>
                             <td>Unreleased "p" — lips close, no release</td>
-                            <td>
-                                입 — mouth
-                            </td>
+                            <td><KoreanWord text="입" /> — mouth</td>
                         </tr>
                         <tr>
                             <td className="char">ㅇ</td>
                             <td>ㅇ</td>
                             <td>"ng" as in <em>song</em> — back of throat</td>
-                            <td>
-                                방 — room
-                            </td>
+                            <td><KoreanWord text="방" /> — room</td>
                         </tr>
                     </tbody>
                 </table>
@@ -686,21 +682,20 @@ export default function Hangeul() {
                         <tr>
                             <td>First consonant</td>
                             <td>ㄵ ㄶ ㄼ ㅄ</td>
-                            <td>없다 → [업따] — not have</td>
+                            <td><KoreanWord text="없다" /> → [업따] — not have</td>
                         </tr>
                         <tr>
                             <td>Second consonant</td>
                             <td>ㄺ ㄻ</td>
-                            <td>닭 → [닥] — chicken &nbsp;|&nbsp; 삶 → [삼] — life</td>
+                            <td><KoreanWord text="닭" /> → [닥] — chicken &nbsp;|&nbsp; <KoreanWord text="삶" /> → [삼] — life</td>
                         </tr>
                     </tbody>
                 </table>
                 <div className="hangeul-tip">
                     <strong>Liaison exception</strong>
                     When a double batchim is followed by ㅇ (silent placeholder), the second
-                    consonant moves to the next syllable instead of being dropped: 닭이 → [달기],
-                    없어 → [업써]. This is the liaison rule (covered in Section 6) applied to double
-                    batchim clusters.
+                    consonant moves to the next syllable instead of being dropped: <KoreanWord text="닭이" /> → [달기], <KoreanWord text="없어" /> → [업써]. 
+                    This is the liaison rule (covered in Section 6) applied to double batchim clusters.
                 </div>
             </section>
 
@@ -730,10 +725,10 @@ export default function Hangeul() {
                         encounter.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">밥이</span><span className="arrow">→</span><span className="pronounced">[바비]</span> rice</div>
-                        <div className="rule-ex"><span className="ke">있어요</span><span className="arrow">→</span><span className="pronounced">[이써요]</span> there is</div>
-                        <div className="rule-ex"><span className="ke">한국어</span><span className="arrow">→</span><span className="pronounced">[한구거]</span> Korean language</div>
-                        <div className="rule-ex"><span className="ke">좋아요</span><span className="arrow">→</span><span className="pronounced">[조아요]</span> it's good (ㅎ disappears)</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="밥이" /></span><span className="arrow">→</span><span className="pronounced">[바비]</span> rice</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="있어요" /></span><span className="arrow">→</span><span className="pronounced">[이써요]</span> there is</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="한국어" /></span><span className="arrow">→</span><span className="pronounced">[한구거]</span> Korean language</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="좋아요" /></span><span className="arrow">→</span><span className="pronounced">[조아요]</span> it's good (ㅎ disappears)</div>
                     </div>
                 </div>
 
@@ -748,18 +743,18 @@ export default function Hangeul() {
                         ㄱ → ㅇ, ㄷ → ㄴ, ㅂ → ㅁ.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">국내</span><span className="arrow">→</span><span className="pronounced">[궁내]</span> domestic</div>
-                        <div className="rule-ex"><span className="ke">감사합니다</span><span className="arrow">→</span><span className="pronounced">[감사함니다]</span> thank you</div>
-                        <div className="rule-ex"><span className="ke">학년</span><span className="arrow">→</span><span className="pronounced">[항년]</span> school year</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="국내" /></span><span className="arrow">→</span><span className="pronounced">[궁내]</span> domestic</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="감사합니다" /></span><span className="arrow">→</span><span className="pronounced">[감사함니다]</span> thank you</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="학년" /></span><span className="arrow">→</span><span className="pronounced">[항년]</span> school year</div>
                     </div>
                     <div className="rule-condition">
                         This works the other way too. When ㄹ follows a nasal batchim ㅁ or ㅇ, the
                         ㄹ shifts to ㄴ. The nasal pulls ㄹ toward its own place of articulation.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">동료</span><span className="arrow">→</span><span className="pronounced">[동뇨]</span> colleague</div>
-                        <div className="rule-ex"><span className="ke">음료</span><span className="arrow">→</span><span className="pronounced">[음뇨]</span> beverage</div>
-                        <div className="rule-ex"><span className="ke">대통령</span><span className="arrow">→</span><span className="pronounced">[대통녕]</span> president</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="동료" /></span><span className="arrow">→</span><span className="pronounced">[동뇨]</span> colleague</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="음료" /></span><span className="arrow">→</span><span className="pronounced">[음뇨]</span> beverage</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="대통령" /></span><span className="arrow">→</span><span className="pronounced">[대통녕]</span> president</div>
                     </div>
                 </div>
 
@@ -772,8 +767,8 @@ export default function Hangeul() {
                         When ㄴ and ㄹ are adjacent, ㄴ becomes ㄹ. The result is two ㄹ sounds in a row.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">설날</span><span className="arrow">→</span><span className="pronounced">[설랄]</span> Lunar New Year</div>
-                        <div className="rule-ex"><span className="ke">신라</span><span className="arrow">→</span><span className="pronounced">[실라]</span> Silla dynasty</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="설날" /></span><span className="arrow">→</span><span className="pronounced">[설랄]</span> Lunar New Year</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="신라" /></span><span className="arrow">→</span><span className="pronounced">[실라]</span> Silla dynasty</div>
                     </div>
                 </div>
 
@@ -787,9 +782,9 @@ export default function Hangeul() {
                         the mouth: ㄷ becomes ㅈ, ㅌ becomes ㅊ.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">같이</span><span className="arrow">→</span><span className="pronounced">[가치]</span> together</div>
-                        <div className="rule-ex"><span className="ke">굳이</span><span className="arrow">→</span><span className="pronounced">[구지]</span> insistently</div>
-                        <div className="rule-ex"><span className="ke">끝이</span><span className="arrow">→</span><span className="pronounced">[끄치]</span> the end</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="같이" /></span><span className="arrow">→</span><span className="pronounced">[가치]</span> together</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="굳이" /></span><span className="arrow">→</span><span className="pronounced">[구지]</span> insistently</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="끝이" /></span><span className="arrow">→</span><span className="pronounced">[끄치]</span> the end</div>
                     </div>
                 </div>
 
@@ -804,9 +799,9 @@ export default function Hangeul() {
                         ㅈ+ㅎ → ㅊ.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">좋다</span><span className="arrow">→</span><span className="pronounced">[조타]</span> to be good</div>
-                        <div className="rule-ex"><span className="ke">입학</span><span className="arrow">→</span><span className="pronounced">[이팍]</span> enrollment</div>
-                        <div className="rule-ex"><span className="ke">못하다</span><span className="arrow">→</span><span className="pronounced">[모타다]</span> cannot</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="좋다" /></span><span className="arrow">→</span><span className="pronounced">[조타]</span> to be good</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="입학" /></span><span className="arrow">→</span><span className="pronounced">[이팍]</span> enrollment</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="못하다" /></span><span className="arrow">→</span><span className="pronounced">[모타다]</span> cannot</div>
                     </div>
                 </div>
 
@@ -820,9 +815,9 @@ export default function Hangeul() {
                         (ㄱ ㄷ ㅂ ㅅ ㅈ), the plain consonant becomes its tense equivalent.
                     </div>
                     <div className="rule-examples">
-                        <div className="rule-ex"><span className="ke">학교</span><span className="arrow">→</span><span className="pronounced">[학꾜]</span> school</div>
-                        <div className="rule-ex"><span className="ke">먹다</span><span className="arrow">→</span><span className="pronounced">[먹따]</span> to eat</div>
-                        <div className="rule-ex"><span className="ke">식당</span><span className="arrow">→</span><span className="pronounced">[식땅]</span> restaurant</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="학교" /></span><span className="arrow">→</span><span className="pronounced">[학꾜]</span> school</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="먹다" /></span><span className="arrow">→</span><span className="pronounced">[먹따]</span> to eat</div>
+                        <div className="rule-ex"><span className="ke"><KoreanWord text="식당" /></span><span className="arrow">→</span><span className="pronounced">[식땅]</span> restaurant</div>
                     </div>
                 </div>
             </section>
@@ -830,7 +825,6 @@ export default function Hangeul() {
             {/* ── SECTION 7 ── */}
             <section className="hangeul-section" id="common-mistakes">
                 <h2>7. Common Mistakes</h2>
-                <p className="hangeul-section-subtitle">Traps to avoid before they become habits</p>
 
                 <div className="hangeul-warning">
                     <strong>Treating romanization as pronunciation</strong>
@@ -888,137 +882,137 @@ export default function Hangeul() {
 
                 <div className="hangeul-examples">
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">피자</div>
+                        <div className="ex-korean"><KoreanWord text="피자" /></div>
                         <div className="ex-pronunciation">pi-ja</div>
                         <div className="ex-meaning">pizza</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">설날</div>
+                        <div className="ex-korean"><KoreanWord text="설날" /></div>
                         <div className="ex-pronunciation">seol-lal</div>
                         <div className="ex-meaning">Lunar New Year</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">눈</div>
+                        <div className="ex-korean"><KoreanWord text="눈" /></div>
                         <div className="ex-pronunciation">nun</div>
                         <div className="ex-meaning">eye / snow</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">학교</div>
+                        <div className="ex-korean"><KoreanWord text="학교" /></div>
                         <div className="ex-pronunciation">hak-kkyo</div>
                         <div className="ex-meaning">school</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">노래</div>
+                        <div className="ex-korean"><KoreanWord text="노래" /></div>
                         <div className="ex-pronunciation">no-rae</div>
                         <div className="ex-meaning">song</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">같이</div>
+                        <div className="ex-korean"><KoreanWord text="같이" /></div>
                         <div className="ex-pronunciation">ga-chi</div>
                         <div className="ex-meaning">together</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">버스</div>
+                        <div className="ex-korean"><KoreanWord text="버스" /></div>
                         <div className="ex-pronunciation">beo-seu</div>
                         <div className="ex-meaning">bus</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">사과</div>
+                        <div className="ex-korean"><KoreanWord text="사과" /></div>
                         <div className="ex-pronunciation">sa-gwa</div>
                         <div className="ex-meaning">apple</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">학생</div>
+                        <div className="ex-korean"><KoreanWord text="학생" /></div>
                         <div className="ex-pronunciation">hak-saeng</div>
                         <div className="ex-meaning">student</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">꽃</div>
+                        <div className="ex-korean"><KoreanWord text="꽃" /></div>
                         <div className="ex-pronunciation">kkot</div>
                         <div className="ex-meaning">flower</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">커피</div>
+                        <div className="ex-korean"><KoreanWord text="커피" /></div>
                         <div className="ex-pronunciation">keo-pi</div>
                         <div className="ex-meaning">coffee</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">아버지</div>
+                        <div className="ex-korean"><KoreanWord text="아버지" /></div>
                         <div className="ex-pronunciation">a-beo-ji</div>
                         <div className="ex-meaning">father</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">택시</div>
+                        <div className="ex-korean"><KoreanWord text="택시" /></div>
                         <div className="ex-pronunciation">taek-si</div>
                         <div className="ex-meaning">taxi</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">한국어</div>
+                        <div className="ex-korean"><KoreanWord text="한국어" /></div>
                         <div className="ex-pronunciation">han-gu-geo</div>
                         <div className="ex-meaning">Korean language</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">구름</div>
+                        <div className="ex-korean"><KoreanWord text="구름" /></div>
                         <div className="ex-pronunciation">gu-reum</div>
                         <div className="ex-meaning">cloud</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">오늘</div>
+                        <div className="ex-korean"><KoreanWord text="오늘" /></div>
                         <div className="ex-pronunciation">o-neul</div>
                         <div className="ex-meaning">today</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">밤</div>
+                        <div className="ex-korean"><KoreanWord text="밤" /></div>
                         <div className="ex-pronunciation">bam</div>
                         <div className="ex-meaning">night</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">인터넷</div>
+                        <div className="ex-korean"><KoreanWord text="인터넷" /></div>
                         <div className="ex-pronunciation">in-teo-net</div>
                         <div className="ex-meaning">internet</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">고양이</div>
+                        <div className="ex-korean"><KoreanWord text="고양이" /></div>
                         <div className="ex-pronunciation">go-yang-i</div>
                         <div className="ex-meaning">cat</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">책</div>
+                        <div className="ex-korean"><KoreanWord text="책" /></div>
                         <div className="ex-pronunciation">chaek</div>
                         <div className="ex-meaning">book</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">학년</div>
+                        <div className="ex-korean"><KoreanWord text="학년" /></div>
                         <div className="ex-pronunciation">hang-nyeon</div>
                         <div className="ex-meaning">school year</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">치마</div>
+                        <div className="ex-korean"><KoreanWord text="치마" /></div>
                         <div className="ex-pronunciation">chi-ma</div>
                         <div className="ex-meaning">skirt</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">초콜릿</div>
+                        <div className="ex-korean"><KoreanWord text="초콜릿" /></div>
                         <div className="ex-pronunciation">cho-kol-lit</div>
                         <div className="ex-meaning">chocolate</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">별</div>
+                        <div className="ex-korean"><KoreanWord text="별" /></div>
                         <div className="ex-pronunciation">byeol</div>
                         <div className="ex-meaning">star</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">안녕</div>
+                        <div className="ex-korean"><KoreanWord text="안녕" /></div>
                         <div className="ex-pronunciation">an-nyeong</div>
                         <div className="ex-meaning">hi</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">문</div>
+                        <div className="ex-korean"><KoreanWord text="문" /></div>
                         <div className="ex-pronunciation">mun</div>
                         <div className="ex-meaning">door</div>
                     </div>
                     <div className="hangeul-example-card">
-                        <div className="ex-korean">좋다</div>
+                        <div className="ex-korean"><KoreanWord text="좋다" /></div>
                         <div className="ex-pronunciation">i-pak</div>
                         <div className="ex-meaning">to be good</div>
                     </div>

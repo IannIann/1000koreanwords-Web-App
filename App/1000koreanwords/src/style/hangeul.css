@@ -4,6 +4,24 @@
     padding: 2rem 1.5rem 6rem;
 }
 
+/* ── CLICKABLE KOREAN WORD ── */
+.korean-word {
+    cursor: pointer;
+    transition: color 0.2s;
+    border-radius: 4px;
+}
+
+.korean-word:hover {
+    color: var(--teal);
+}
+
+.korean-word-icon {
+    font-size: 0.8em;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+
 /* ── TOC ── */
 .hangeul-toc {
     display: flex;

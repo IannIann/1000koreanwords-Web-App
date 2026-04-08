@@ -43,6 +43,13 @@ class Card extends Component {
         }
     }
 
+    handlePronunciation = () => {
+        const { question } = this.state.card;
+        const utterance = new SpeechSynthesisUtterance(question);
+        utterance.lang = 'ko-KR';
+        speechSynthesis.speak(utterance);
+    }
+
     handleDeleteClick = () => {
         const { editable } = this.props;
         if (editable) {
@@ -137,14 +144,14 @@ class Card extends Component {
                 <div className={cardClassName}>
                     <div className="card-front">
                         <CardQuestion value={card.question} inPlay={true} />
-                        <ButtonPronunciation handleClick={() => console.log("Speak")} />
+                        <ButtonPronunciation text={card.question} />
                         <ButtonFavorite handleClick={openFavoriteModal} display={displayButtons} />
                         <ButtonHide handleClick={openHideSingleCardModal} display={displayButtons} />
                     </div>
                     <div className="card-back">
                         <CardQuestion value={card.question} inPlay={true} />
                         <CardAnswer value={card.answer} inPlay={true} />
-                        <ButtonPronunciation handleClick={() => console.log("Speak")} />
+                        <ButtonPronunciation text={card.question} />
                         <ButtonFavorite handleClick={openFavoriteModal} display={displayButtons} />
                         <ButtonHide handleClick={openHideSingleCardModal} display={displayButtons} />
                     </div>

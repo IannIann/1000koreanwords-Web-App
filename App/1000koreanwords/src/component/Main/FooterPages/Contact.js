@@ -8,8 +8,7 @@ export default function Contact() {
 
             <div className="footerpage-section">
                 <p>
-                    Have a question, found a bug, or want to share feedback? Feel free to reach out —
-                    we'd love to hear from you.
+                    Have a question, found a bug, or want to share feedback? Feel free to reach out.
                 </p>
                 <p>
                     You can contact us at:{' '}
