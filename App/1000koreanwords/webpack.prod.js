@@ -6,6 +6,10 @@ module.exports = merge(common, {
     mode: "production",
     devtool: false,  // pas de source maps exposées en prod
     plugins: [
-        new Dotenv({ path: './.env.production' })
+        new Dotenv({
+            path: './.env.production',
+            systemvars: true,  
+            silent: true       
+        })
     ]
 });
