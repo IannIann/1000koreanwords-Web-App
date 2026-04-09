@@ -1,3 +1,25 @@
+let ttsRate = 1;
+let ttsLastText = null;
+
+const speakText = (text) => {
+    if (!('speechSynthesis' in window)) return;
+
+    speechSynthesis.cancel();
+
+    if (text !== ttsLastText) {
+        ttsRate = 1;
+        ttsLastText = text;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.rate = ttsRate;
+
+    ttsRate = ttsRate === 1 ? 0.70 : 1;
+
+    speechSynthesis.speak(utterance);
+};
+
 const getErrorMessage = (error) => {
     try {
         const errorJson = JSON.parse(error.message);
@@ -120,6 +142,7 @@ const checkUsernameFormat = (username) => {
 };
 
 export default {
+    speakText,
     getErrorMessage,
     checkPasswordSecurity,
     checkPasswordMatch,

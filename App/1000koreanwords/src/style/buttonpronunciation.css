@@ -1,0 +1,21 @@
+.component-button-pronunciation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+
+    position: absolute;
+    top: 3.2%;
+    left: 2%;
+
+    background: none;
+    border: none;
+    color: var(--blue-gray);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.05s;
+}
+
+.component-button-pronunciation:hover {
+    color: var(--teal);
+}

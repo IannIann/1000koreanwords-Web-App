@@ -3,6 +3,8 @@
     --ink: #1E2022;
     --gray: #555;
 
+    --blue-gray: #8899A6;
+
     --teal: #2A9D8F;
     --teal-light: #35B5A5;
     --teal-dark: #21867A;
@@ -13,6 +15,9 @@
     --level-advanced: #A52A2A;
     --level-intermediate: #304a6b;
     --level-beginner: #FFB800;
+
+    --gold: #e4bd0d;
+
     --corail: #e76f51;
     --corail-50: #fdf1ee;
     --corail-100: #fbe4de;
@@ -27,10 +32,20 @@
 
 @font-face {
     font-family: 'Noto Serif KR';
-    src: url(../assets/fonts/NotoSerifKR.ttf) format('truetype-variations');
-    font-weight: 700 900;
+    src: url(../assets/fonts/NotoSerifKR-Latin-700.woff2) format('woff2');
+    font-weight: 700;
     font-style: normal;
     font-display: block;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Noto Serif KR';
+    src: url(../assets/fonts/NotoSerifKR-Korean-700.woff2) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: block;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 
 @font-face {

@@ -37,9 +37,10 @@ class FavoriteModal extends React.Component {
   copyCardToDeck = (deckId, card) => {
     customCardsData.createCustomCard(card)
       .then(res => customDecksData.pushCardToDeck(deckId, res.cardId)
-        .then(() => toast.success('Card added to deck'))
+        .then(() => toast.success('Card successfully added to deck'))
         .catch(error => toast.error(tool.getErrorMessage(error)))
-      );
+      )
+      .finally(() => this.setState({ selectedDeckId: '' }));
   };
 
   renderEmptyList() {

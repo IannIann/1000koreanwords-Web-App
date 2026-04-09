@@ -8,15 +8,11 @@ export default function Contact() {
 
             <div className="footerpage-section">
                 <p>
-                    Have a question, found a bug, or want to share feedback? Feel free to reach out —
-                    we'd love to hear from you.
+                    Have a question, found a bug, or want to share feedback? Feel free to reach out.
                 </p>
                 <p>
                     You can contact us at:{' '}
                     <a href="mailto:[YOUR EMAIL]" className="footerpage-placeholder">[YOUR EMAIL]</a>
-                </p>
-                <p>
-                    We aim to respond within 3 to 5 business days.
                 </p>
             </div>
 

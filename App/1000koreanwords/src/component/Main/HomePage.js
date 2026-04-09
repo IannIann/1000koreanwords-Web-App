@@ -32,7 +32,7 @@ export default class HomePage extends React.Component {
                         <p>
                             Learn the 1,000 essential Korean words that cover up to 80% of everyday conversations.
                             Choose a theme, select your level, and start building vocabulary.
-                            <br />New to Korean? <Link to="/hangeul/" className="hero-hangeul-link">Learn to read 한글</Link> first.
+                            <br />New to Korean? <Link to="/hangul/" className="hero-hangeul-link">Learn to read 한글</Link> first.
                         </p>
 
                         {isLogged ? (

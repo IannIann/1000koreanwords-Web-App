@@ -2,6 +2,7 @@ import CardQuestion from '@app/component/Card/CardQuestion';
 import CardAnswer from '@app/component/Card/CardAnswer';
 import ButtonCross from '@app/component/Buttons/ButtonCross';
 import ButtonFavorite from '@app/component/Buttons/ButtonFavorite';
+import ButtonPronunciation from '@app/component/Buttons/ButtonPronunciation';
 import ButtonHide from '@app/component/Buttons/ButtonHide';
 import { Component } from 'react';
 import '@app/style/card.css';
@@ -40,6 +41,13 @@ class Card extends Component {
             card.answer !== this.previousCard.answer) {
             this.props.saveCard(card);
         }
+    }
+
+    handlePronunciation = () => {
+        const { question } = this.state.card;
+        const utterance = new SpeechSynthesisUtterance(question);
+        utterance.lang = 'ko-KR';
+        speechSynthesis.speak(utterance);
     }
 
     handleDeleteClick = () => {
@@ -136,14 +144,16 @@ class Card extends Component {
                 <div className={cardClassName}>
                     <div className="card-front">
                         <CardQuestion value={card.question} inPlay={true} />
-                        <ButtonFavorite handleClick={openFavoriteModal} displayButtons={displayButtons} />
-                        <ButtonHide handleClick={openHideSingleCardModal} displayButtons={displayButtons} />
+                        <ButtonPronunciation text={card.question} />
+                        <ButtonFavorite handleClick={openFavoriteModal} display={displayButtons} />
+                        <ButtonHide handleClick={openHideSingleCardModal} display={displayButtons} />
                     </div>
                     <div className="card-back">
                         <CardQuestion value={card.question} inPlay={true} />
                         <CardAnswer value={card.answer} inPlay={true} />
-                        <ButtonFavorite handleClick={openFavoriteModal} displayButtons={displayButtons} />
-                        <ButtonHide handleClick={openHideSingleCardModal} displayButtons={displayButtons} />
+                        <ButtonPronunciation text={card.question} />
+                        <ButtonFavorite handleClick={openFavoriteModal} display={displayButtons} />
+                        <ButtonHide handleClick={openHideSingleCardModal} display={displayButtons} />
                     </div>
                 </div>
             </div>

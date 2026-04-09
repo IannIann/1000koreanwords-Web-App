@@ -14,7 +14,7 @@ class Footer extends React.Component {
                     <div className="footer-link"><Link to="/privacy/">Privacy</Link></div>
                     <div className="footer-link"><Link to="/legal/">Legal</Link></div>
                     <div className="footer-link"><Link to="/contact/">Contact</Link></div>
-                    <div className="footer-link"><Link to="/hangeul/">한글</Link></div>
+                    <div className="footer-link"><Link to="/hangul/">한글</Link></div>
                 </div>
             </div>
         );
