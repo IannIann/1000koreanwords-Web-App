@@ -1,4 +1,6 @@
-const BASE_URL = '/api';
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? `${process.env.API_URL}/api/${process.env.API_VERSION}`
+    : '/api';
 
 const defaultHeaders = {
     'Accept': 'application/json',
