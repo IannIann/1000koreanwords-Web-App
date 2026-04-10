@@ -43,13 +43,6 @@ class Card extends Component {
         }
     }
 
-    handlePronunciation = () => {
-        const { question } = this.state.card;
-        const utterance = new SpeechSynthesisUtterance(question);
-        utterance.lang = 'ko-KR';
-        speechSynthesis.speak(utterance);
-    }
-
     handleDeleteClick = () => {
         const { editable } = this.props;
         if (editable) {
