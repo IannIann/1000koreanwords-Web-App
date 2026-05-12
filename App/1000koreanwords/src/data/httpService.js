@@ -1,5 +1,5 @@
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? `${process.env.API_URL}/api/${process.env.API_VERSION}`
+    ? `${process.env.API_URL}`
     : '/api';
 
 const defaultHeaders = {
