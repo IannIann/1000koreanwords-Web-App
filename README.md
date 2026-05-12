@@ -18,10 +18,10 @@ The backend lives in a separate repo: [1000koreanwords-API](https://github.com/I
 
 ## Stack
 
-Front: React.
-Back: Node + Express + MongoDB. Auth uses HttpOnly cookies.
+- Front: React.
+- Back: Node + Express + MongoDB. Auth uses HttpOnly cookies.
 
-## Run it locally
+## Getting it running
 
 You need the API running first (see the other repo).
 
@@ -43,3 +43,7 @@ App/1000koreanwords/src/
 ```
 
 Path alias `@app` points to `src/`.
+
+## Author
+
+Iann
