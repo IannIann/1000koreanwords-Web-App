@@ -1,14 +1,16 @@
-# 1000 Korean Words
+# 1000 Korean Words | Web App
 
 A flashcard app to learn the 1000 most common Korean words. 
+
+Visit the website at : [1000koreanwords](https://www.1000koreanwords.com).
 
 The backend lives in a separate repo: [1000koreanwords-API](https://github.com/IannIann/1000koreanwords-Web-API).
 
 ## What it does
 
-- 28 built-in decks of ~40 words each, sorted by theme and difficulty.
-- Quiz with a flashcards flipping and two answers: correct, wrong.
-- Deck progression
+- 28 built-in decks of ~40 words each, sorted by theme and splitted by ifficulty.
+- Quizes with flashcards flipping mechanic with user feedback (correct/wrong)
+- Each deck has their own user progression.
 - Cards can be hidden by the user.
 - Cards can be copied to a custom deck.
 - You can create your own decks and cards if you want to study something specific.
