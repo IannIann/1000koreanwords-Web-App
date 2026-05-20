@@ -2,7 +2,6 @@ import React from 'react';
 import Input from '@app/component/Main/Input';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import AuthService from '@app/service/auth.service';
-import customdecksData from '@app/data/customdecks.data';
 import tool from '@app/tool/tool';
 import { withRouter } from '@app/tool/withRouter';
 
@@ -59,7 +58,6 @@ class RegisterForm extends React.Component {
         AuthService.register(username, email, password)
             .then((res) => {
                 this.setState({ message: res.message, successful: true });
-                this.createDefaultCustomDeck();
             })
             .catch((error) => {
                 this.setState({ message: tool.getErrorMessage(error), successful: false });
@@ -69,42 +67,31 @@ class RegisterForm extends React.Component {
     navigateToMainPage = () => {
         window.location.reload();
     }
-
-    createDefaultCustomDeck = () => {
-        customdecksData.createCustomDeck('Custom Deck')
-            .then(() => {
-                this.navigateToMainPage();
-            })
-            .catch(() => {
-                this.navigateToMainPage();
-            });
-    }
-
-    renderElement() {
-        const { email, username, password, passwordConfirm, successful, message } = this.state;
-        return (
-            <>
-                <div className="form-title">Sign up</div>
-                <form onSubmit={this.checkFormValidityAndSubmit}>
-                    {!successful && (
-                        <div>
-                            <Input id="email" placeholder="Email" type="email" value={email} handler={this.handleChange} />
-                            <Input id="username" placeholder="Username" type="text" value={username} handler={this.handleChange} />
-                            <Input id="password" placeholder="Password" name="password" type="password" value={password} handler={this.handleChange} />
-                            <Input id="password-confirm" placeholder="Confirm password" type="password" value={passwordConfirm} handler={this.handleChange} />
-                            {message && <div className="error-message">{message}</div>}
-                            <ButtonFlat label="Register" customClass="button-form"/>
-                        </div>
-                    )}
-                </form>
-            </>
-        )
-    }
-
     render() {
+        const { email, username, password, passwordConfirm, successful, message } = this.state;
+
         return (
             <div className="component-register form">
-                {this.renderElement()}
+                {!successful && (
+                    <>
+                        <div className="form-title">Sign up</div>
+                        <form onSubmit={this.checkFormValidityAndSubmit}>
+                            <div>
+                                <Input id="email" placeholder="Email" type="email" value={email} handler={this.handleChange} />
+                                <Input id="username" placeholder="Username" type="text" value={username} handler={this.handleChange} />
+                                <Input id="password" placeholder="Password" name="password" type="password" value={password} handler={this.handleChange} />
+                                <Input id="password-confirm" placeholder="Confirm password" type="password" value={passwordConfirm} handler={this.handleChange} />
+                                {message && <div className="error-message">{message}</div>}
+                                <ButtonFlat label="Register" customClass="button-form" />
+                            </div>
+                        </form>
+                    </>
+                )}
+                {message && (
+                    <div className="message-box">
+                        <div>{message}</div>
+                    </div>
+                )}
             </div>
         );
     }

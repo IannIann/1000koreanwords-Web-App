@@ -5,10 +5,13 @@ import AuthService from '@app/service/auth.service';
 import { Link } from 'react-router-dom';
 import tool from '@app/tool/tool';
 import { withRouter } from '@app/tool/withRouter'
+import AuthContext from '@app/tool/AuthContext';
 
 import '@app/style/form.css';
 
 class LoginForm extends React.Component {
+
+    static contextType = AuthContext;
 
     state = {
         username: '',
@@ -27,6 +30,7 @@ class LoginForm extends React.Component {
 
         AuthService.login(username, password)
             .then(() => {
+                this.context.setIsLogged(true);
                 this.props.router.navigate('/learn');
             })
             .catch((error) => {

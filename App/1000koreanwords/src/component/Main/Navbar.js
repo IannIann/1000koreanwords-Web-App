@@ -1,44 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter } from '@app/tool/withRouter';
-import AuthService from '@app/service/auth.service';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@app/tool/AuthContext';
 
 import '@app/style/navbar.css';
 
-class Navbar extends React.Component {
+export default function Navbar() {
+    const { isLogged } = useAuth();
+    const { pathname } = useLocation();
 
-    state = {
-        isLogged: null
-    };
+    const renderLogo = () => (
+        <div className="navbar-logo">
+            <Link to="/homepage/">
+                <h1>1000<span style={{ color: 'var(--teal)' }}>Korean</span>Words</h1>
+            </Link>
+        </div>
+    );
 
-    componentDidMount() {
-        this.checkLoginStatus();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.router.location.pathname !== prevProps.router.location.pathname) {
-            this.checkLoginStatus();
-        }
-    }
-
-    async checkLoginStatus() {
-        const res = await AuthService.checkAuthToken();
-        this.setState({ isLogged: res.valid });
-    }
-
-    renderLogo() {
-        return (
-            <div className="navbar-logo">
-                <Link to="/homepage/">
-                    <h1>1000<span style={{ color: 'var(--teal)' }}>Korean</span>Words</h1>
-                </Link>
-            </div>
-        );
-    }
-
-    renderLinks() {
-        const { isLogged } = this.state;
-
+    const renderLinks = () => {
         if (isLogged === null) return null;
 
         if (isLogged) {
@@ -52,7 +29,6 @@ class Navbar extends React.Component {
             );
         }
 
-        const { pathname } = this.props.router.location;
         return (
             <div className="navbar-links">
                 {!pathname.includes('/login') && (
@@ -63,18 +39,14 @@ class Navbar extends React.Component {
                 )}
             </div>
         );
-    }
+    };
 
-    render() {
-        return (
-            <div>
-                <nav className="component-navbar">
-                    {this.renderLogo()}
-                    {this.renderLinks()}
-                </nav>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <nav className="component-navbar">
+                {renderLogo()}
+                {renderLinks()}
+            </nav>
+        </div>
+    );
 }
-
-export default withRouter(Navbar);

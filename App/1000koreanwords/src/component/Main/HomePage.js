@@ -1,30 +1,24 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from '@app/service/auth.service';
+import { useAuth } from '@app/tool/AuthContext';
 import Loader from '@app/component/Main/Loader';
 import QuizzDemo from '@app/component/Quizz/QuizzDemo';
 import ButtonFlat from '@app/component/Buttons/ButtonFlat';
 import '@app/style/homepage.css';
 
-export default class HomePage extends React.Component {
+export default function HomePage() {
+    const { isLogged } = useAuth();
 
-    state = {
-        isLogged: null
-    };
+    useEffect(() => {
+        document.title = "1000 Korean Words - Learn Korean Vocabulary";
+    }, []);
 
-    componentDidMount() {
-        this.checkAuthStatus();
+    if (isLogged === null) {
+        return <div className="component-homepage"><Loader /></div>;
     }
 
-    async checkAuthStatus() {
-        await AuthService.checkAuthToken()
-            .then((res) => this.setState({ isLogged: res.valid }));
-    }
-
-    displayHomePage = () => {
-        const { isLogged } = this.state;
-
-        return (
+    return (
+        <div className="component-homepage">
             <div>
                 <header className="hero">
                     <div className="hero-text">
@@ -71,14 +65,6 @@ export default class HomePage extends React.Component {
                     </div>
                 </header>
             </div>
-        );
-    }
-
-    render() {
-        return (
-            <div className="component-homepage">
-                {this.state.isLogged !== null ? this.displayHomePage() : <Loader />}
-            </div>
-        );
-    }
+        </div>
+    );
 }
