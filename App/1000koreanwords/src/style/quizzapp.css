@@ -5,7 +5,7 @@
 
 .component-quizz-app .content {
     flex-grow: 1;
-    min-height: 90vh;
+    min-height: 90dvh;
 }
 
 @media (max-width: 1920px) {

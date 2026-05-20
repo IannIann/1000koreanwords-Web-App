@@ -68,7 +68,7 @@ body.modal-active {
     border-radius: 3px;
     margin-left: 30%;
     margin-right: 30%;
-    max-height: 90vh;
+    max-height: calc(90dvh - env(safe-area-inset-bottom));
 }
 
 #modal-container .modal-background .modal .modal-content {
@@ -175,7 +175,7 @@ hr {
         margin-right: 20%;
         padding-bottom: 10px;
         padding-top: 10px;
-        max-height: 94vh;
+        max-height: calc(94dvh - env(safe-area-inset-bottom));
     }
 }
 
@@ -192,7 +192,7 @@ hr {
         margin-right: 5%;
         padding-bottom: 10px;
         padding-top: 10px;
-        max-height: 96vh;
+        max-height: calc(96dvh - env(safe-area-inset-bottom));
     }
 }
 

@@ -1,6 +1,3 @@
-
-import React from 'react';
-
 import '@app/style/quizztheme.css';
 
 export default function QuizzTheme({ theme, krTheme }) {
