@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import '@app/style/footerpages.css';
 
 export default function Privacy() {
+    useEffect(() => { document.title = "Privacy Policy | 1000 Korean Words"; }, []);
     return (
         <div className="component-footerpage fill-available-space">
             <h1 className="page-title">Privacy Policy</h1>
@@ -9,8 +11,8 @@ export default function Privacy() {
                 <h2>1. Data Controller</h2>
                 <p>
                     The data controller responsible for your personal data is{' '}
-                    <span className="footerpage-placeholder">[YOUR NAME]</span>, reachable at{' '}
-                    <span className="footerpage-placeholder">[YOUR EMAIL]</span>.
+                    <span>Iann</span>, reachable at{' '}
+                    <a href="mailto:contact@1000koreanwords.com">contact@1000koreanwords.com</a>
                 </p>
             </div>
 
@@ -69,8 +71,7 @@ export default function Privacy() {
                 </ul>
                 <p>
                     To exercise any of these rights, contact us at{' '}
-                    <span className="footerpage-placeholder">[YOUR EMAIL]</span>.
-                    We will respond within 30 days.
+                    <a href="mailto:contact@1000koreanwords.com">contact@1000koreanwords.com</a>.
                 </p>
             </div>
 
@@ -86,7 +87,7 @@ export default function Privacy() {
                 <h2>8. Contact</h2>
                 <p>
                     For any privacy-related questions, reach us at{' '}
-                    <span className="footerpage-placeholder">[YOUR EMAIL]</span>.
+                    <a href="mailto:contact@1000koreanwords.com">contact@1000koreanwords.com</a>.
                     You also have the right to lodge a complaint with the{' '}
                     <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>{' '}
                     (Commission Nationale de l'Informatique et des Libertés).

@@ -16,9 +16,11 @@
     opacity: 1;
 }
 
-.button-ghost:hover {
-    background: var(--btn-ghost-color);
-    color: white;
+@media (hover: hover) {
+    .button-ghost:hover {
+        background: var(--btn-ghost-color);
+        color: white;
+    }
 }
 
 .button-ghost.top {

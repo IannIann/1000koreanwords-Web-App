@@ -14,10 +14,12 @@
     letter-spacing: 0.03em;
 }
 
-.button-flat:not(:disabled):hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 12px 12px 0px rgba(27, 67, 50, 0.1);
-    filter: brightness(1.1);
+@media (hover: hover) {
+    .button-flat:not(:disabled):hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 12px 12px 0px rgba(27, 67, 50, 0.1);
+        filter: brightness(1.1);
+    }
 }
 
 .button-hero {

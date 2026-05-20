@@ -21,9 +21,11 @@
     text-transform: uppercase;
 }
 
-.footer-link:hover a {
-    text-decoration: none;
-    opacity: 1;
+@media (hover: hover) {
+    .footer-link:hover a {
+        text-decoration: none;
+        opacity: 1;
+    }
 }
 
 @media (max-width: 960px) {

@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '@app/style/footerpages.css';
 
 export default function Contact() {
+    useEffect(() => { document.title = "Contact | 1000 Korean Words"; }, []);
     return (
         <div className="component-footerpage fill-available-space">
             <h1 className="page-title">Contact</h1>
@@ -12,7 +14,7 @@ export default function Contact() {
                 </p>
                 <p>
                     You can contact us at:{' '}
-                    <a href="mailto:[YOUR EMAIL]" className="footerpage-placeholder">[YOUR EMAIL]</a>
+                    <a href="mailto:contact@1000koreanwords.com">contact@1000koreanwords.com</a>
                 </p>
             </div>
 

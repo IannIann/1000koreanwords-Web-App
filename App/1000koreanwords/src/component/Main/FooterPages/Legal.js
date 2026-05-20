@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import '@app/style/footerpages.css';
 
 export default function Legal() {
+    useEffect(() => { document.title = "Legal Notice | 1000 Korean Words"; }, []);
     return (
         <div className="component-footerpage fill-available-space">
             <h1 className="page-title">Legal Notice</h1>
@@ -9,9 +11,9 @@ export default function Legal() {
                 <h2>1. Site Publisher</h2>
                 <p>
                     Publication director and site publisher:{' '}
-                    <span className="footerpage-placeholder">[YOUR NAME]</span>.
+                    <span>Iann</span>
                     <br />
-                    Contact: <span className="footerpage-placeholder">[YOUR EMAIL]</span>
+                    Contact: <a href="mailto:contact@1000koreanwords.com">contact@1000koreanwords.com</a>
                 </p>
             </div>
 
@@ -19,11 +21,11 @@ export default function Legal() {
                 <h2>2. Hosting</h2>
                 <p>
                     This site is hosted by{' '}
-                    <span className="footerpage-placeholder">[HOSTING PROVIDER NAME]</span>,
+                    <span>Vercel Inc.</span>,
                     located at{' '}
-                    <span className="footerpage-placeholder">[HOSTING PROVIDER ADDRESS]</span>,
+                    <span>440 N Barranca Avenue #4133, Covina, CA 91723, United States</span>,
                     reachable at{' '}
-                    <span className="footerpage-placeholder">[HOSTING PROVIDER PHONE]</span>.
+                    <a href="https://vercel.com/contact" target="_blank" rel="noopener noreferrer">https://vercel.com/contact</a>
                 </p>
             </div>
 

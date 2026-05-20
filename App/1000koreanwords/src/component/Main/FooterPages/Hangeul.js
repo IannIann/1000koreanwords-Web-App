@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '@app/style/hangeul.css';
 import tool from '@app/tool/tool';
 
@@ -11,6 +11,7 @@ function KoreanWord({ text }) {
 }
 
 export default function Hangeul() {
+    useEffect(() => { document.title = "Learn Hangul - Korean Alphabet Guide | 1000 Korean Words"; }, []);
     return (
         <div className="component-hangeul">
             <h1 className="page-title">한글 Reading Guide</h1>
@@ -137,7 +138,7 @@ export default function Hangeul() {
                             <td className="name">기역 giyeok</td>
                             <td>"g" as in <em>go</em> (softer than English)</td>
                             <td>unreleased "k"</td>
-                            <td>     — bag</td>
+                            <td><KoreanWord text="가방" /> — bag</td>
                         </tr>
                         <tr>
                             <td className="char">ㄴ</td>

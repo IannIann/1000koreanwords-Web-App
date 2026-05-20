@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import '@app/style/footerpages.css';
 
 export default function Tos() {
+    useEffect(() => { document.title = "Terms of Service | 1000 Korean Words"; }, []);
     return (
         <div className="component-footerpage fill-available-space">
             <h1 className="page-title">Terms of Service</h1>
@@ -62,8 +64,8 @@ export default function Tos() {
             <div className="footerpage-section">
                 <h2>6. Disclaimer</h2>
                 <p>
-                    The service is provided "as is" without warranties of any kind. We do not guarantee
-                    the accuracy, completeness, or suitability of the vocabulary content for any particular
+                    The service is provided without guarantees of any kind, within the limits of applicable law. 
+                    We do not guarantee the accuracy, completeness, or suitability of the vocabulary content for any particular
                     purpose. We shall not be liable for any loss of data, interruption of service, 
                     or any indirect damages arising from the use of the service.
                 </p>
@@ -74,9 +76,6 @@ export default function Tos() {
                 <p>
                     These Terms are governed by French law. Any dispute arising from the use of this
                     service shall be subject to the exclusive jurisdiction of the French courts.
-                    For any questions, contact{' '}
-                    <span className="footerpage-placeholder">[YOUR NAME]</span> at{' '}
-                    <span className="footerpage-placeholder">[YOUR EMAIL]</span>.
                 </p>
             </div>
         </div>
