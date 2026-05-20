@@ -32,7 +32,7 @@ export default function HomePage() {
                         {isLogged ? (
                             <Link to="/learn/"><ButtonFlat label="Start Learning" customClass="button-hero" /></Link>
                         ) : (
-                            <Link to="/register/"><ButtonFlat label="Start Your Journey — Free" customClass="button-hero" /></Link>
+                            <Link to="/register/"><ButtonFlat label="Start Your Journey" customClass="button-hero" /></Link>
                         )}
 
                         <section className="features">
