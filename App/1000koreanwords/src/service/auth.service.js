@@ -7,6 +7,9 @@ export default {
     register(username, email, password) {
         return apiAccess.PostJson('/auth/signup', { username, email, password });
     },
+    confirmEmail(token) {
+        return apiAccess.GetJson(`/auth/confirmemail/${token}`);
+    },
     logout() {
         return apiAccess.PostJson('/auth/signout');
     },
